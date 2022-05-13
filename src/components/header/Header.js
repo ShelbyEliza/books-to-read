@@ -1,17 +1,17 @@
-// styles:
-import { Link } from "react-router-dom";
+// styles & assets:
 import "./Header.css";
+import Banner from "../../assets/Banner";
+
+import { Link } from "react-router-dom";
+import Navbar from "../navbar/Navbar";
 
 export default function Header() {
   return (
     <header>
       <Link to="/">
-        <img
-          className="banner-img"
-          src="../../../public/images/banner-img.svg"
-          alt="Displays the website title: 'Books to Read', resting on a bookshelf."
-        />
+        <Banner />
       </Link>
+      <Navbar />
     </header>
   );
 }

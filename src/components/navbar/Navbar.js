@@ -1,14 +1,21 @@
 // styles:
 import "./Navbar.css";
 
+import { Link } from "react-router-dom";
+
 export default function Navbar() {
   return (
-    <div>
+    <nav>
       <ul>
-        <li>Blogs</li>
-        <li>Authors</li>
-        <li>Tags</li>
+        <div className="nav-tabs">
+          <li className="nav-tab">Blogs</li>
+          <li className="nav-tab">Authors</li>
+          <li className="nav-tab">Tags</li>
+        </div>
+        <li className="nav-create-btn">
+          <Link to="/create">Add Blog</Link>
+        </li>
       </ul>
-    </div>
+    </nav>
   );
 }

@@ -1,18 +1,19 @@
-import { BrowserRouter, Routes, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 // import { useAuthContext } from "./hooks/useAuthContext";
 
 import Home from "./pages/home/Home";
-import Navbar from "./components/navbar/Navbar";
+import Header from "./components/header/Header";
+import Create from "./pages/create/Create";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
+        <Header />
         <Routes>
-          <Route path="/">
-            <Route path="/" element={<Home />} />
-          </Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/create" element={<Create />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>
     </div>

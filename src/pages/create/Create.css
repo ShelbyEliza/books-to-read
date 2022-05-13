@@ -1,0 +1,99 @@
+form {
+  display: flex;
+  flex-flow: row wrap;
+
+  background: #65292aff;
+  color: #966533ff;
+
+  margin: 30px 30px 20px 30px;
+  padding: 20px;
+
+  border: 1px solid #473120ff;
+}
+
+form .form-row,
+.form-row-full {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-row {
+  flex-basis: 50%;
+}
+
+.form-row-full {
+  flex-basis: 100%;
+}
+
+fieldset div {
+  flex-basis: 50%;
+}
+
+fieldset {
+  display: flex;
+  flex-flow: row wrap;
+  border: none;
+}
+
+legend {
+  flex: 1;
+  width: 100%;
+}
+
+label {
+  padding: 8px 20px 0px 0px;
+  margin-bottom: 8px;
+}
+
+input {
+  margin: 4px 0px 4px 4px;
+  max-height: 24px;
+}
+
+form div:nth-of-type(odd) input {
+  margin-right: 4px;
+}
+
+form div:nth-of-type(even) label {
+  margin-left: 4px;
+}
+
+input,
+select,
+textarea,
+button {
+  background: #846545ff;
+  color: #2e2525ff;
+
+  border: 1px solid #2e2525ff;
+  border-radius: 2px;
+}
+
+textarea {
+  flex: 1;
+
+  width: 100%;
+  min-height: 200px;
+
+  padding: 10px;
+
+  text-indent: 30px;
+  text-align: left;
+  font-size: 16px;
+}
+
+textarea:focus {
+  border: 1px solid #2e2525ff;
+  border-radius: 2px;
+
+  outline: none !important;
+}
+
+button {
+  /* content-box padding + form margin */
+  background: #966533ff;
+  margin-left: 50px;
+  margin-bottom: 30px;
+  padding: 10px 20px;
+  font-size: medium;
+}
