@@ -3,7 +3,7 @@ import "./Create.css";
 
 export default function Create() {
   return (
-    <div>
+    <div className="create">
       <h2>Create a New Blog</h2>
       <form id="create-form">
         <div className="form-row">

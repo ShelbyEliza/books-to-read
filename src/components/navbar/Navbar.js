@@ -26,26 +26,32 @@ export default function Navbar() {
 
         {user && (
           <>
-            <li>
-              {!isPending && (
-                <button className="btn" onClick={logout}>
-                  Logout
-                </button>
-              )}
-              {isPending && (
-                <button className="btn" disabled>
-                  Logging Out...
-                </button>
-              )}
-            </li>
-            <div className="nav-tabs">
+            <div className="section">
+              <li className="nav-create-btn">
+                <Link to="/create">Add Blog</Link>
+              </li>
+            </div>
+
+            <div className="nav-tabs section">
               <li className="nav-tab">Blogs</li>
               <li className="nav-tab">Authors</li>
               <li className="nav-tab">Tags</li>
             </div>
-            <li className="nav-create-btn">
-              <Link to="/create">Add Blog</Link>
-            </li>
+            <div className="user-tab section">
+              <li>{user.displayName}</li>
+              <li>
+                {!isPending && (
+                  <button className="btn" onClick={logout}>
+                    Logout
+                  </button>
+                )}
+                {isPending && (
+                  <button className="btn" disabled>
+                    Logging Out...
+                  </button>
+                )}
+              </li>
+            </div>
           </>
         )}
       </ul>
