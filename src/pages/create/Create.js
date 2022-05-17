@@ -5,7 +5,7 @@ export default function Create() {
   return (
     <div>
       <h2>Create a New Blog</h2>
-      <form>
+      <form id="create-form">
         <div className="form-row">
           <label htmlFor="bookTitle">Title:</label>
 
@@ -122,6 +122,7 @@ export default function Create() {
 
         <textarea id="blogContent" name="blogContent"></textarea>
       </form>
+      <button form="create-form">Post!</button>
     </div>
   );
 }
