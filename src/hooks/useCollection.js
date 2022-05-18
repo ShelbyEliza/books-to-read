@@ -1,18 +1,26 @@
 import { useState, useEffect } from "react";
 import { db } from "../firebase/config";
 
-// firebase imports:
-import { collection, onSnapshot } from "firebase/firestore";
+import { useAuthContext } from "./useAuthContext";
 
-export const useCollection = (c) => {
+// firebase imports:
+import { doc, getDocs, collection, onSnapshot } from "firebase/firestore";
+
+export const useCollection = (c, users) => {
+  const { user } = useAuthContext();
   const [documents, setDocuments] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     let ref = collection(db, c);
+    let newRef = doc(db, users, user.uid);
+    let nextRef = collection(newRef, "blogs");
+    console.log(nextRef);
+    // let newRef = getDocs(ref, "blogs");
+    // console.log(newRef);
 
     const unsub = onSnapshot(
-      ref,
+      nextRef,
       (snapshot) => {
         let results = [];
         snapshot.docs.forEach((doc) => {

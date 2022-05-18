@@ -2,16 +2,17 @@
   display: flex;
   flex-direction: column;
 
-  background: #966533;
+  /* background: #966533; */
   color: #2e2525ff;
 
-  border-left: 3px solid #704c28;
-  border-right: 3px solid #704c28;
+  /* border-left: 3px solid #704c28;
+  border-right: 3px solid #704c28; */
 
   margin: 0px 60px;
-  padding: 0px 40px 100px 40px;
+  padding: 20px 40px 100px 40px;
 
   margin: auto;
+
   max-width: 900px;
 }
 

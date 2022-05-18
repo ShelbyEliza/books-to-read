@@ -1,0 +1,390 @@
+import { useReducer, useEffect, useState } from "react";
+import { db, timestamp } from "../firebase/config";
+
+// firebase imports:
+import { addDoc, collection } from "firebase/firestore";
+
+let initialState = {
+  document: null,
+  isPending: false,
+  error: null,
+  success: null,
+};
+
+const firestoreReducer = (state, action) => {
+  switch (action.type) {
+    case "IS_PENDING":
+      return { isPending: true, document: null, success: false, error: null };
+    case "ADDED_DOCUMENT":
+      return {
+        isPending: false,
+        document: action.payload,
+        success: true,
+        error: null,
+      };
+    case "DELETED_DOCUMENT":
+      return { isPending: false, document: null, success: true, error: null };
+    case "UPDATE_DOCUMENT":
+      return {
+        isPending: false,
+        document: action.payload,
+        success: true,
+        error: null,
+      };
+    case "ERROR":
+      return {
+        isPending: false,
+        document: null,
+        success: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const useFirestore = (c) => {
+  const [response, dispatch] = useReducer(firestoreReducer, initialState);
+  const [isCancelled, setIsCancelled] = useState(false);
+
+  // collection ref
+  const ref = collection(db, c);
+
+  // only dispatch is not cancelled
+  const dispatchIfNotCancelled = (action) => {
+    if (!isCancelled) {
+      dispatch(action);
+    }
+  };
+
+  // add a document
+  const addDocument = async (doc) => {
+    dispatch({ type: "IS_PENDING" });
+
+    try {
+      const createdAt = timestamp.fromDate(new Date());
+      // const addedDocument = await ref.add({ ...doc, createdAt });
+      const addedDoc = await addDoc(collection(ref, c), { ...doc, createdAt });
+      dispatchIfNotCancelled({
+        type: "ADDED_DOCUMENT",
+        payload: addedDoc,
+      });
+    } catch (err) {
+      dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
+    }
+  };
+
+  // delete a document
+  // const deleteDocument = async (id) => {
+  //   dispatch({ type: "IS_PENDING" });
+
+  //   try {
+  //     await ref.doc(id).delete();
+  //     dispatchIfNotCancelled({ type: "DELETED_DOCUMENT" });
+  //   } catch (err) {
+  //     dispatchIfNotCancelled({ type: "ERROR", payload: "could not delete" });
+  //   }
+  // };
+
+  // update documents:
+  // const updateDocument = async (id, updates) => {
+  //   dispatch({ type: "IS_PENDING" });
+
+  //   try {
+  //     const updatedDocument = await ref.doc(id).update(updates);
+
+  //     dispatchIfNotCancelled({
+  //       type: "UPDATE_DOCUMENT",
+  //       payload: updateDocument,
+  //     });
+  //     return updatedDocument;
+  //   } catch (err) {
+  //     dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
+  //     return null;
+  //   }
+  // };
+
+  useEffect(() => {
+    return () => setIsCancelled(true);
+  }, []);
+
+  return { addDocument, response };
+};
+
+/////////////////////////////
+
+// styles:
+import "./Create.css";
+
+import { useState } from "react";
+import { useFirestore } from "../../hooks/useFirestore";
+
+import Tags from "../../components/tags/Tags";
+
+export default function Create() {
+  const { addBlog, error, isPending } = useFirestore("users");
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
+  const [dateStarted, setDateStarted] = useState("");
+  const [dateFinished, setDateFinished] = useState("");
+  const [tags, setTags] = useState("");
+  const [content, setContent] = useState("");
+
+  const handleTags = (e) => {
+    if (e.target.checked === true) {
+      setTags([...tags, e.target.value]);
+    } else {
+      let reducedTags = tags.filter((tag) => tag !== e.target.value);
+      setTags(reducedTags);
+    }
+  };
+
+  return (
+    <div className="create">
+      <h2>Create a New Blog</h2>
+      <form id="create-form">
+        <div className="form-row">
+          <label htmlFor="bookTitle">Title:</label>
+
+          <input
+            id="bookTitle"
+            name="bookTitle"
+            type="text"
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}
+            required="required"
+          />
+        </div>
+
+        <div className="form-row">
+          <label htmlFor="author">Author:</label>
+          <input
+            id="author"
+            name="author"
+            type="text"
+            onChange={(e) => setAuthor(e.target.value)}
+            value={author}
+            required="required"
+          />
+        </div>
+        <div className="form-row">
+          <label htmlFor="dateStarted">Started:</label>
+          <input
+            id="dateStarted"
+            name="dateStarted"
+            type="date"
+            min="1992-11-16"
+            max="2092-11-16"
+            onChange={(e) => setDateStarted(e.target.value)}
+            value={dateStarted}
+          />
+        </div>
+
+        <div className="form-row">
+          <label htmlFor="dateFinished">Finished:</label>
+          <input
+            id="dateFinished"
+            name="dateFinished"
+            type="date"
+            min="1992-11-16"
+            max="2092-11-16"
+            onChange={(e) => setDateFinished(e.target.value)}
+            value={dateFinished}
+          />
+        </div>
+
+        <Tags handleTags={handleTags}/>
+
+        {/* <div className="form-row-full">
+          <fieldset>
+            <legend>Tags:</legend>
+            <div className="tag-option">
+              <input type="checkbox" id="sci-fi" name="tags" value="Sci-fi" />
+              <label htmlFor="sci-fi">Sci-fi</label>
+            </div>
+            <div className="tag-option">
+              <input type="checkbox" id="fantasy" name="tags" value="Fantasy" />
+              <label htmlFor="fantasy">Fantasy</label>
+            </div>
+            <div className="tag-option">
+              <input
+                type="checkbox"
+                id="informative"
+                name="tags"
+                value="Informative"
+              />
+              <label htmlFor="informative">Informative</label>
+            </div>
+            <div className="tag-option">
+              <input type="checkbox" id="fiction" name="tags" value="Fiction" />
+              <label htmlFor="fiction">Fiction</label>
+            </div>
+            <div className="tag-option">
+              <input
+                type="checkbox"
+                id="short-story"
+                name="tags"
+                value="Short Story"
+              />
+              <label htmlFor="short-story">Short Story</label>
+            </div>
+            <div className="tag-option">
+              <input
+                type="checkbox"
+                id="non-fiction"
+                name="tags"
+                value="Non-fiction"
+              />
+              <label htmlFor="non-fiction">Non-Fiction</label>
+            </div>
+            <div className="tag-option">
+              <input
+                type="checkbox"
+                id="biography"
+                name="tags"
+                value="Biography"
+              />
+              <label htmlFor="biography">Biography</label>
+            </div>
+            <div className="tag-option">
+              <input
+                type="checkbox"
+                id="classical"
+                name="tags"
+                value="Classical"
+              />
+              <label htmlFor="classical">Classical</label>
+            </div>
+            <div className="tag-option">
+              <input type="checkbox" id="comedy" name="tags" value="Comedy" />
+              <label htmlFor="comedy">Comedy</label>
+            </div>
+            <div className="tag-option">
+              <input type="checkbox" id="horror" name="tags" value="Horror" />
+              <label htmlFor="horror">Horror</label>
+            </div>
+          </fieldset>
+        </div> */}
+
+        <div className="form-row-full">
+          <label htmlFor="blogContent">Thoughts on the Book:</label>
+        </div>
+
+        <textarea id="blogContent" name="blogContent"></textarea>
+      </form>
+      <button form="create-form">Post!</button>
+    </div>
+  );
+}
+
+
+/////////////////////////////////
+
+
+import "./Home.css";
+
+import { Link } from "react-router-dom";
+
+import EditButton from "../../assets/EditButton";
+
+export default function BlogCard({ blogs }) {
+  const generateNewLines = (blog) => {
+    const reg = /\n/;
+    let blogSnippet = [];
+    blogSnippet.push(blog.content.split(reg));
+
+    return blogSnippet;
+  };
+
+  return (
+    <>
+      {blogs.map((blog) => (
+        <div key={blog.title} className="content-box">
+          <div className="top-container">
+            <div className="card-col card-col-1">
+              <div className="card-line title-line">
+                <Link className="title" to="#">
+                  <h1 className="title">{blog.title}</h1>
+                </Link>
+
+                <Link to="#">
+                  <EditButton className="edit" />
+                </Link>
+              </div>
+
+              {blog.author && (
+                <div className="card-line author-line">
+                  <p className="author">
+                    by
+                    <Link className="authorLink" to="#">
+                      {blog.author}
+                    </Link>
+                  </p>
+
+                  <Link to="#">
+                    <EditButton className="edit" />
+                  </Link>
+                </div>
+              )}
+
+              {blog.dateStarted && (
+                <div className="card-line date-space">
+                  <div className="dateStarted">
+                    <p className="date-label">Started:</p>
+                    <p className="date-value">{blog.dateStarted}</p>
+                  </div>
+
+                  <div className="dateFinished">
+                    <p className="date-label">Finished:</p>
+                    <div className="date-value">
+                      {blog.dateFinished === "" ? (
+                        <p>Currently Reading</p>
+                      ) : (
+                        <p>{blog.dateFinished}</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {blog.tags && (
+                <div className="card-line tags">
+                  <p className="tags-label">Tags:</p>
+                  {blog.tags.length === 0 ? (
+                    <p className="tags-value">No Tags.</p>
+                  ) : (
+                    blog.tags.map((tag) => (
+                      <p>
+                        <Link to="#">{tag}</Link>
+                      </p>
+                    ))
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* {blog.image && (
+              <div className="card-col card-col-2">
+                <img
+                  className="card-image"
+                  src="./images/test-image-opt.svg"
+                  alt="Some stylized purple outlined trees on a dark landscape."
+                />
+              </div>
+            )} */}
+          </div>
+
+          {/* {blog.content && (
+            <div className="card-line-full">
+              <div className="blog-snippet">
+                {generateNewLines(blog.content).map((line) => (
+                  <p className="snips">{line}</p>
+                ))}
+              </div>
+            </div>
+          )} */}
+        </div>
+      ))}
+    </>
+  );
+}

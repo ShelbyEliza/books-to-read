@@ -14,43 +14,35 @@ export default function Navbar() {
     <nav>
       <ul>
         {!user && (
-          <>
-            <li>
+          <div className="admin-tabs">
+            <li className="admin-tab">
               <Link to="/signup">Sign Up</Link>
             </li>
-            <li>
+            <li className="admin-tab">
               <Link to="/login">Log In</Link>
             </li>
-          </>
+          </div>
         )}
 
         {user && (
           <>
-            <div className="section">
-              <li className="nav-create-btn">
+            <div className="section side nav-create-btn">
+              <li>
                 <Link to="/create">Add Blog</Link>
               </li>
             </div>
 
-            <div className="nav-tabs section">
+            <div className="middle section">
               <li className="nav-tab">Blogs</li>
               <li className="nav-tab">Authors</li>
               <li className="nav-tab">Tags</li>
             </div>
-            <div className="user-tab section">
-              <li>{user.displayName}</li>
+            <div className="user-tab section side">
               <li>
-                {!isPending && (
-                  <button className="btn" onClick={logout}>
-                    Logout
-                  </button>
-                )}
-                {isPending && (
-                  <button className="btn" disabled>
-                    Logging Out...
-                  </button>
-                )}
+                {!isPending && <button onClick={logout}>Logout,</button>}
+                {isPending && <button disabled>Logging Out...</button>}
               </li>
+              <p className="user-name">{user.displayName}?</p>
             </div>
           </>
         )}

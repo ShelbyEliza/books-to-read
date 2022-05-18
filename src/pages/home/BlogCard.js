@@ -5,18 +5,10 @@ import { Link } from "react-router-dom";
 import EditButton from "../../assets/EditButton";
 
 export default function BlogCard({ blogs }) {
-  const generateNewLines = (blog) => {
-    const reg = /\n/;
-    let blogSnippet = [];
-    blogSnippet.push(blog.content.split(reg));
-
-    return blogSnippet;
-  };
-
   return (
-    <div className="content-box">
+    <div className="content">
       {blogs.map((blog) => (
-        <div key={blog}>
+        <div key={blog.id} className="content-box">
           <div className="top-container">
             <div className="card-col card-col-1">
               <div className="card-line title-line">
@@ -71,7 +63,7 @@ export default function BlogCard({ blogs }) {
                     <p className="tags-value">No Tags.</p>
                   ) : (
                     blog.tags.map((tag) => (
-                      <p>
+                      <p key={tag}>
                         <Link to="#">{tag}</Link>
                       </p>
                     ))
@@ -79,27 +71,7 @@ export default function BlogCard({ blogs }) {
                 </div>
               )}
             </div>
-
-            {blog.image && (
-              <div className="card-col card-col-2">
-                <img
-                  className="card-image"
-                  src="./images/test-image-opt.svg"
-                  alt="Some stylized purple outlined trees on a dark landscape."
-                />
-              </div>
-            )}
           </div>
-
-          {/* {blog.content && (
-            <div className="card-line-full">
-              <div className="blog-snippet">
-                {generateNewLines(blog.content).map((line) => (
-                  <p className="snips">{line}</p>
-                ))}
-              </div>
-            </div>
-          )} */}
         </div>
       ))}
     </div>

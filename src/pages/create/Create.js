@@ -1,11 +1,59 @@
 // styles:
 import "./Create.css";
 
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useFirestore } from "../../hooks/useFirestore";
+
+import Tags from "../../components/tags/Tags";
+
 export default function Create() {
+  const navigate = useNavigate();
+
+  const { addBlog, error, isPending } = useFirestore("users");
+
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
+  const [dateStarted, setDateStarted] = useState("");
+  const [dateFinished, setDateFinished] = useState("");
+  const [tags, setTags] = useState([]);
+  const [content, setContent] = useState("");
+
+  const handleTags = (e) => {
+    if (e.target.checked === true) {
+      setTags([...tags, e.target.value]);
+    } else {
+      let reducedTags = tags.filter((tag) => tag !== e.target.value);
+      setTags(reducedTags);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitted(true);
+    const doc = {
+      title,
+      author,
+      dateStarted,
+      dateFinished,
+      tags,
+      content,
+    };
+
+    addBlog(doc);
+  };
+
+  useEffect(() => {
+    if (isSubmitted) {
+      navigate("/");
+    }
+  }, [isSubmitted, navigate]);
+
   return (
     <div className="create">
       <h2>Create a New Blog</h2>
-      <form id="create-form">
+      <form id="create-form" onSubmit={handleSubmit}>
         <div className="form-row">
           <label htmlFor="bookTitle">Title:</label>
 
@@ -13,14 +61,22 @@ export default function Create() {
             id="bookTitle"
             name="bookTitle"
             type="text"
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}
             required="required"
           />
         </div>
 
         <div className="form-row">
           <label htmlFor="author">Author:</label>
-
-          <input id="author" name="author" type="text" required="required" />
+          <input
+            id="author"
+            name="author"
+            type="text"
+            onChange={(e) => setAuthor(e.target.value)}
+            value={author}
+            required="required"
+          />
         </div>
         <div className="form-row">
           <label htmlFor="dateStarted">Started:</label>
@@ -28,9 +84,10 @@ export default function Create() {
             id="dateStarted"
             name="dateStarted"
             type="date"
-            value="2021-10-15"
             min="1992-11-16"
             max="2092-11-16"
+            onChange={(e) => setDateStarted(e.target.value)}
+            value={dateStarted}
           />
         </div>
 
@@ -42,87 +99,31 @@ export default function Create() {
             type="date"
             min="1992-11-16"
             max="2092-11-16"
+            onChange={(e) => setDateFinished(e.target.value)}
+            value={dateFinished}
           />
         </div>
-
-        <div className="form-row-full">
-          <fieldset>
-            <legend>Tags:</legend>
-            <div className="tag-option">
-              <input type="checkbox" id="sci-fi" name="tags" value="Sci-fi" />
-              <label htmlFor="sci-fi">Sci-fi</label>
-            </div>
-            <div className="tag-option">
-              <input type="checkbox" id="fantasy" name="tags" value="Fantasy" />
-              <label htmlFor="fantasy">Fantasy</label>
-            </div>
-            <div className="tag-option">
-              <input
-                type="checkbox"
-                id="informative"
-                name="tags"
-                value="Informative"
-              />
-              <label htmlFor="informative">Informative</label>
-            </div>
-            <div className="tag-option">
-              <input type="checkbox" id="fiction" name="tags" value="Fiction" />
-              <label htmlFor="fiction">Fiction</label>
-            </div>
-            <div className="tag-option">
-              <input
-                type="checkbox"
-                id="short-story"
-                name="tags"
-                value="Short Story"
-              />
-              <label htmlFor="short-story">Short Story</label>
-            </div>
-            <div className="tag-option">
-              <input
-                type="checkbox"
-                id="non-fiction"
-                name="tags"
-                value="Non-fiction"
-              />
-              <label htmlFor="non-fiction">Non-Fiction</label>
-            </div>
-            <div className="tag-option">
-              <input
-                type="checkbox"
-                id="biography"
-                name="tags"
-                value="Biography"
-              />
-              <label htmlFor="biography">Biography</label>
-            </div>
-            <div className="tag-option">
-              <input
-                type="checkbox"
-                id="classical"
-                name="tags"
-                value="Classical"
-              />
-              <label htmlFor="classical">Classical</label>
-            </div>
-            <div className="tag-option">
-              <input type="checkbox" id="comedy" name="tags" value="Comedy" />
-              <label htmlFor="comedy">Comedy</label>
-            </div>
-            <div className="tag-option">
-              <input type="checkbox" id="horror" name="tags" value="Horror" />
-              <label htmlFor="horror">Horror</label>
-            </div>
-          </fieldset>
-        </div>
-
+        <Tags handleTags={handleTags} />
         <div className="form-row-full">
           <label htmlFor="blogContent">Thoughts on the Book:</label>
         </div>
 
-        <textarea id="blogContent" name="blogContent"></textarea>
+        <textarea
+          id="blogContent"
+          name="blogContent"
+          onChange={(e) => setContent(e.target.value)}
+          value={content}
+        ></textarea>
       </form>
-      <button form="create-form">Post!</button>
+      {isSubmitted ? (
+        <button className="btn" disabled>
+          Posting Blog...
+        </button>
+      ) : (
+        <button form="create-form" className="btn">
+          Post!
+        </button>
+      )}
     </div>
   );
 }

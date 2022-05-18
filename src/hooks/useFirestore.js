@@ -1,8 +1,17 @@
 import { useReducer, useEffect, useState } from "react";
-import { db, timestamp } from "../firebase/config";
+import { useAuthContext } from "./useAuthContext";
+import { db } from "../firebase/config";
 
 // firebase imports:
-import { addDoc, collection } from "firebase/firestore";
+import {
+  addDoc,
+  setDoc,
+  doc,
+  collection,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 
 let initialState = {
   document: null,
@@ -15,16 +24,7 @@ const firestoreReducer = (state, action) => {
   switch (action.type) {
     case "IS_PENDING":
       return { isPending: true, document: null, success: false, error: null };
-    case "ADDED_DOCUMENT":
-      return {
-        isPending: false,
-        document: action.payload,
-        success: true,
-        error: null,
-      };
-    case "DELETED_DOCUMENT":
-      return { isPending: false, document: null, success: true, error: null };
-    case "UPDATE_DOCUMENT":
+    case "ADDED_BLOG":
       return {
         isPending: false,
         document: action.payload,
@@ -44,13 +44,15 @@ const firestoreReducer = (state, action) => {
 };
 
 export const useFirestore = (c) => {
+  const { user } = useAuthContext();
+
   const [response, dispatch] = useReducer(firestoreReducer, initialState);
   const [isCancelled, setIsCancelled] = useState(false);
 
-  // collection ref
-  const ref = collection(db, c);
+  let ref = doc(db, c, user.uid);
 
-  // only dispatch is not cancelled
+  console.log(ref);
+
   const dispatchIfNotCancelled = (action) => {
     if (!isCancelled) {
       dispatch(action);
@@ -58,55 +60,25 @@ export const useFirestore = (c) => {
   };
 
   // add a document
-  const addDocument = async (doc) => {
+  const addBlog = async (blog) => {
     dispatch({ type: "IS_PENDING" });
+    console.log(blog);
 
     try {
-      const createdAt = timestamp.fromDate(new Date());
-      // const addedDocument = await ref.add({ ...doc, createdAt });
-      const addedDoc = await addDoc(collection(ref, c), { ...doc, createdAt });
+      const addedBlog = await addDoc(collection(ref, "blogs"), { ...blog });
+
       dispatchIfNotCancelled({
-        type: "ADDED_DOCUMENT",
-        payload: addedDoc,
+        type: "ADDED_BLOG",
+        payload: addedBlog,
       });
     } catch (err) {
       dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
     }
   };
 
-  // delete a document
-  // const deleteDocument = async (id) => {
-  //   dispatch({ type: "IS_PENDING" });
-
-  //   try {
-  //     await ref.doc(id).delete();
-  //     dispatchIfNotCancelled({ type: "DELETED_DOCUMENT" });
-  //   } catch (err) {
-  //     dispatchIfNotCancelled({ type: "ERROR", payload: "could not delete" });
-  //   }
-  // };
-
-  // update documents:
-  // const updateDocument = async (id, updates) => {
-  //   dispatch({ type: "IS_PENDING" });
-
-  //   try {
-  //     const updatedDocument = await ref.doc(id).update(updates);
-
-  //     dispatchIfNotCancelled({
-  //       type: "UPDATE_DOCUMENT",
-  //       payload: updateDocument,
-  //     });
-  //     return updatedDocument;
-  //   } catch (err) {
-  //     dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
-  //     return null;
-  //   }
-  // };
-
   useEffect(() => {
     return () => setIsCancelled(true);
   }, []);
 
-  return { addDocument, response };
+  return { addBlog, response };
 };

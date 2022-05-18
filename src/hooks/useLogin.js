@@ -19,6 +19,7 @@ export const useLogin = () => {
         dispatch({ type: "LOGIN", payload: res.user });
       })
       .catch((err) => {
+        setIsPending(false);
         setError(err.message);
       });
   };
