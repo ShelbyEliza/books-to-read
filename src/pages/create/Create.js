@@ -10,7 +10,11 @@ import Tags from "../../components/tags/Tags";
 export default function Create() {
   const navigate = useNavigate();
 
-  const { addBlog, error, isPending } = useFirestore("users");
+  const { addBlog, error, isPending } = useFirestore(
+    "users",
+    "blogs",
+    "authors"
+  );
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [title, setTitle] = useState("");
@@ -115,7 +119,7 @@ export default function Create() {
           value={content}
         ></textarea>
       </form>
-      {isSubmitted ? (
+      {isPending ? (
         <button className="btn" disabled>
           Posting Blog...
         </button>
@@ -124,6 +128,7 @@ export default function Create() {
           Post!
         </button>
       )}
+      {error && <p className="error">{error}</p>}
     </div>
   );
 }

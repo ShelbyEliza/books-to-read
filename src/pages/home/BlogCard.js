@@ -3,8 +3,15 @@ import "./Home.css";
 import { Link } from "react-router-dom";
 
 import EditButton from "../../assets/EditButton";
+import { useFirestore } from "../../hooks/useFirestore";
 
 export default function BlogCard({ blogs }) {
+  const { deleteBlog } = useFirestore("users", "blogs", "authors");
+
+  const handleDelete = (blog) => {
+    deleteBlog(blog);
+  };
+
   return (
     <div className="content">
       {blogs.map((blog) => (
@@ -70,6 +77,7 @@ export default function BlogCard({ blogs }) {
                   )}
                 </div>
               )}
+              <button onClick={(e) => handleDelete(blog)}>X</button>
             </div>
           </div>
         </div>

@@ -1,10 +1,11 @@
 // styles:
-import "./Home.css";
+import "./AllBlogs.css";
 
 import { useCollection } from "../../hooks/useCollection";
-import BlogCard from "./BlogCard";
 
-export default function Home() {
+import BlogCard from "../home/BlogCard";
+
+export default function AllBlogs() {
   const { documents: blogs } = useCollection("users", "blogs");
 
   return <div>{blogs && <BlogCard blogs={blogs} />}</div>;

@@ -4,23 +4,23 @@ import { db } from "../firebase/config";
 import { useAuthContext } from "./useAuthContext";
 
 // firebase imports:
-import { doc, getDocs, collection, onSnapshot } from "firebase/firestore";
+import { doc, collection, onSnapshot } from "firebase/firestore";
 
-export const useCollection = (c, users) => {
+export const useCollection = (
+  firstCollection,
+  secondCollection,
+  thirdCollection
+) => {
   const { user } = useAuthContext();
   const [documents, setDocuments] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    let ref = collection(db, c);
-    let newRef = doc(db, users, user.uid);
-    let nextRef = collection(newRef, "blogs");
-    console.log(nextRef);
-    // let newRef = getDocs(ref, "blogs");
-    // console.log(newRef);
+    let ref = doc(db, firstCollection, user.uid);
+    ref = collection(ref, secondCollection);
 
     const unsub = onSnapshot(
-      nextRef,
+      ref,
       (snapshot) => {
         let results = [];
         snapshot.docs.forEach((doc) => {
@@ -39,7 +39,7 @@ export const useCollection = (c, users) => {
 
     // unsubscribe on unmount
     return () => unsub();
-  }, [c]);
+  }, [firstCollection, secondCollection, user.uid]);
 
   return { documents, error };
 };

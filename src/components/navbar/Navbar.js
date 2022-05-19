@@ -33,8 +33,12 @@ export default function Navbar() {
             </div>
 
             <div className="middle section">
-              <li className="nav-tab">Blogs</li>
-              <li className="nav-tab">Authors</li>
+              <li className="nav-tab">
+                <Link to="/AllBlogs">All Blogs</Link>
+              </li>
+              <li className="nav-tab">
+                <Link to="/AllAuthors">Authors</Link>
+              </li>
               <li className="nav-tab">Tags</li>
             </div>
             <div className="user-tab section side">

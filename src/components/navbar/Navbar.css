@@ -111,6 +111,14 @@ nav .side:hover {
   color: #3d4634ff;
 }
 
+nav .nav-tab:hover a {
+  color: #3d4634ff;
+}
+
+nav .nav-tab a {
+  text-decoration: none;
+}
+
 nav .side:hover button {
   color: #3d4634ff;
   cursor: pointer;
