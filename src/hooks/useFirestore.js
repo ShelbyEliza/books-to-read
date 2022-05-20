@@ -48,7 +48,12 @@ const firestoreReducer = (state, action) => {
         error: null,
       };
     case "DELETED_BLOG":
-      return { isPending: false, document: null, success: true, error: null };
+      return {
+        isPending: true,
+        document: null,
+        success: action.payload,
+        error: null,
+      };
     case "ERROR":
       return {
         isPending: false,
@@ -67,9 +72,9 @@ export const useFirestore = () => {
   const [response, dispatch] = useReducer(firestoreReducer, initialState);
   const [isCancelled, setIsCancelled] = useState(false);
 
-  let usersDocs = doc(db, "users", user.uid);
-  let blogsCollection = collection(usersDocs, "blogs");
-  let authorsCollection = collection(usersDocs, "authors");
+  const usersDoc = doc(db, "users", user.uid);
+  const blogsCollection = collection(usersDoc, "blogs");
+  const authorsCollection = collection(usersDoc, "authors");
 
   const dispatchIfNotCancelled = (action) => {
     if (!isCancelled) {
@@ -92,7 +97,6 @@ export const useFirestore = () => {
       });
 
       await checkIfAuthorExists(blog);
-      console.log("Should be last Message!");
     } catch (err) {
       dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
     }
@@ -102,21 +106,20 @@ export const useFirestore = () => {
     dispatch({ type: "IS_PENDING" });
 
     let q = query(authorsCollection, where("name", "==", blog.author));
-    const authorDoc = await getDocs(q);
-    /////////// WORKING ON THIS! //////////////////////
+    const authorDocs = await getDocs(q);
 
-    console.log(authorDoc.docs[0]);
-
-    const authorDocs = authorDoc.docs;
-    console.log("hello");
-
-    // console.log(authorDocs.docs);
-
-    if (authorDoc.docs.length > 0) {
+    let authorDocID;
+    if (authorDocs.docs.length > 0) {
       console.log("author exists");
+      authorDocs.forEach((doc) => {
+        authorDocID = doc.id;
+      });
+
+      const authorDoc = doc(authorsCollection, authorDocID);
 
       await updateAuthor(authorDoc, blog);
     } else {
+      console.log("author does not exist");
       await addAuthor(blog);
     }
   };
@@ -158,17 +161,16 @@ export const useFirestore = () => {
   };
 
   const deleteBlog = async (blog) => {
-    // console.log(blog);
-
-    // let q = query(blogsCollection, where("id", "==", blog.id));
-    // const blogDoc = await getDocs(doc(q));
+    dispatch({ type: "IS_PENDING" });
+    console.log(response);
     const blogDoc = doc(blogsCollection, blog.id);
-    console.log(blogDoc);
+
     try {
       await deleteDoc(blogDoc);
 
       dispatchIfNotCancelled({
         type: "DELETED_BLOG",
+        payload: true,
       });
     } catch (err) {
       dispatchIfNotCancelled({ type: "ERROR", payload: err.message });

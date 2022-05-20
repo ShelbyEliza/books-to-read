@@ -1,18 +1,23 @@
 import { useState, useEffect } from "react";
 import { db } from "../firebase/config";
 
-import { collection, onSnapshot } from "firebase/firestore";
+import { useAuthContext } from "./useAuthContext";
 
-export const useDocument = (c, id) => {
+import { collection, doc, onSnapshot } from "firebase/firestore";
+
+export const useDocument = (coll, id) => {
+  const { user } = useAuthContext();
   const [document, setDocument] = useState(null);
   const [error, setError] = useState(null);
 
   // realtime data for document:
   useEffect(() => {
-    const ref = collection(db, c).doc(id);
+    let usersDoc = doc(db, "users", user.uid);
+    let collRef = collection(usersDoc, coll);
+    let docRef = doc(collRef, id);
 
     const unsub = onSnapshot(
-      ref,
+      docRef,
       (snapshot) => {
         if (snapshot.data()) {
           setDocument({ ...snapshot.data(), id: snapshot.id });
@@ -28,7 +33,7 @@ export const useDocument = (c, id) => {
     );
 
     return () => unsub();
-  }, [c, id]);
+  }, [coll, id, user.uid]);
 
   return { document, error };
 };

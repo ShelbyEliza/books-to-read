@@ -6,18 +6,14 @@ import { useAuthContext } from "./useAuthContext";
 // firebase imports:
 import { doc, collection, onSnapshot } from "firebase/firestore";
 
-export const useCollection = (
-  firstCollection,
-  secondCollection,
-  thirdCollection
-) => {
+export const useCollection = (coll) => {
   const { user } = useAuthContext();
   const [documents, setDocuments] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    let ref = doc(db, firstCollection, user.uid);
-    ref = collection(ref, secondCollection);
+    let ref = doc(db, "users", user.uid);
+    ref = collection(ref, coll);
 
     const unsub = onSnapshot(
       ref,
@@ -39,7 +35,7 @@ export const useCollection = (
 
     // unsubscribe on unmount
     return () => unsub();
-  }, [firstCollection, secondCollection, user.uid]);
+  }, [coll, user.uid]);
 
   return { documents, error };
 };

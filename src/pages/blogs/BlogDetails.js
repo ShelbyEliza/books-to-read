@@ -1,27 +1,39 @@
-import "./Home.css";
+// styles:
+import "./BlogDetails.css";
 
-import { Link } from "react-router-dom";
+import { useState } from "react";
 
+import { useParams, useNavigate, Link } from "react-router-dom";
 import EditButton from "../../assets/EditButton";
+
+import { useDocument } from "../../hooks/useDocument";
 import { useFirestore } from "../../hooks/useFirestore";
 
-export default function BlogCard({ blogs }) {
-  const { deleteBlog } = useFirestore();
+export default function BlogDetails() {
+  const { id } = useParams();
+  const { document: blog } = useDocument("blogs", id);
+  const { deleteBlog, response } = useFirestore();
+  const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
-  const handleDelete = (blog) => {
-    deleteBlog(blog);
+  const handleDelete = async (blog) => {
+    console.log(response);
+    await deleteBlog(blog);
+    if (!response.error) {
+      navigate("/");
+    } else {
+      setError(response.error);
+    }
   };
 
   return (
-    <div className="content">
-      {blogs.map((blog) => (
-        <div key={blog.id} className="content-box">
+    <div>
+      {blog && (
+        <div className="content-box">
           <div className="top-container">
             <div className="card-col card-col-1">
               <div className="card-line title-line">
-                <Link className="title" to={`/blogDetails/${blog.id}`}>
-                  <h1 className="title">{blog.title}</h1>
-                </Link>
+                <h1 className="title">{blog.title}</h1>
 
                 <Link to="#">
                   <EditButton className="edit" />
@@ -81,7 +93,8 @@ export default function BlogCard({ blogs }) {
             </div>
           </div>
         </div>
-      ))}
+      )}
+      {error && <p className="error">{error}</p>}
     </div>
   );
 }

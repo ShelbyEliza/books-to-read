@@ -8,6 +8,7 @@ import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import AllBlogs from "./pages/blogs/AllBlogs";
 import AllAuthors from "./pages/authors/AllAuthors";
+import BlogDetails from "./pages/blogs/BlogDetails";
 
 function App() {
   const { user, authIsReady } = useAuthContext();
@@ -33,6 +34,10 @@ function App() {
             <Route
               path="/allAuthors"
               element={user ? <AllAuthors /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/blogDetails/:id"
+              element={user ? <BlogDetails /> : <Navigate to="/login" />}
             />
             <Route
               path="/login"

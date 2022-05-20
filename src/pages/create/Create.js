@@ -1,7 +1,7 @@
 // styles:
 import "./Create.css";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFirestore } from "../../hooks/useFirestore";
 
@@ -10,13 +10,9 @@ import Tags from "../../components/tags/Tags";
 export default function Create() {
   const navigate = useNavigate();
 
-  const { addBlog, error, isPending } = useFirestore(
-    "users",
-    "blogs",
-    "authors"
-  );
+  const { addBlog, response } = useFirestore();
 
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState(null);
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [dateStarted, setDateStarted] = useState("");
@@ -35,7 +31,8 @@ export default function Create() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitted(true);
+    setError(false);
+
     const doc = {
       title,
       author,
@@ -45,14 +42,13 @@ export default function Create() {
       content,
     };
 
-    addBlog(doc);
-  };
-
-  useEffect(() => {
-    if (isSubmitted) {
+    await addBlog(doc);
+    if (!response.error) {
       navigate("/");
+    } else {
+      setError(response.error);
     }
-  }, [isSubmitted, navigate]);
+  };
 
   return (
     <div className="create">
@@ -119,7 +115,7 @@ export default function Create() {
           value={content}
         ></textarea>
       </form>
-      {isPending ? (
+      {response.isPending ? (
         <button className="btn" disabled>
           Posting Blog...
         </button>
