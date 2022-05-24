@@ -40,6 +40,13 @@ const firestoreReducer = (state, action) => {
         success: true,
         error: null,
       };
+    case "UPDATED_BLOG":
+      return {
+        isPending: false,
+        document: action.payload,
+        success: true,
+        error: null,
+      };
     case "UPDATED_AUTHOR":
       return {
         isPending: false,
@@ -160,6 +167,20 @@ export const useFirestore = () => {
     }
   };
 
+  const updateBlog = async (blog, updatedData) => {
+    const blogDoc = doc(blogsCollection, blog.id);
+    try {
+      const updatedBlog = await updateDoc(blogDoc, updatedData);
+
+      dispatchIfNotCancelled({
+        type: "UPDATED_BLOG",
+        payload: updatedBlog,
+      });
+    } catch (err) {
+      dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
+    }
+  };
+
   const deleteBlog = async (blog) => {
     dispatch({ type: "IS_PENDING" });
     console.log(response);
@@ -181,5 +202,5 @@ export const useFirestore = () => {
     return () => setIsCancelled(true);
   }, []);
 
-  return { addBlog, addAuthor, deleteBlog, response };
+  return { addBlog, addAuthor, updateBlog, deleteBlog, response };
 };

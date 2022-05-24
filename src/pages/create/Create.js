@@ -51,7 +51,7 @@ export default function Create() {
   };
 
   return (
-    <div className="create">
+    <div className="create-edit">
       <h2>Create a New Blog</h2>
       <form id="create-form" onSubmit={handleSubmit}>
         <div className="form-row">

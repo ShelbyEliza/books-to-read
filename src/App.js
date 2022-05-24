@@ -9,6 +9,8 @@ import Signup from "./pages/signup/Signup";
 import AllBlogs from "./pages/blogs/AllBlogs";
 import AllAuthors from "./pages/authors/AllAuthors";
 import BlogDetails from "./pages/blogs/BlogDetails";
+import AuthorDetails from "./pages/authors/AuthorDetails";
+import EditBlog from "./pages/blogs/EditBlog";
 
 function App() {
   const { user, authIsReady } = useAuthContext();
@@ -38,6 +40,14 @@ function App() {
             <Route
               path="/blogDetails/:id"
               element={user ? <BlogDetails /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/authorDetails/:id"
+              element={user ? <AuthorDetails /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/editBlog/:id"
+              element={user ? <EditBlog /> : <Navigate to="/login" />}
             />
             <Route
               path="/login"

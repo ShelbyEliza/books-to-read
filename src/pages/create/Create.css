@@ -1,4 +1,4 @@
-.create form {
+.create-edit form {
   display: flex;
   flex-flow: row wrap;
 
@@ -11,57 +11,57 @@
   border: 1px solid #473120ff;
 }
 
-.create form .form-row,
+.create-edit form .form-row,
 .form-row-full {
   display: flex;
   justify-content: space-between;
 }
 
-.create .form-row {
+.create-edit .form-row {
   flex-basis: 50%;
 }
 
-.create .form-row-full {
+.create-edit .form-row-full {
   flex-basis: 100%;
 }
 
-.create fieldset div {
+.create-edit fieldset div {
   flex-basis: 50%;
 }
 
-.create fieldset {
+.create-edit fieldset {
   display: flex;
   flex-flow: row wrap;
   border: none;
 }
 
-.create legend {
+.create-edit legend {
   flex: 1;
   width: 100%;
 }
 
-.create label {
+.create-edit label {
   padding: 8px 20px 0px 0px;
   margin-bottom: 8px;
 }
 
-.create input {
+.create-edit input {
   margin: 4px 0px 4px 4px;
   max-height: 24px;
 }
 
-.create form div:nth-of-type(odd) input {
+.create-edit form div:nth-of-type(odd) input {
   margin-right: 4px;
 }
 
-.create form div:nth-of-type(even) label {
+.create-edit form div:nth-of-type(even) label {
   margin-left: 4px;
 }
 
-.create input,
-.create select,
-.create textarea,
-.create button {
+.create-edit input,
+.create-edit select,
+.create-edit textarea,
+.create-edit button {
   background: #846545ff;
   color: #2e2525ff;
 
@@ -69,7 +69,7 @@
   border-radius: 2px;
 }
 
-.create textarea {
+.create-edit textarea {
   flex: 1;
 
   width: 100%;
@@ -82,14 +82,14 @@
   font-size: 16px;
 }
 
-.create textarea:focus {
+.create-edit textarea:focus {
   border: 1px solid #2e2525ff;
   border-radius: 2px;
 
   outline: none !important;
 }
 
-.create button {
+.create-edit button {
   /* content-box padding + form margin */
   background: #966533ff;
   margin-left: 50px;

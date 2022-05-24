@@ -89,6 +89,12 @@ export default function BlogDetails() {
                   )}
                 </div>
               )}
+
+              {blog.content && (
+                <div className="card-line-full content">
+                  <p className="blog-snippet">{blog.content}</p>
+                </div>
+              )}
               <button onClick={(e) => handleDelete(blog)}>X</button>
             </div>
           </div>

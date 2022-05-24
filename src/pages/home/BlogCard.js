@@ -1,11 +1,12 @@
+// styles:
 import "./Home.css";
+import EditButton from "../../assets/EditButton";
 
 import { Link } from "react-router-dom";
 
-import EditButton from "../../assets/EditButton";
 import { useFirestore } from "../../hooks/useFirestore";
 
-export default function BlogCard({ blogs }) {
+export default function BlogCard({ blogs, authors }) {
   const { deleteBlog } = useFirestore();
 
   const handleDelete = (blog) => {
@@ -23,8 +24,8 @@ export default function BlogCard({ blogs }) {
                   <h1 className="title">{blog.title}</h1>
                 </Link>
 
-                <Link to="#">
-                  <EditButton className="edit" />
+                <Link to={`/editBlog/${blog.id}`}>
+                  <EditButton className="edit" blog={blog} />
                 </Link>
               </div>
 
@@ -32,7 +33,11 @@ export default function BlogCard({ blogs }) {
                 <div className="card-line author-line">
                   <p className="author">
                     by
-                    <Link className="authorLink" to="#">
+                    <Link
+                      className="authorLink"
+                      // to={`/authorDetails/${author.id}`}
+                      to="#"
+                    >
                       {blog.author}
                     </Link>
                   </p>
