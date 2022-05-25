@@ -1,6 +1,8 @@
 // styles:
 import "./Create.css";
 
+// import { v4 as uuidv4 } from "uuid";
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFirestore } from "../../hooks/useFirestore";
@@ -10,7 +12,7 @@ import Tags from "../../components/tags/Tags";
 export default function Create() {
   const navigate = useNavigate();
 
-  const { addBlog, response } = useFirestore();
+  const { addBlog, checkIfAuthorExists, response } = useFirestore();
 
   const [error, setError] = useState(null);
   const [title, setTitle] = useState("");
@@ -33,7 +35,7 @@ export default function Create() {
     e.preventDefault();
     setError(false);
 
-    const doc = {
+    let doc = {
       title,
       author,
       dateStarted,
@@ -41,6 +43,10 @@ export default function Create() {
       tags,
       content,
     };
+    const authorDoc = await checkIfAuthorExists(doc);
+    const authorDocID = authorDoc.id;
+
+    doc = { ...doc, authorID: authorDocID };
 
     await addBlog(doc);
     if (!response.error) {

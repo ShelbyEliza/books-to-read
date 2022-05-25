@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 import { useFirestore } from "../../hooks/useFirestore";
 
-export default function BlogCard({ blogs, authors }) {
+export default function BlogCard({ blogs }) {
   const { deleteBlog } = useFirestore();
 
   const handleDelete = (blog) => {
@@ -35,8 +35,7 @@ export default function BlogCard({ blogs, authors }) {
                     by
                     <Link
                       className="authorLink"
-                      // to={`/authorDetails/${author.id}`}
-                      to="#"
+                      to={`/authorDetails/${blog.authorID}`}
                     >
                       {blog.author}
                     </Link>

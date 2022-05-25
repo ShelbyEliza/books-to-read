@@ -16,12 +16,6 @@ export default function EditBlog() {
 
   const [error, setError] = useState(null);
   const [blog, setBlog] = useState(null);
-  // const [title, setTitle] = useState(blog.title);
-  // const [author, setAuthor] = useState(blog.author);
-  // const [dateStarted, setDateStarted] = useState(blog.dateStarted);
-  // const [dateFinished, setDateFinished] = useState(blog.dateFinished);
-  // const [tags, setTags] = useState(blog.tags);
-  // const [content, setContent] = useState(blog.content);
 
   // const handleTags = (e) => {
   //   if (e.target.checked === true) {
@@ -34,6 +28,7 @@ export default function EditBlog() {
 
   useEffect(() => {
     if (blogDoc) {
+      // console.log(blogDoc);
       setBlog(blogDoc);
     }
   }, [blogDoc]);
@@ -41,22 +36,14 @@ export default function EditBlog() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(false);
+    // console.log(blog);
 
-    const updatedData = {
-      title: blog.title,
-      author: blog.author,
-      dateStarted: blog.dateStarted,
-      dateFinished: blog.dateFinished,
-      tags: blog.tags,
-      content: blog.content,
-    };
-
-    await updateBlog(blog, updatedData);
-    if (!response.error) {
-      navigate("/");
-    } else {
-      setError(response.error);
-    }
+    await updateBlog(blog);
+    // if (!response.error) {
+    //   navigate("/");
+    // } else {
+    //   setError(response.error);
+    // }
   };
 
   return (
