@@ -50,9 +50,8 @@ export default function Create() {
     doc = { ...doc, authorID: authorDocID };
 
     const blogDocRef = await addBlog(doc);
-    // console.log(blogDocRef)
 
-    await checkIfKeyExists(blogDocRef, authorDocRef);
+    await checkIfKeyExists(doc, blogDocRef, authorDocRef);
     if (!response.error) {
       navigate("/");
     } else {

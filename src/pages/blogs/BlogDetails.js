@@ -44,7 +44,10 @@ export default function BlogDetails() {
                 <div className="card-line author-line">
                   <p className="author">
                     by
-                    <Link className="authorLink" to="#">
+                    <Link
+                      className="authorLink"
+                      to={`/authorDetails/${blog.authorID}`}
+                    >
                       {blog.author}
                     </Link>
                   </p>
