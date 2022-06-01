@@ -9,6 +9,7 @@ import {
   getDocs,
   getDoc,
   addDoc,
+  setDoc,
   updateDoc,
   arrayUnion,
   deleteDoc,
@@ -37,6 +38,13 @@ const firestoreReducer = (state, action) => {
         error: null,
       };
     case "ADDED_AUTHOR":
+      return {
+        isPending: false,
+        document: action.payload,
+        success: true,
+        error: null,
+      };
+    case "ADDED_KEY":
       return {
         isPending: false,
         document: action.payload,
@@ -85,6 +93,7 @@ export const useFirestore = () => {
   const usersDoc = doc(db, "users", user.uid);
   const blogsCollection = collection(usersDoc, "blogs");
   const authorsCollection = collection(usersDoc, "authors");
+  const keysCollection = collection(usersDoc, "keys");
 
   const dispatchIfNotCancelled = (action) => {
     if (!isCancelled) {
@@ -92,7 +101,7 @@ export const useFirestore = () => {
     }
   };
 
-  const checkIfAuthorExists = async (blog, updatingBlog) => {
+  const checkIfAuthorExists = async (blog) => {
     let q = query(
       authorsCollection,
       where("name", "==", blog.author),
@@ -106,10 +115,6 @@ export const useFirestore = () => {
       const authorDocID = authorDoc.docs[0].id;
       const authorDocRef = doc(authorsCollection, authorDocID);
 
-      if (updatingBlog) {
-        return authorDocRef;
-      }
-
       await updateAuthor(authorDocRef, blog);
       return authorDocRef;
     } else {
@@ -117,6 +122,40 @@ export const useFirestore = () => {
 
       const authorDocRef = await addAuthor(blog);
       return authorDocRef;
+    }
+  };
+
+  const checkIfKeyExists = async (blogDocRef, authorDocRef) => {
+    dispatch({ type: "IS_PENDING" });
+
+    console.log(blogDocRef, authorDocRef);
+
+    const blogDocSnap = await getDoc(blogDocRef);
+    const blogDocData = blogDocSnap.data();
+
+    const authorDocSnap = await getDoc(authorDocRef);
+    const authorDocData = authorDocSnap.data();
+
+    try {
+      let booksWithIDs = { [blogDocData.title]: blogDocRef.id };
+
+      let q = query(
+        keysCollection,
+        where("author", "==", blogDocData.author),
+        limit(1)
+      );
+      const keyDoc = await getDocs(q, limit(1));
+
+      if (keyDoc.docs.length > 0) {
+        console.log("key exists");
+
+        await updateKey(keyDoc, booksWithIDs);
+      } else {
+        console.log("key does NOT exist");
+        await addKey(blogDocData, authorDocData, booksWithIDs);
+      }
+    } catch (err) {
+      dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
     }
   };
 
@@ -128,21 +167,26 @@ export const useFirestore = () => {
       const addedBlog = await addDoc(blogsCollection, {
         ...blog,
       });
+      console.log(addedBlog);
 
       dispatchIfNotCancelled({
         type: "ADDED_BLOG",
         payload: addedBlog,
       });
+      return addedBlog;
     } catch (err) {
       dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
     }
   };
 
   const addAuthor = async (blog) => {
+    dispatch({ type: "IS_PENDING" });
+
     let author = {
       name: blog.author,
       aboutAuthor: "",
       booksWritten: [blog.title],
+      booksWithIDs: [],
     };
 
     try {
@@ -158,10 +202,59 @@ export const useFirestore = () => {
     }
   };
 
-  const updateAuthor = async (authorDoc, blog) => {
+  const addKey = async (blogDocData, authorDocData, booksWithIDs) => {
+    dispatch({ type: "IS_PENDING" });
+
+    let key = {
+      author: blogDocData.author,
+      authorID: blogDocData.authorID,
+      aboutAuthor: authorDocData.aboutAuthor,
+      booksWithIDs: [booksWithIDs],
+    };
+    try {
+      console.log(key);
+      const addedKey = await setDoc(
+        doc(usersDoc, "keys", blogDocData.authorID),
+        {
+          ...key,
+        }
+      );
+
+      dispatchIfNotCancelled({
+        type: "ADDED_KEY",
+        payload: addedKey,
+      });
+      return addedKey;
+    } catch (err) {
+      dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
+    }
+  };
+
+  const updateKey = async (keyDoc, booksWithIDs) => {
+    try {
+      const keyDocID = keyDoc.docs[0].id;
+      const keyDocRef = doc(keysCollection, keyDocID);
+
+      const updatedKey = await updateDoc(
+        keyDocRef,
+        { booksWithIDs: arrayUnion(booksWithIDs) },
+        { merge: true }
+      );
+
+      dispatchIfNotCancelled({
+        type: "UPDATED_KEY",
+        payload: updatedKey,
+      });
+      return keyDocRef;
+    } catch (err) {
+      dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
+    }
+  };
+
+  const updateAuthor = async (authorDocRef, blog) => {
     try {
       const updatedAuthor = await updateDoc(
-        authorDoc,
+        authorDocRef,
         { booksWritten: arrayUnion(blog.title) },
         { merge: true }
       );
@@ -171,24 +264,19 @@ export const useFirestore = () => {
         type: "UPDATED_AUTHOR",
         payload: updatedAuthor,
       });
-      return authorDoc;
+      return authorDocRef;
     } catch (err) {
       dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
     }
   };
 
   const updateBlog = async (updatedData) => {
-    // console.log(updatedData);
     try {
-      // checkIfAuthorExists retrieves the authorDoc if author exists
-      // else it returns a freshly made authorDoc
-      let updatingBlog = true;
-      const authorDocRef = await checkIfAuthorExists(updatedData, updatingBlog);
-      // console.log(authorDocRef);
-
-      // const authorDocSnap = await getDoc(authorDocRef);
-      // const authorDocData = authorDocSnap.data();
-      // console.log(authorDocData);
+      /**
+       * checkIfAuthorExists retrieves the authorDoc if author exists
+       * else it returns a freshly made authorDoc
+       */
+      const authorDocRef = await checkIfAuthorExists(updatedData);
 
       const blogDocRef = doc(blogsCollection, updatedData.id);
       const blogDocSnap = await getDoc(blogDocRef);
@@ -200,6 +288,7 @@ export const useFirestore = () => {
         // Condition 1: Title Changes & Author Name Changes:
         if (blogDocData.author !== updatedData.author) {
           console.log("Author name has been changed.");
+          changeAuthorName(authorDocRef, updatedData, blogDocData, blogDocRef);
         }
         // Condition 2: Title Changes & Author Name DOES NOT Change:
         else {
@@ -227,38 +316,7 @@ export const useFirestore = () => {
         // Condition 3: Title DOES NOT Change & Author Name Changes:
         if (blogDocData.author !== updatedData.author) {
           console.log("Author name has been changed.");
-
-          let updatedAuthorID = authorDocRef.id;
-
-          const prevAuthorDocRef = doc(authorsCollection, updatedData.authorID);
-          const prevAuthorDocSnap = await getDoc(prevAuthorDocRef);
-          const prevAuthorDocData = prevAuthorDocSnap.data();
-
-          // Condition 3a: author has written multiple books
-          if (prevAuthorDocData.booksWritten.length > 1) {
-            let updatedPrevAuthor = await updateDoc(prevAuthorDocRef, {
-              booksWritten: arrayRemove(blogDocData.title),
-            });
-            dispatchIfNotCancelled({
-              type: "UPDATED_AUTHOR",
-              payload: updatedPrevAuthor,
-            });
-          }
-          // Condition 3b: author has only written the book being edited
-          // delete previous author doc
-          else {
-            await deleteDoc(prevAuthorDocRef);
-          }
-
-          // give blog doc new authorID:
-          const updatedBlog = await updateDoc(blogDocRef, {
-            ...updatedData,
-            authorID: updatedAuthorID,
-          });
-          dispatchIfNotCancelled({
-            type: "UPDATED_BLOG",
-            payload: updatedBlog,
-          });
+          changeAuthorName(authorDocRef, updatedData, blogDocData, blogDocRef);
         }
         // Condition 4: Title DOES NOT Change & Author Name DOES NOT Change:
         else {
@@ -270,15 +328,47 @@ export const useFirestore = () => {
           });
         }
       }
-
-      // const updatedBlog = await updateDoc(blogDocRef, updatedData);
-      // dispatchIfNotCancelled({
-      //   type: "UPDATED_BLOG",
-      //   payload: updatedBlog,
-      // });
     } catch (err) {
       dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
     }
+  };
+
+  const changeAuthorName = async (
+    authorDocRef,
+    updatedData,
+    blogDocData,
+    blogDocRef
+  ) => {
+    let updatedAuthorID = authorDocRef.id;
+
+    const prevAuthorDocRef = doc(authorsCollection, updatedData.authorID);
+    const prevAuthorDocSnap = await getDoc(prevAuthorDocRef);
+    const prevAuthorDocData = prevAuthorDocSnap.data();
+
+    // Condition 3a: author has written multiple books
+    if (prevAuthorDocData.booksWritten.length > 1) {
+      let updatedPrevAuthor = await updateDoc(prevAuthorDocRef, {
+        booksWritten: arrayRemove(blogDocData.title),
+      });
+      dispatchIfNotCancelled({
+        type: "UPDATED_AUTHOR",
+        payload: updatedPrevAuthor,
+      });
+    }
+    // Condition 3b: author has only written the book being edited
+    else {
+      await deleteDoc(prevAuthorDocRef);
+    }
+
+    // give blog doc new authorID:
+    const updatedBlog = await updateDoc(blogDocRef, {
+      ...updatedData,
+      authorID: updatedAuthorID,
+    });
+    dispatchIfNotCancelled({
+      type: "UPDATED_BLOG",
+      payload: updatedBlog,
+    });
   };
 
   const deleteBlog = async (blog) => {
@@ -303,8 +393,9 @@ export const useFirestore = () => {
   }, []);
 
   return {
-    addBlog,
     checkIfAuthorExists,
+    checkIfKeyExists,
+    addBlog,
     addAuthor,
     updateBlog,
     deleteBlog,

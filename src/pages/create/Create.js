@@ -12,7 +12,8 @@ import Tags from "../../components/tags/Tags";
 export default function Create() {
   const navigate = useNavigate();
 
-  const { addBlog, checkIfAuthorExists, response } = useFirestore();
+  const { addBlog, checkIfAuthorExists, checkIfKeyExists, response } =
+    useFirestore();
 
   const [error, setError] = useState(null);
   const [title, setTitle] = useState("");
@@ -43,12 +44,15 @@ export default function Create() {
       tags,
       content,
     };
-    const authorDoc = await checkIfAuthorExists(doc);
-    const authorDocID = authorDoc.id;
+    const authorDocRef = await checkIfAuthorExists(doc);
+    const authorDocID = authorDocRef.id;
 
     doc = { ...doc, authorID: authorDocID };
 
-    await addBlog(doc);
+    const blogDocRef = await addBlog(doc);
+    // console.log(blogDocRef)
+
+    await checkIfKeyExists(blogDocRef, authorDocRef);
     if (!response.error) {
       navigate("/");
     } else {

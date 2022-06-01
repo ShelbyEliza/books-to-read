@@ -39,11 +39,11 @@ export default function EditBlog() {
     // console.log(blog);
 
     await updateBlog(blog);
-    // if (!response.error) {
-    //   navigate("/");
-    // } else {
-    //   setError(response.error);
-    // }
+    if (!response.error) {
+      navigate("/");
+    } else {
+      setError(response.error);
+    }
   };
 
   return (

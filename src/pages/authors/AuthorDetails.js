@@ -5,10 +5,12 @@ import EditButton from "../../assets/EditButton";
 import { useParams, Link } from "react-router-dom";
 
 import { useDocument } from "../../hooks/useDocument";
+import { useFirestore } from "../../hooks/useFirestore";
 
 export default function AuthorDetails() {
   const { id } = useParams();
   const { document: author, error } = useDocument("authors", id);
+  const { document: key } = useDocument("keys", id);
 
   return (
     <div>
@@ -23,24 +25,21 @@ export default function AuthorDetails() {
                   <EditButton className="edit" />
                 </Link>
               </div>
-
-              {author.booksWritten && (
+              {key.booksWithIDs.length === 0 ? (
                 <div className="card-line books-written">
                   <p className="books-written-label">Books Written:</p>
-                  {author.booksWritten.length === 0 ? (
-                    <p className="books-written-value">No Books Written.</p>
-                  ) : (
-                    author.booksWritten.map((book) => (
-                      <p key={book}>
-                        <Link to="#">{book}</Link>
-                      </p>
-                    ))
-                  )}
+                  <p className="books-written-value">No Books Written.</p>
                 </div>
-              )}
-              {author.aboutAuthor && (
-                <div className="card-line about-author-line">
-                  <p className="about-author">{author.aboutAuthor}</p>
+              ) : (
+                <div className="card-line books-written">
+                  <p className="books-written-label">Books Written:</p>
+                  {key.booksWithIDs.map((book) => (
+                    <div key={Object.values(book)}>
+                      <Link to={`/blogDetails/${Object.values(book)}`}>
+                        <p>{Object.keys(book)}</p>
+                      </Link>
+                    </div>
+                  ))}
                 </div>
               )}
             </div>

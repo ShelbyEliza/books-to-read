@@ -388,3 +388,136 @@ export default function BlogCard({ blogs }) {
     </>
   );
 }
+
+
+//////////////////////////
+
+// styles & assets:
+import "./AuthorDetails.css";
+import EditButton from "../../assets/EditButton";
+
+import { useState, useEffect, useRef } from "react";
+
+import { useParams, Link } from "react-router-dom";
+
+import { useDocument } from "../../hooks/useDocument";
+import { useFirestore } from "../../hooks/useFirestore";
+
+export default function AuthorDetails() {
+  const { id } = useParams();
+  const { document: author, error } = useDocument("authors", id);
+  const { getBlogID } = useFirestore();
+  const [blogIDs, setBlogIDs] = useState([]);
+  let blogsWithIDs = useRef([]);
+
+  // useEffect(() => {
+  //   if (author) {
+  //     const getTheIDs = async () => {
+  //       const ids = await getBlogID(author.booksWritten);
+  //       return ids;
+  //     };
+  //     blogsWithIDs.current = getTheIDs();
+
+  //     // getBlogID(author.booksWritten).then((blogsAndIDs) => {
+  //     //   console.log(blogsAndIDs);
+  //     //   blogsWithIDs.current = blogsAndIDs;
+  //     //   console.log(blogsWithIDs.current);
+  //     // });
+  //   }
+  // }, [author, blogsWithIDs, getBlogID]);
+
+  const getTheIDs = async () => {
+    const ids = await getBlogID(author.booksWritten);
+    console.log(ids);
+    return ids;
+  };
+
+  // const ids = await getTheIDs()
+
+  if (author) {
+    getTheIDs().then((ids) => {
+      blogsWithIDs.current = ids;
+    });
+    // const ids = await getTheIDs()
+    // setBlogIDs(getTheIDs());
+    // getBlogID(author.booksWritten).then((blogsAndIDs) => {
+    //   console.log(blogsAndIDs);
+    //   blogsWithIDs.current = blogsAndIDs;
+    //   console.log(blogsWithIDs.current);
+    // });
+
+    console.log(blogsWithIDs.current);
+  }
+
+  if (blogsWithIDs.length > 0) {
+    console.log(blogsWithIDs);
+    setBlogIDs(blogsWithIDs);
+  }
+
+  return (
+    <div>
+      {author && (
+        <div className="content-box">
+          <div className="top-container">
+            <div className="card-col card-col-1">
+              <div className="card-line title-line">
+                <h1 className="title">{author.name}</h1>
+
+                <Link to="#">
+                  <EditButton className="edit" />
+                </Link>
+              </div>
+
+              {author.booksWritten.length === 0 && (
+                <div className="card-line books-written">
+                  <p className="books-written-label">Books Written:</p>
+                  <p className="books-written-value">No Books Written.</p>
+                </div>
+              )}
+
+              {blogsWithIDs.length > 0 && (
+                <div className="card-line books-written">
+                  <p className="books-written-label">Books Written:</p>
+
+                  {blogsWithIDs.map((blogData) => (
+                    <div key={Object.keys(blogData)}>
+                      <Link to={`/blogDetails/${Object.keys(blogData)}`}>
+                        <p>{Object.values(blogData)}</p>
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+      {error && <p className="error">{error}</p>}
+    </div>
+  );
+}
+
+
+////////////////
+
+  const getBlogID = async (booksWritten) => {
+    try {
+      console.log("Beginning of getBlogID function");
+      let titlesWithIDs = [];
+
+      booksWritten.forEach((book) => {
+        let q = query(blogsCollection, where("title", "==", book), limit(1));
+        getDocs(q, limit(1)).then((blogDocRef) => {
+          if (blogDocRef.docs.length > 0) {
+            console.log("blog exists");
+            let blogDocID = blogDocRef.docs[0].id;
+            titlesWithIDs.push({ [blogDocID]: book });
+          }
+        });
+      });
+      return titlesWithIDs;
+    } catch (err) {
+      console.log("blog does not exist");
+      return false;
+    }
+  };
