@@ -4,10 +4,17 @@
 /* 
 font-family: 'Bilbo', cursive;
 font-family: 'Calligraffitti', cursive;
+font-family: 'Charm', cursive;
+font-family: 'Estonia', cursive;
+
 font-family: 'Dosis', sans-serif;
-font-family: 'Josefin Slab', serif;
 font-family: 'Lato', sans-serif;
 font-family: 'Rajdhani', sans-serif; 
+
+
+font-family: 'Josefin Slab', serif;
+font-family: 'Cinzel', serif;
+font-family: 'Lora', serif; 
 */
 
 * {
@@ -18,20 +25,20 @@ font-family: 'Rajdhani', sans-serif;
 
 body {
   font-size: 18px;
-  font-family: sans-serif;
-  background: #3d4634ff;
+  font-family: "Lato", sans-serif;
+  background: rgb(102, 60, 63);
+}
+
+.content {
+  margin: auto;
+  margin-top: 32px;
 }
 
 h1,
-.authorLink,
+.author-link,
 .date-value,
 .tags-value {
-  /* maybe: 
-  font-family: "Estonia", cursive;
-  font-size: 60px;
-  font-weight: 700;
-  */
-  font-family: "Charm", cursive;
+  font-family: "Dosis", cursive;
 }
 
 h1,
@@ -83,4 +90,23 @@ a:hover {
 
   color: rgb(214, 149, 84);
   background: none;
+}
+
+.delete {
+  display: flex;
+  margin: auto;
+
+  padding: 8px 96px;
+
+  background: rgb(214, 149, 84);
+  color: rgb(66, 20, 34);
+
+  font-weight: 700;
+  font-size: 16px;
+
+  border: 1px solid rgb(214, 149, 84);
+  border-top: none;
+
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
 }

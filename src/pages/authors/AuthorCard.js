@@ -1,4 +1,4 @@
-import "../home/Home.css";
+import "../blogs/BlogCard.css";
 
 import { Link } from "react-router-dom";
 
@@ -6,7 +6,7 @@ import EditButton from "../../assets/EditButton";
 
 export default function AuthorCard({ authors }) {
   return (
-    <div className="content">
+    <div className="author-card">
       {authors &&
         authors.map((author) => (
           <div key={author.id} className="content-box">

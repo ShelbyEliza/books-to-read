@@ -10,8 +10,8 @@ export default function AllAuthors() {
   const { documents: authors } = useCollection("authors");
   // console.log(authors);
   return (
-    <div>
-      <h2>All Authors</h2>
+    <div className="all-authors content">
+      <h1>All Authors</h1>
       {authors && (
         <ul>
           {authors.map((author) => (

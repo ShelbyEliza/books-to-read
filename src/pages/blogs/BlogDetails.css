@@ -1,0 +1,9 @@
+.blog-details h1,
+.author-link {
+  padding-right: 20px;
+}
+
+.blog-details label {
+  padding-left: 16px;
+  padding-right: 8px;
+}

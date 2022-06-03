@@ -107,6 +107,16 @@ export const useFirestore = () => {
     return doc;
   };
 
+  const getInfo = async (coll, id) => {
+    const docRef = doc(coll, id);
+    const docSnap = await getDoc(docRef);
+    const docData = docSnap.data();
+    return {
+      docRef,
+      docData,
+    };
+  };
+
   const checkIfAuthorExists = async (blog) => {
     dispatch({ type: "IS_PENDING" });
 
@@ -267,28 +277,119 @@ export const useFirestore = () => {
     }
   };
 
-  // const getDocOrData = async () => {
+  const examineUpdate = async (updatedData) => {
+    try {
+      // checkIfAuthorExists retrieves the authorDoc if author exists
+      // else it returns a freshly made authorDoc
+      const authorDocRef = await checkIfAuthorExists(updatedData);
+      let prevAuthorID = updatedData.authorID;
+      let updatedAuthorID = authorDocRef.id;
 
-  // }
+      const { docRef: blogDocRef, docData: blogDocData } = await getInfo(
+        blogsCollection,
+        updatedData.id
+      );
+      const { docRef: prevKeyDocRef, docData: prevKeyDocData } = await getInfo(
+        keysCollection,
+        prevAuthorID
+      );
+
+      let prevKeyTitle = { [blogDocData.title]: blogDocRef.id };
+
+      let didTitleChange = blogDocData.title !== updatedData.title;
+      let didAuthorChange = blogDocData.author !== updatedData.author;
+
+      switch (didTitleChange) {
+        case true:
+          switch (didAuthorChange) {
+            case true:
+              console.log("Author name has been changed.");
+              changeAuthorName(
+                authorDocRef,
+                updatedData,
+                blogDocData,
+                blogDocRef
+              );
+              changeKeyData(updatedData, authorDocRef, blogDocData, blogDocRef);
+              break;
+            case false:
+              console.log("Author name has NOT been changed.");
+
+              const updatedBlog = await updateDoc(blogDocRef, updatedData);
+              dispatchIfNotCancelled({
+                type: "UPDATED_BLOG",
+                payload: updatedBlog,
+              });
+
+              let updatedAuthor = await updateDoc(authorDocRef, {
+                booksWritten: arrayRemove(blogDocData.title),
+              });
+              updatedAuthor = await updateDoc(authorDocRef, {
+                booksWritten: arrayUnion(updatedData.title),
+              });
+              dispatchIfNotCancelled({
+                type: "UPDATED_AUTHOR",
+                payload: updatedAuthor,
+              });
+              break;
+            default:
+              console.log("Something went wrong");
+          }
+          break;
+        case false:
+          switch (didAuthorChange) {
+            case true:
+              console.log("Book title has NOT been changed.");
+              // Condition 3: Title DOES NOT Change & Author Name Changes:
+              if (blogDocData.author !== updatedData.author) {
+                console.log("Author name has been changed.");
+                changeAuthorName(
+                  authorDocRef,
+                  updatedData,
+                  blogDocData,
+                  blogDocRef
+                );
+              }
+              break;
+            case false:
+              // Condition 4: Title DOES NOT Change & Author Name DOES NOT Change:
+              console.log("Author name has NOT been changed.");
+              const updatedBlog = await updateDoc(blogDocRef, updatedData);
+              dispatchIfNotCancelled({
+                type: "UPDATED_BLOG",
+                payload: updatedBlog,
+              });
+              break;
+            default:
+              console.log("Something went wrong");
+          }
+          break;
+        default:
+          console.log("Something went wrong");
+      }
+    } catch (err) {
+      dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
+    }
+  };
 
   const updateBlog = async (updatedData) => {
     try {
       // checkIfAuthorExists retrieves the authorDoc if author exists
       // else it returns a freshly made authorDoc
       const authorDocRef = await checkIfAuthorExists(updatedData);
-
-      const blogDocRef = doc(blogsCollection, updatedData.id);
-      const blogDocSnap = await getDoc(blogDocRef);
-      const blogDocData = blogDocSnap.data();
-
-      let updatedAuthorID = authorDocRef.id;
       let prevAuthorID = updatedData.authorID;
-      let prevKeyTitle = { [blogDocData.title]: blogDocRef.id };
+      let updatedAuthorID = authorDocRef.id;
 
-      // previous key doc:
-      const prevKeyDocRef = doc(keysCollection, prevAuthorID);
-      const prevKeyDocSnap = await getDoc(prevKeyDocRef);
-      const prevKeyDocData = prevKeyDocSnap.data();
+      const { docRef: blogDocRef, docData: blogDocData } = await getInfo(
+        blogsCollection,
+        updatedData.id
+      );
+      const { docRef: prevKeyDocRef, docData: prevKeyDocData } = await getInfo(
+        keysCollection,
+        prevAuthorID
+      );
+
+      let prevKeyTitle = { [blogDocData.title]: blogDocRef.id };
 
       if (blogDocData.title !== updatedData.title) {
         console.log("Book title has been changed.");

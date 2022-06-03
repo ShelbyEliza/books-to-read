@@ -3,15 +3,14 @@ import "./AllBlogs.css";
 
 import { useCollection } from "../../hooks/useCollection";
 
-// import BlogCard from "../home/BlogCard";
 import { Link } from "react-router-dom";
 
 export default function AllBlogs() {
   const { documents: blogs } = useCollection("blogs");
 
   return (
-    <div>
-      {/* {blogs && <BlogCard blogs={blogs} />} */}
+    <div className="all-blogs content">
+      <h1>All Blogs</h1>
       {blogs && (
         <ul>
           {blogs.map((blog) => (
