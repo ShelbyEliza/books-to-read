@@ -3,11 +3,12 @@ import "./Create.css";
 
 // import { v4 as uuidv4 } from "uuid";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFirestore } from "../../hooks/useFirestore";
 
 import Tags from "../../components/tags/Tags";
+import useDate from "../../hooks/useDate";
 
 export default function Create() {
   const navigate = useNavigate();
@@ -22,6 +23,11 @@ export default function Create() {
   const [dateFinished, setDateFinished] = useState("");
   const [tags, setTags] = useState([]);
   const [content, setContent] = useState("");
+
+  const dateToday = useDate();
+  useEffect(() => {
+    setDateStarted(dateToday);
+  }, [dateToday]);
 
   const handleTags = (e) => {
     if (e.target.checked === true) {
@@ -95,6 +101,7 @@ export default function Create() {
             type="date"
             min="1992-11-16"
             max="2092-11-16"
+            pattern="\d{4}-\d{2}-\d{2}" // some browsers read as type="text" - pattern allows validation
             onChange={(e) => setDateStarted(e.target.value)}
             value={dateStarted}
           />
@@ -108,6 +115,7 @@ export default function Create() {
             type="date"
             min="1992-11-16"
             max="2092-11-16"
+            pattern="\d{4}-\d{2}-\d{2}"
             onChange={(e) => setDateFinished(e.target.value)}
             value={dateFinished}
           />

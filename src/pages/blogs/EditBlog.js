@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useFirestore } from "../../hooks/useFirestore";
 
 import { useDocument } from "../../hooks/useDocument";
+import useDate from "../../hooks/useDate";
 
 // import Tags from "../../components/tags/Tags";
 
@@ -17,6 +18,8 @@ export default function EditBlog() {
   const [error, setError] = useState(null);
   const [blog, setBlog] = useState(null);
 
+  const dateToday = useDate();
+
   // const handleTags = (e) => {
   //   if (e.target.checked === true) {
   //     setTags([...tags, e.target.value]);
@@ -28,9 +31,11 @@ export default function EditBlog() {
 
   useEffect(() => {
     if (blogDoc) {
-      // console.log(blogDoc);
       setBlog(blogDoc);
     }
+    // if (blogDoc.dateFinished === '') {
+    //   setBlog({ ...blog, dateFinished: dateToday })
+    // }
   }, [blogDoc]);
 
   const handleSubmit = async (e) => {
