@@ -46,6 +46,13 @@ const firestoreReducer = (state, action) => {
         success: true,
         error: null,
       };
+    case "UPDATED_KEY":
+      return {
+        isPending: false,
+        document: action.payload,
+        success: true,
+        error: null,
+      };
     case "DELETED_BLOG":
       return {
         isPending: true,
@@ -65,23 +72,22 @@ const firestoreReducer = (state, action) => {
   }
 };
 
-export const useFirestoreReducer = (state, action) => {
+export const useFirestoreReducer = () => {
   const [response, dispatch] = useReducer(firestoreReducer, initialState);
   const [isCancelled, setIsCancelled] = useState(false);
 
-  const dispatchIfNotCancelled = (action) => {
+  const ifStillNotCancelled = (action) => {
     if (!isCancelled) {
       dispatch(action);
     }
   };
-
   useEffect(() => {
     return () => setIsCancelled(true);
   }, []);
 
   return {
     response,
+    ifStillNotCancelled,
     dispatch,
-    dispatchIfNotCancelled,
   };
 };

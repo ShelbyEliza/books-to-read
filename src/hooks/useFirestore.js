@@ -1,6 +1,8 @@
-import { useReducer, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthContext } from "./useAuthContext";
 import { db } from "../firebase/config";
+
+import { useFirestoreReducer } from "./useFirestoreReducer";
 
 // firebase imports:
 import {
@@ -10,86 +12,20 @@ import {
   getDoc,
   addDoc,
   setDoc,
-  updateDoc,
-  arrayUnion,
   deleteDoc,
   query,
   where,
   limit,
+  updateDoc,
+  arrayUnion,
   arrayRemove,
 } from "firebase/firestore";
 
-let initialState = {
-  document: null,
-  isPending: false,
-  error: null,
-  success: null,
-};
-
-const firestoreReducer = (state, action) => {
-  switch (action.type) {
-    case "IS_PENDING":
-      return { isPending: true, document: null, success: false, error: null };
-    case "ADDED_BLOG":
-      return {
-        isPending: false,
-        document: action.payload,
-        success: true,
-        error: null,
-      };
-    case "ADDED_AUTHOR":
-      return {
-        isPending: false,
-        document: action.payload,
-        success: true,
-        error: null,
-      };
-    case "ADDED_KEY":
-      return {
-        isPending: false,
-        document: action.payload,
-        success: true,
-        error: null,
-      };
-    case "UPDATED_BLOG":
-      return {
-        isPending: false,
-        document: action.payload,
-        success: true,
-        error: null,
-      };
-    case "UPDATED_AUTHOR":
-      return {
-        isPending: false,
-        document: action.payload,
-        success: true,
-        error: null,
-      };
-    case "DELETED_BLOG":
-      return {
-        isPending: true,
-        document: null,
-        success: action.payload,
-        error: null,
-      };
-    case "ERROR":
-      return {
-        isPending: false,
-        document: null,
-        success: false,
-        error: action.payload,
-      };
-    default:
-      return state;
-  }
-};
-
 export const useFirestore = () => {
-  const { user } = useAuthContext();
-
-  const [response, dispatch] = useReducer(firestoreReducer, initialState);
+  const { response, dispatch, ifStillNotCancelled } = useFirestoreReducer();
   const [isCancelled, setIsCancelled] = useState(false);
 
+  const { user } = useAuthContext();
   const usersDoc = doc(db, "users", user.uid);
   const blogsCollection = collection(usersDoc, "blogs");
   const authorsCollection = collection(usersDoc, "authors");
@@ -97,7 +33,7 @@ export const useFirestore = () => {
 
   const dispatchIfNotCancelled = (action) => {
     if (!isCancelled) {
-      dispatch(action);
+      ifStillNotCancelled(action);
     }
   };
 
@@ -154,8 +90,12 @@ export const useFirestore = () => {
     dispatch({ type: "IS_PENDING" });
 
     const authorDocID = authorDocRef.id;
-    const authorDocSnap = await getDoc(authorDocRef);
-    const authorDocData = authorDocSnap.data();
+    const { docData: authorDocData } = await getDocRefOrData(
+      authorsCollection,
+      authorDocID
+    );
+
+    console.log(authorDocData);
 
     try {
       let booksWithIDs = { [blog.title]: blogDocRef.id };
@@ -229,7 +169,6 @@ export const useFirestore = () => {
       booksWithIDs: [booksWithIDs],
     };
     try {
-      console.log(key);
       const addedKey = await setDoc(doc(usersDoc, "keys", authorDocID), {
         ...key,
       });
@@ -244,19 +183,13 @@ export const useFirestore = () => {
     }
   };
 
-  const updateKey = async (keyDocRef, booksWithIDs) => {
+  const updateBlog = async (prevBlogDocRef, updatedData) => {
     try {
-      const updatedKey = await updateDoc(
-        keyDocRef,
-        { booksWithIDs: arrayUnion(booksWithIDs) },
-        { merge: true }
-      );
-
+      const updatedBlog = await updateDoc(prevBlogDocRef, updatedData);
       dispatchIfNotCancelled({
-        type: "UPDATED_KEY",
-        payload: updatedKey,
+        type: "UPDATED_BLOG",
+        payload: updatedBlog,
       });
-      return keyDocRef;
     } catch (err) {
       dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
     }
@@ -280,7 +213,27 @@ export const useFirestore = () => {
     }
   };
 
+  const updateKey = async (keyDocRef, booksWithIDs) => {
+    try {
+      const updatedKey = await updateDoc(
+        keyDocRef,
+        { booksWithIDs: arrayUnion(booksWithIDs) },
+        { merge: true }
+      );
+
+      dispatchIfNotCancelled({
+        type: "UPDATED_KEY",
+        payload: updatedKey,
+      });
+      return keyDocRef;
+    } catch (err) {
+      dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
+    }
+  };
+
   const updateData = async (updatedData) => {
+    dispatch({ type: "IS_PENDING" });
+
     try {
       const { isNewAuthor, authorDocRef } = await checkIfAuthorExists(
         updatedData
@@ -327,11 +280,7 @@ export const useFirestore = () => {
         else {
           console.log("Author name has NOT been changed.");
 
-          const updatedBlog = await updateDoc(prevBlogDocRef, updatedData);
-          dispatchIfNotCancelled({
-            type: "UPDATED_BLOG",
-            payload: updatedBlog,
-          });
+          await updateBlog(prevBlogDocRef, updatedData);
 
           let updatedAuthor = await updateDoc(authorDocRef, {
             booksWritten: arrayRemove(prevBlogDocData.title),
@@ -375,11 +324,8 @@ export const useFirestore = () => {
         // Condition 4: Title DOES NOT Change & Author Name DOES NOT Change:
         else {
           console.log("Author name has NOT been changed.");
-          const updatedBlog = await updateDoc(prevBlogDocRef, updatedData);
-          dispatchIfNotCancelled({
-            type: "UPDATED_BLOG",
-            payload: updatedBlog,
-          });
+
+          await updateBlog(prevBlogDocRef, updatedData);
         }
       }
     } catch (err) {
@@ -404,6 +350,7 @@ export const useFirestore = () => {
     if (existingKeyDoc.docs.length > 0) {
       isNewAuthor = false;
       const { docRef: existingKeyDocRef } = getDocRefOrData(
+        keysCollection,
         existingKeyDoc.docs[0].id
       );
       let updatedKey = await updateDoc(existingKeyDocRef, {
@@ -475,15 +422,17 @@ export const useFirestore = () => {
     }
 
     // give blog doc new authorID:
-    const updatedBlog = await updateDoc(prevBlogDocRef, {
+
+    const updatedDataWithAuthorID = {
       ...updatedData,
       authorID: updatedAuthorID,
-    });
-    dispatchIfNotCancelled({
-      type: "UPDATED_BLOG",
-      payload: updatedBlog,
-    });
+    };
+    await updateBlog(prevBlogDocRef, updatedDataWithAuthorID);
   };
+
+  useEffect(() => {
+    return () => setIsCancelled(true);
+  }, []);
 
   const deleteBlog = async (blog) => {
     dispatch({ type: "IS_PENDING" });
@@ -507,14 +456,18 @@ export const useFirestore = () => {
   }, []);
 
   return {
+    locateDoc,
+    getDocRefOrData,
     checkIfAuthorExists,
     checkIfKeyExists,
     addBlog,
     addAuthor,
+    setKey,
     updateData,
+    updateBlog,
+    updateAuthor,
+    updateKey,
     deleteBlog,
     response,
-    dispatch,
-    dispatchIfNotCancelled,
   };
 };
