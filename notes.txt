@@ -1,118 +1,3 @@
-import { useReducer, useEffect, useState } from "react";
-import { db, timestamp } from "../firebase/config";
-
-// firebase imports:
-import { addDoc, collection } from "firebase/firestore";
-
-let initialState = {
-  document: null,
-  isPending: false,
-  error: null,
-  success: null,
-};
-
-const firestoreReducer = (state, action) => {
-  switch (action.type) {
-    case "IS_PENDING":
-      return { isPending: true, document: null, success: false, error: null };
-    case "ADDED_DOCUMENT":
-      return {
-        isPending: false,
-        document: action.payload,
-        success: true,
-        error: null,
-      };
-    case "DELETED_DOCUMENT":
-      return { isPending: false, document: null, success: true, error: null };
-    case "UPDATE_DOCUMENT":
-      return {
-        isPending: false,
-        document: action.payload,
-        success: true,
-        error: null,
-      };
-    case "ERROR":
-      return {
-        isPending: false,
-        document: null,
-        success: false,
-        error: action.payload,
-      };
-    default:
-      return state;
-  }
-};
-
-export const useFirestore = (c) => {
-  const [response, dispatch] = useReducer(firestoreReducer, initialState);
-  const [isCancelled, setIsCancelled] = useState(false);
-
-  // collection ref
-  const ref = collection(db, c);
-
-  // only dispatch is not cancelled
-  const dispatchIfNotCancelled = (action) => {
-    if (!isCancelled) {
-      dispatch(action);
-    }
-  };
-
-  // add a document
-  const addDocument = async (doc) => {
-    dispatch({ type: "IS_PENDING" });
-
-    try {
-      const createdAt = timestamp.fromDate(new Date());
-      // const addedDocument = await ref.add({ ...doc, createdAt });
-      const addedDoc = await addDoc(collection(ref, c), { ...doc, createdAt });
-      dispatchIfNotCancelled({
-        type: "ADDED_DOCUMENT",
-        payload: addedDoc,
-      });
-    } catch (err) {
-      dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
-    }
-  };
-
-  // delete a document
-  // const deleteDocument = async (id) => {
-  //   dispatch({ type: "IS_PENDING" });
-
-  //   try {
-  //     await ref.doc(id).delete();
-  //     dispatchIfNotCancelled({ type: "DELETED_DOCUMENT" });
-  //   } catch (err) {
-  //     dispatchIfNotCancelled({ type: "ERROR", payload: "could not delete" });
-  //   }
-  // };
-
-  // update documents:
-  // const updateDocument = async (id, updates) => {
-  //   dispatch({ type: "IS_PENDING" });
-
-  //   try {
-  //     const updatedDocument = await ref.doc(id).update(updates);
-
-  //     dispatchIfNotCancelled({
-  //       type: "UPDATE_DOCUMENT",
-  //       payload: updateDocument,
-  //     });
-  //     return updatedDocument;
-  //   } catch (err) {
-  //     dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
-  //     return null;
-  //   }
-  // };
-
-  useEffect(() => {
-    return () => setIsCancelled(true);
-  }, []);
-
-  return { addDocument, response };
-};
-
-/////////////////////////////
-
 // styles:
 import "./Create.css";
 
@@ -390,134 +275,258 @@ export default function BlogCard({ blogs }) {
 }
 
 
-//////////////////////////
+/////////////
 
-// styles & assets:
-import "./AuthorDetails.css";
-import EditButton from "../../assets/EditButton";
-
-import { useState, useEffect, useRef } from "react";
-
-import { useParams, Link } from "react-router-dom";
-
-import { useDocument } from "../../hooks/useDocument";
-import { useFirestore } from "../../hooks/useFirestore";
-
-export default function AuthorDetails() {
-  const { id } = useParams();
-  const { document: author, error } = useDocument("authors", id);
-  const { getBlogID } = useFirestore();
-  const [blogIDs, setBlogIDs] = useState([]);
-  let blogsWithIDs = useRef([]);
-
-  // useEffect(() => {
-  //   if (author) {
-  //     const getTheIDs = async () => {
-  //       const ids = await getBlogID(author.booksWritten);
-  //       return ids;
-  //     };
-  //     blogsWithIDs.current = getTheIDs();
-
-  //     // getBlogID(author.booksWritten).then((blogsAndIDs) => {
-  //     //   console.log(blogsAndIDs);
-  //     //   blogsWithIDs.current = blogsAndIDs;
-  //     //   console.log(blogsWithIDs.current);
-  //     // });
-  //   }
-  // }, [author, blogsWithIDs, getBlogID]);
-
-  const getTheIDs = async () => {
-    const ids = await getBlogID(author.booksWritten);
-    console.log(ids);
-    return ids;
-  };
-
-  // const ids = await getTheIDs()
-
-  if (author) {
-    getTheIDs().then((ids) => {
-      blogsWithIDs.current = ids;
-    });
-    // const ids = await getTheIDs()
-    // setBlogIDs(getTheIDs());
-    // getBlogID(author.booksWritten).then((blogsAndIDs) => {
-    //   console.log(blogsAndIDs);
-    //   blogsWithIDs.current = blogsAndIDs;
-    //   console.log(blogsWithIDs.current);
-    // });
-
-    console.log(blogsWithIDs.current);
-  }
-
-  if (blogsWithIDs.length > 0) {
-    console.log(blogsWithIDs);
-    setBlogIDs(blogsWithIDs);
-  }
-
-  return (
-    <div>
-      {author && (
-        <div className="content-box">
-          <div className="top-container">
-            <div className="card-col card-col-1">
-              <div className="card-line title-line">
-                <h1 className="title">{author.name}</h1>
-
-                <Link to="#">
-                  <EditButton className="edit" />
-                </Link>
-              </div>
-
-              {author.booksWritten.length === 0 && (
-                <div className="card-line books-written">
-                  <p className="books-written-label">Books Written:</p>
-                  <p className="books-written-value">No Books Written.</p>
-                </div>
-              )}
-
-              {blogsWithIDs.length > 0 && (
-                <div className="card-line books-written">
-                  <p className="books-written-label">Books Written:</p>
-
-                  {blogsWithIDs.map((blogData) => (
-                    <div key={Object.keys(blogData)}>
-                      <Link to={`/blogDetails/${Object.keys(blogData)}`}>
-                        <p>{Object.values(blogData)}</p>
-                      </Link>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-      {error && <p className="error">{error}</p>}
-    </div>
-  );
-}
-
-
-////////////////
-
-  const getBlogID = async (booksWritten) => {
+ const examineUpdate = async (updatedData) => {
     try {
-      console.log("Beginning of getBlogID function");
-      let titlesWithIDs = [];
+      // checkIfAuthorExists retrieves the authorDoc if author exists
+      // else it returns a freshly made authorDoc
+      const authorDocRef = await checkIfAuthorExists(updatedData);
+      let prevAuthorID = updatedData.authorID;
+      let updatedAuthorID = authorDocRef.id;
 
-      booksWritten.forEach((book) => {
-        let q = query(blogsCollection, where("title", "==", book), limit(1));
-        getDocs(q, limit(1)).then((blogDocRef) => {
-          if (blogDocRef.docs.length > 0) {
-            console.log("blog exists");
-            let blogDocID = blogDocRef.docs[0].id;
-            titlesWithIDs.push({ [blogDocID]: book });
+      const { docRef: blogDocRef, docData: blogDocData } =
+        await getDocRefOrData(blogsCollection, updatedData.id);
+      const { docRef: prevKeyDocRef, docData: prevKeyDocData } =
+        await getDocRefOrData(keysCollection, prevAuthorID);
+
+      let prevKeyTitle = { [blogDocData.title]: blogDocRef.id };
+
+      let didTitleChange = blogDocData.title !== updatedData.title;
+      let didAuthorChange = blogDocData.author !== updatedData.author;
+
+      switch (didTitleChange) {
+        case true:
+          switch (didAuthorChange) {
+            case true:
+              console.log("Author name has been changed.");
+              changeAuthorName(
+                authorDocRef,
+                updatedData,
+                blogDocData,
+                blogDocRef
+              );
+              changeKeyData(updatedData, authorDocRef, blogDocData, blogDocRef);
+              break;
+            case false:
+              console.log("Author name has NOT been changed.");
+
+              const updatedBlog = await updateDoc(blogDocRef, updatedData);
+              dispatchIfNotCancelled({
+                type: "UPDATED_BLOG",
+                payload: updatedBlog,
+              });
+
+              let updatedAuthor = await updateDoc(authorDocRef, {
+                booksWritten: arrayRemove(blogDocData.title),
+              });
+              updatedAuthor = await updateDoc(authorDocRef, {
+                booksWritten: arrayUnion(updatedData.title),
+              });
+              dispatchIfNotCancelled({
+                type: "UPDATED_AUTHOR",
+                payload: updatedAuthor,
+              });
+              break;
+            default:
+              console.log("Something went wrong");
           }
-        });
-      });
-      return titlesWithIDs;
+          break;
+        case false:
+          switch (didAuthorChange) {
+            case true:
+              console.log("Book title has NOT been changed.");
+              // Condition 3: Title DOES NOT Change & Author Name Changes:
+              if (blogDocData.author !== updatedData.author) {
+                console.log("Author name has been changed.");
+                changeAuthorName(
+                  authorDocRef,
+                  updatedData,
+                  blogDocData,
+                  blogDocRef
+                );
+              }
+              break;
+            case false:
+              // Condition 4: Title DOES NOT Change & Author Name DOES NOT Change:
+              console.log("Author name has NOT been changed.");
+              const updatedBlog = await updateDoc(blogDocRef, updatedData);
+              dispatchIfNotCancelled({
+                type: "UPDATED_BLOG",
+                payload: updatedBlog,
+              });
+              break;
+            default:
+              console.log("Something went wrong");
+          }
+          break;
+        default:
+          console.log("Something went wrong");
+      }
     } catch (err) {
-      console.log("blog does not exist");
-      return false;
+      dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
     }
   };
+
+  ------------------------
+  
+  // const changeKeyData = async (prevKeyDocRef, prevKeyDocData, prevKeyTitle) => {
+
+  //   // let updatedAuthorID = authorDocRef.id;
+  //   // let prevAuthorID = updatedData.authorID;
+  //   // let prevKeyTitle = { [blogDocData.title]: blogDocRef.id }
+
+  //   // // previous key doc:
+  //   // const prevKeyDocRef = doc(keysCollection, prevAuthorID)
+  //   // const prevKeyDocSnap = await getDoc(prevKeyDocRef)
+  //   // const prevKeyDocData = prevKeyDocSnap.data();
+
+  //   // Condition 3a: author has written multiple books
+  //   if (prevKeyDocData.booksWithIDs.length > 1) {
+  //     let updatedPrevKey = await updateDoc(prevKeyDocRef, {
+  //       booksWithIDs: arrayRemove(prevKeyTitle),
+  //     });
+  //     dispatchIfNotCancelled({
+  //       type: "UPDATED_KEY",
+  //       payload: updatedPrevKey,
+  //     });
+  //   }
+  //   // Condition 3b: author has only written the book being edited
+  //   else {
+  //     await deleteDoc(prevKeyDocRef);
+  //   }
+  // };
+
+  ------------------
+
+    const changeAuthorName = async (
+    authorDocRef,
+    updatedData,
+    blogDocData,
+    blogDocRef,
+    prevAuthorDocRef,
+    prevAuthorDocData
+  ) => {
+    let updatedAuthorID = authorDocRef.id;
+
+    // const prevAuthorDocRef = doc(authorsCollection, updatedData.authorID);
+    // const prevAuthorDocSnap = await getDoc(prevAuthorDocRef);
+    // const prevAuthorDocData = prevAuthorDocSnap.data();
+
+    // Condition 3a: author has written multiple books
+    console.log(prevAuthorDocData);
+    if (prevAuthorDocData.booksWritten.length > 1) {
+      let updatedPrevAuthor = await updateDoc(prevAuthorDocRef, {
+        booksWritten: arrayRemove(blogDocData.title),
+      });
+      dispatchIfNotCancelled({
+        type: "UPDATED_AUTHOR",
+        payload: updatedPrevAuthor,
+      });
+    }
+    // Condition 3b: author has only written the book being edited
+    else {
+      await deleteDoc(prevAuthorDocRef);
+    }
+
+    // give blog doc new authorID:
+    const updatedBlog = await updateDoc(blogDocRef, {
+      ...updatedData,
+      authorID: updatedAuthorID,
+    });
+    dispatchIfNotCancelled({
+      type: "UPDATED_BLOG",
+      payload: updatedBlog,
+    });
+  };
+
+-----------------
+
+  const checkIfAuthorExists = async (blog) => {
+    dispatch({ type: "IS_PENDING" });
+
+    try {
+      let queryRules = ["name", "==", blog.author];
+      const authorDoc = await locateDoc(authorsCollection, queryRules);
+
+      // update authorDoc & return updated authorDocRef
+      if (authorDoc.docs.length > 0) {
+        console.log("author exists");
+
+        const authorDocID = authorDoc.docs[0].id;
+        const authorDocRef = doc(authorsCollection, authorDocID);
+
+        await updateAuthor(authorDocRef, blog);
+        return authorDocRef;
+      }
+      // add authorDoc & return new authorDocRef
+      else {
+        console.log("author does not exist");
+
+        const authorDocRef = await addAuthor(blog);
+        console.log(authorDocRef);
+        return authorDocRef;
+      }
+    } catch (err) {
+      dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
+    }
+  };
+
+/////////////
+Condition 1: Title Changes & Author Name Changes:
+  1. Is this a newAuthor?
+    Yes - 
+      newAuthor generates newKey with newAuthorID ->
+        newAuthorName
+        newAuthorID
+        prevAboutAuthor ???
+        [{newBookTitle: newBookID}] 
+    No - 
+      add newKeyData to existingAuthorKey with existingAuthorKeyID ->
+        arrayUnion([{newBookTitle: newBookID}])
+        confirm: merge prevAboutAuthor with existingAboutAuthor?
+          Yes - 
+            merge prevAboutAuthor with existingAboutAuthor
+          No - 
+            do not merge prevAboutAuthor data
+  2. Was prevBookTitle the only book prevAuthor wrote?
+    Yes -
+      delete prevKey
+    No -
+      arrayRemove(prevKey)
+
+Condition 2: Title Changes & Author Name DOES NOT Change:
+  1. replace prevKey data
+    arrayRemove( [{prevBookTitle: prevBookID}] )
+    arrayUnion([{newBookTitle: prevBookID}])
+Condition 3: Title DOES NOT Change & Author Name Changes:
+  1. Is this a newAuthor?
+    Yes - 
+      newAuthor generates newKey with newAuthorID ->
+        newAuthorName
+        newAuthorID
+        [{prevBookTitle: prevBookID}] 
+
+        confirm: keep prevAboutAuthor with newAboutAuthor? 
+          Yes - 
+            add prevAboutAuthor
+          No -
+            add empty string
+    No - 
+      add newKeyData to existingAuthorKey with existingAuthorKeyID ->
+        arrayUnion([{prevBookTitle: prevBookID}])
+        confirm: merge prevAboutAuthor with existingAboutAuthor?
+          Yes - 
+            merge prevAboutAuthor with existingAboutAuthor
+          No - 
+            do not merge prevAboutAuthor data
+  2. Was prevBookTitle the only book prevAuthor wrote?
+    Yes -
+      delete prevKey
+    No -
+      arrayRemove(prevKey)
+Condition 4: Title DOES NOT Change & Author Name DOES NOT Change:
+  if aboutAuthor changed, 
+    add to newKeyData
+  else 
+    do nothing

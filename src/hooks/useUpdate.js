@@ -84,7 +84,7 @@ const firestoreReducer = (state, action) => {
   }
 };
 
-export const useFirestore = () => {
+export const useUpdate = () => {
   const { user } = useAuthContext();
 
   const [response, dispatch] = useReducer(firestoreReducer, initialState);

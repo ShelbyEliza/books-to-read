@@ -50,7 +50,7 @@ export default function Create() {
       tags,
       content,
     };
-    const authorDocRef = await checkIfAuthorExists(doc);
+    const { authorDocRef } = await checkIfAuthorExists(doc);
     const authorDocID = authorDocRef.id;
 
     doc = { ...doc, authorID: authorDocID };
@@ -67,7 +67,7 @@ export default function Create() {
 
   return (
     <div className="create-edit">
-      <h2>Create a New Blog</h2>
+      <h1>Create a New Blog</h1>
       <form id="create-form" onSubmit={handleSubmit}>
         <div className="form-row">
           <label htmlFor="bookTitle">Title:</label>

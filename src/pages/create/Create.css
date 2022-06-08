@@ -1,3 +1,24 @@
+.create-edit {
+  text-align: center;
+}
+
+.create-edit h1 {
+  padding-top: 20px;
+  font-weight: 500;
+}
+
+.create-edit h2 {
+  padding-top: 12px;
+  font-family: "Calligraffitti", cursive;
+  font-size: 40px;
+  color: rgb(66, 20, 34);
+
+  /* color: rgb(214, 149, 84); */
+  /* font-family: "Bilbo", cursive; */
+  /* font-family: "Charm", cursive; */
+  /* font-family: "Estonia", cursive; */
+}
+
 .create-edit form {
   display: flex;
   flex-flow: row wrap;

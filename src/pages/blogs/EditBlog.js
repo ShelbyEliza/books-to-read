@@ -3,22 +3,24 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useFirestore } from "../../hooks/useFirestore";
 
 import { useDocument } from "../../hooks/useDocument";
-import useDate from "../../hooks/useDate";
 
 // import Tags from "../../components/tags/Tags";
 
 export default function EditBlog() {
+  const navigate = useNavigate();
+  const { updateData, response } = useFirestore();
+
   const { id } = useParams();
   const { document: blogDoc } = useDocument("blogs", id);
-
-  const navigate = useNavigate();
-
-  const { updateBlog, response } = useFirestore();
 
   const [error, setError] = useState(null);
   const [blog, setBlog] = useState(null);
 
-  const dateToday = useDate();
+  useEffect(() => {
+    if (blogDoc) {
+      setBlog(blogDoc);
+    }
+  }, [blogDoc]);
 
   // const handleTags = (e) => {
   //   if (e.target.checked === true) {
@@ -29,21 +31,11 @@ export default function EditBlog() {
   //   }
   // };
 
-  useEffect(() => {
-    if (blogDoc) {
-      setBlog(blogDoc);
-    }
-    // if (blogDoc.dateFinished === '') {
-    //   setBlog({ ...blog, dateFinished: dateToday })
-    // }
-  }, [blogDoc]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(false);
-    // console.log(blog);
 
-    await updateBlog(blog);
+    await updateData(blog);
     if (!response.error) {
       navigate("/");
     } else {
@@ -55,7 +47,8 @@ export default function EditBlog() {
     <div>
       {blog && (
         <div className="create-edit">
-          <h2>Edit this Blog</h2>
+          <h1>Currently Editting</h1>
+          <h2>{blog.title}</h2>
           <form id="edit-form" onSubmit={handleSubmit}>
             <div className="form-row">
               <label htmlFor="bookTitle">Title:</label>
