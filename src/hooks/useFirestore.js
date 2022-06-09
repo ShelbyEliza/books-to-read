@@ -40,6 +40,7 @@ export const useFirestore = () => {
   const locateDoc = async (collection, queryRules) => {
     let q = query(collection, where(...queryRules), limit(1));
     const doc = await getDocs(q, limit(1));
+    // giving docData instead of docs
     return doc;
   };
 
@@ -47,6 +48,7 @@ export const useFirestore = () => {
     const docRef = doc(coll, id);
     const docSnap = await getDoc(docRef);
     const docData = docSnap.data();
+    // console.log(docData, docRef);
     return {
       docRef,
       docData,
@@ -61,6 +63,8 @@ export const useFirestore = () => {
       let authorDocRef;
       let queryRules = ["name", "==", blog.author];
       const authorDoc = await locateDoc(authorsCollection, queryRules);
+
+      // console.log(authorDoc);
 
       // update authorDoc & return updated authorDocRef
       if (authorDoc.docs.length > 0) {
@@ -94,8 +98,6 @@ export const useFirestore = () => {
       authorsCollection,
       authorDocID
     );
-
-    console.log(authorDocData);
 
     try {
       let booksWithIDs = { [blog.title]: blogDocRef.id };
@@ -185,6 +187,7 @@ export const useFirestore = () => {
 
   const updateBlog = async (prevBlogDocRef, updatedData) => {
     try {
+      console.log(updatedData);
       const updatedBlog = await updateDoc(prevBlogDocRef, updatedData);
       dispatchIfNotCancelled({
         type: "UPDATED_BLOG",
@@ -195,37 +198,63 @@ export const useFirestore = () => {
     }
   };
 
-  const updateAuthor = async (authorDocRef, blog) => {
+  const updateAuthor = async (authorDocRef, blog, removeBook) => {
     try {
-      const updatedAuthor = await updateDoc(
-        authorDocRef,
-        { booksWritten: arrayUnion(blog.title) },
-        { merge: true }
-      );
+      if (removeBook) {
+        console.log("removing previous title from authorData");
+        console.log(authorDocRef, blog, removeBook);
+        const updatedAuthor = await updateDoc(authorDocRef, {
+          booksWritten: arrayRemove(blog.title),
+        });
 
-      dispatchIfNotCancelled({
-        type: "UPDATED_AUTHOR",
-        payload: updatedAuthor,
-      });
-      return authorDocRef;
+        dispatchIfNotCancelled({
+          type: "UPDATED_AUTHOR",
+          payload: updatedAuthor,
+        });
+        return authorDocRef;
+      } else {
+        const updatedAuthor = await updateDoc(
+          authorDocRef,
+          { booksWritten: arrayUnion(blog.title) },
+          { merge: true }
+        );
+
+        dispatchIfNotCancelled({
+          type: "UPDATED_AUTHOR",
+          payload: updatedAuthor,
+        });
+        return authorDocRef;
+      }
     } catch (err) {
       dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
     }
   };
 
-  const updateKey = async (keyDocRef, booksWithIDs) => {
+  const updateKey = async (keyDocRef, booksWithIDs, removeBook) => {
     try {
-      const updatedKey = await updateDoc(
-        keyDocRef,
-        { booksWithIDs: arrayUnion(booksWithIDs) },
-        { merge: true }
-      );
+      if (removeBook) {
+        const updatedKey = await updateDoc(keyDocRef, {
+          booksWithIDs: arrayRemove(booksWithIDs),
+        });
 
-      dispatchIfNotCancelled({
-        type: "UPDATED_KEY",
-        payload: updatedKey,
-      });
-      return keyDocRef;
+        dispatchIfNotCancelled({
+          type: "UPDATED_KEY",
+          payload: updatedKey,
+        });
+        return keyDocRef;
+      } else {
+        const updatedKey = await updateDoc(
+          keyDocRef,
+          { booksWithIDs: arrayUnion(booksWithIDs) },
+          { merge: true }
+        );
+
+        dispatchIfNotCancelled({
+          type: "UPDATED_KEY",
+          payload: updatedKey,
+        });
+        return keyDocRef;
+      }
     } catch (err) {
       dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
     }
@@ -234,200 +263,119 @@ export const useFirestore = () => {
   const updateData = async (updatedData) => {
     dispatch({ type: "IS_PENDING" });
 
+    console.log(updatedData);
     try {
+      // get blogID does not change, we can get the prevBlogData:
+      const { docRef: prevBlogDocRef, docData: prevBlogDocData } =
+        await getDocRefOrData(blogsCollection, updatedData.id);
+
+      const { docRef: prevAuthorDocRef, docData: prevAuthorDocData } =
+        await getDocRefOrData(authorsCollection, prevBlogDocData.authorID);
+
+      // determines whether title or author name have changed on update:
+      let didTitleChange = prevBlogDocData.title !== updatedData.title;
+      let didAuthorChange = prevBlogDocData.author !== updatedData.author;
+      let isMultiBookAuthor = prevAuthorDocData.booksWritten.length > 1;
+
+      /** determines if author being updated is:
+       * new => returns newly made authorDocRef
+       * existing => returns updated existing authorDocRef
+       */
       const { isNewAuthor, authorDocRef } = await checkIfAuthorExists(
         updatedData
       );
-
       let prevAuthorID = updatedData.authorID;
       let updatedAuthorID = authorDocRef.id;
 
-      const { docRef: prevBlogDocRef, docData: prevBlogDocData } =
-        await getDocRefOrData(blogsCollection, updatedData.id);
+      const { docRef: prevKeyDocRef } = await getDocRefOrData(
+        keysCollection,
+        prevAuthorID
+      );
 
       const { docData: authorDocData } = await getDocRefOrData(
         authorsCollection,
         updatedAuthorID
       );
-      console.log(authorDocData);
-
-      const { docRef: prevKeyDocRef, docData: prevKeyDocData } =
-        await getDocRefOrData(keysCollection, prevAuthorID);
 
       let prevKeyTitle = { [prevBlogDocData.title]: prevBlogDocRef.id };
       let newKeyTitle = { [updatedData.title]: prevBlogDocRef.id };
 
-      if (prevBlogDocData.title !== updatedData.title) {
-        console.log("Book title has been changed.");
+      if (didAuthorChange === true) {
+        console.log("Author name has been changed.");
+        if (isNewAuthor) {
+          console.log("Author is a new author.");
 
-        // Condition 1: Title Changes & Author Name Changes:
-        if (prevBlogDocData.author !== updatedData.author) {
-          console.log("Author name has been changed.");
-          changeAuthorName(
-            authorDocRef,
-            updatedData,
-            prevBlogDocData,
-            prevBlogDocRef
-          );
-          changeKeyData(
-            prevKeyDocRef,
-            prevKeyDocData,
-            prevKeyTitle,
-            newKeyTitle
-          );
-        }
-        // Condition 2: Title Changes & Author Name DOES NOT Change:
-        else {
-          console.log("Author name has NOT been changed.");
-
+          await setKey(updatedAuthorID, authorDocData, newKeyTitle);
+          updatedData = { ...updatedData, authorID: updatedAuthorID };
           await updateBlog(prevBlogDocRef, updatedData);
 
-          let updatedAuthor = await updateDoc(authorDocRef, {
-            booksWritten: arrayRemove(prevBlogDocData.title),
-          });
-          updatedAuthor = await updateDoc(authorDocRef, {
-            booksWritten: arrayUnion(updatedData.title),
-          });
-          dispatchIfNotCancelled({
-            type: "UPDATED_AUTHOR",
-            payload: updatedAuthor,
-          });
+          if (isMultiBookAuthor) {
+            console.log("Previous author has written multiple books.");
+            let removeBook = true;
+            // doesn't work in updateAuthor NOT SURE WHY???
+            await updateDoc(prevAuthorDocRef, {
+              booksWritten: arrayRemove(prevBlogDocData.title),
+            });
+            // await updateAuthor(
+            //   prevAuthorDocRef,
+            //   prevBlogDocData.title,
+            //   removeBook
+            // );
+            await updateKey(prevKeyDocRef, prevKeyTitle, removeBook);
+          } else {
+            console.log("Previous author only wrote one book.");
+            await deleteDoc(prevAuthorDocRef);
+            await deleteDoc(prevKeyDocRef);
+          }
+        } else {
+          console.log("Author is an existing author.");
+          const { docRef: existingKeyDocRef } = await getDocRefOrData(
+            keysCollection,
+            updatedAuthorID
+          );
+          // add option to merge aboutAuthor info
+          await updateKey(existingKeyDocRef, newKeyTitle);
 
-          let updatedKey = await updateDoc(prevKeyDocRef, {
-            booksWithIDs: arrayRemove(prevKeyTitle),
-          });
-          updatedKey = await updateDoc(prevKeyDocRef, {
-            booksWithIDs: arrayUnion(newKeyTitle),
-          });
-          dispatchIfNotCancelled({
-            type: "UPDATED_KEY",
-            payload: updatedKey,
-          });
+          if (isMultiBookAuthor) {
+            console.log("Previous author has written multiple books.");
+            let removeBook = true;
+            // doesn't work in updateAuthor NOT SURE WHY???
+            await updateDoc(prevAuthorDocRef, {
+              booksWritten: arrayRemove(prevBlogDocData.title),
+            });
+            // await updateAuthor(
+            //   prevAuthorDocRef,
+            //   prevBlogDocData.title,
+            //   removeBook
+            // );
+            await updateKey(prevKeyDocRef, prevKeyTitle, removeBook);
+          } else {
+            console.log("Previous author only wrote one book.");
+            await deleteDoc(prevAuthorDocRef);
+            await deleteDoc(prevKeyDocRef);
+          }
         }
       } else {
-        console.log("Book title has NOT been changed.");
-        // Condition 3: Title DOES NOT Change & Author Name Changes:
-        if (prevBlogDocData.author !== updatedData.author) {
-          console.log("Author name has been changed.");
-          console.log(`Is this new author?: ${isNewAuthor}`);
-          changeAuthorName(
-            authorDocRef,
-            updatedData,
-            prevBlogDocData,
-            prevBlogDocRef,
-            authorDocRef,
-            authorDocData,
-            isNewAuthor
-          );
-        }
-
-        // Condition 4: Title DOES NOT Change & Author Name DOES NOT Change:
-        else {
-          console.log("Author name has NOT been changed.");
-
+        console.log("Author name has NOT been changed.");
+        if (didTitleChange === true) {
+          console.log("Book title has been changed.");
+          await updateBlog(prevBlogDocRef, updatedData);
+          let removeBook = true;
+          // doesn't work in updateAuthor NOT SURE WHY???
+          await updateDoc(authorDocRef, {
+            booksWritten: arrayRemove(prevBlogDocData.title),
+          });
+          // await updateAuthor(authorDocRef, prevBlogDocData.title, removeBook);
+          await updateKey(prevKeyDocRef, prevKeyTitle, removeBook);
+          await updateKey(prevKeyDocRef, newKeyTitle);
+        } else {
+          console.log("Book Title has NOT been changed.");
           await updateBlog(prevBlogDocRef, updatedData);
         }
       }
     } catch (err) {
       dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
     }
-  };
-
-  const changeKeyData = async (
-    prevKeyDocRef,
-    prevKeyDocData,
-    prevKeyTitle,
-    newKeyTitle,
-    updatedData,
-    updatedAuthorID,
-    authorDocData
-  ) => {
-    // Condition 3a: is this a new author:
-    let isNewAuthor = null;
-    let queryRules = ["author", "==", updatedData.author];
-    const existingKeyDoc = await locateDoc(keysCollection, queryRules);
-
-    if (existingKeyDoc.docs.length > 0) {
-      isNewAuthor = false;
-      const { docRef: existingKeyDocRef } = getDocRefOrData(
-        keysCollection,
-        existingKeyDoc.docs[0].id
-      );
-      let updatedKey = await updateDoc(existingKeyDocRef, {
-        booksWithIDs: arrayUnion(prevKeyTitle),
-      });
-    } else {
-      isNewAuthor = true;
-      let newKey = await setKey(updatedAuthorID, authorDocData, newKeyTitle);
-    }
-    // Condition 3b: author has written multiple books
-    // delete previous key because either authorName changed or title changed
-    if (prevKeyDocData.booksWithIDs.length > 1) {
-      let updatedPrevKey = await updateDoc(prevKeyDocRef, {
-        booksWithIDs: arrayRemove(prevKeyTitle),
-      });
-      dispatchIfNotCancelled({
-        type: "UPDATED_KEY",
-        payload: updatedPrevKey,
-      });
-    }
-    // Condition 3b: author has only written the book being edited
-    else {
-      await deleteDoc(prevKeyDocRef);
-    }
-  };
-
-  const changeAuthorName = async (
-    authorDocRef,
-    updatedData,
-    prevBlogDocData,
-    prevBlogDocRef,
-    prevAuthorDocRef,
-    prevAuthorDocData
-  ) => {
-    let updatedAuthorID = authorDocRef.id;
-
-    // Condition 3a: is this a new author:
-    let isNewAuthor = null;
-    let queryRules = ["name", "==", updatedData.author];
-    const existingAuthorDoc = await locateDoc(authorsCollection, queryRules);
-
-    if (existingAuthorDoc.docs.length > 0) {
-      console.log("hey");
-      isNewAuthor = false;
-      const existingAuthorDocID = existingAuthorDoc.docs[0].id;
-      const existingAuthorDocRef = doc(authorsCollection, existingAuthorDocID);
-      let updatedAuthor = await updateDoc(existingAuthorDocRef, {
-        booksWritten: arrayUnion(prevBlogDocData.title),
-      });
-    }
-    // else {
-    //   isNewAuthor = true;
-    //   let newAuthor = await setKey(updatedAuthorID, authorDocData, newKeyTitle);
-    // }
-    // Condition 3a: author has written multiple books
-    console.log(prevAuthorDocData);
-    if (prevAuthorDocData.booksWritten.length > 1) {
-      let updatedPrevAuthor = await updateDoc(prevAuthorDocRef, {
-        booksWritten: arrayRemove(prevBlogDocData.title),
-      });
-      dispatchIfNotCancelled({
-        type: "UPDATED_AUTHOR",
-        payload: updatedPrevAuthor,
-      });
-    }
-    // Condition 3b: author has only written the book being edited
-    else {
-      await deleteDoc(prevAuthorDocRef);
-    }
-
-    // give blog doc new authorID:
-
-    const updatedDataWithAuthorID = {
-      ...updatedData,
-      authorID: updatedAuthorID,
-    };
-    await updateBlog(prevBlogDocRef, updatedDataWithAuthorID);
   };
 
   useEffect(() => {
@@ -438,9 +386,20 @@ export const useFirestore = () => {
     dispatch({ type: "IS_PENDING" });
     console.log(response);
     const blogDoc = doc(blogsCollection, blog.id);
+    const { docRef: keyDocRef } = await getDocRefOrData(
+      keysCollection,
+      blog.authorID
+    );
+    const { docRef: authorDocRef } = await getDocRefOrData(
+      authorsCollection,
+      blog.authorID
+    );
 
     try {
       await deleteDoc(blogDoc);
+      // will need to rework to only delete specific blog title:
+      await deleteDoc(keyDocRef);
+      await deleteDoc(authorDocRef);
 
       dispatchIfNotCancelled({
         type: "DELETED_BLOG",
