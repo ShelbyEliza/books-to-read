@@ -11,12 +11,16 @@ const tagList = [
   "Horror",
 ];
 
-export default function Tags({ handleTags }) {
+export default function Tags({ handleTags, prevTags }) {
   return (
-    <div className="form-row-full">
+    <div className="form-row-full tags">
       <fieldset>
-        <legend>Tags</legend>
+        <legend>Tags:</legend>
         {tagList.map((tag) => {
+          let checked = false;
+          if (prevTags && prevTags.length > 0 && prevTags.includes(tag)) {
+            checked = true;
+          }
           return (
             <div key={tag.toLowerCase()} className="tag-option">
               <input
@@ -25,6 +29,7 @@ export default function Tags({ handleTags }) {
                 name="tags"
                 onChange={(e) => handleTags(e)}
                 value={tag}
+                defaultChecked={checked ? "checked" : ""}
               />
               <label htmlFor={tag.toLowerCase()}>{tag}</label>
             </div>

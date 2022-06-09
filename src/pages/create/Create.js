@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useFirestore } from "../../hooks/useFirestore";
 
 import Tags from "../../components/tags/Tags";
+import Rating from "../../components/Rating";
 import useDate from "../../hooks/useDate";
 
 export default function Create() {
@@ -22,6 +23,7 @@ export default function Create() {
   const [dateStarted, setDateStarted] = useState("");
   const [dateFinished, setDateFinished] = useState("");
   const [tags, setTags] = useState([]);
+  const [rating, setRating] = useState("");
   const [content, setContent] = useState("");
 
   const dateToday = useDate();
@@ -38,6 +40,11 @@ export default function Create() {
     }
   };
 
+  const handleRating = (e) => {
+    console.log(e.target.value);
+    setRating(e.target.value);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(false);
@@ -48,6 +55,7 @@ export default function Create() {
       dateStarted,
       dateFinished,
       tags,
+      rating,
       content,
     };
     const { authorDocRef } = await checkIfAuthorExists(doc);
@@ -67,10 +75,15 @@ export default function Create() {
 
   return (
     <div className="create-edit">
-      <h1>Create a New Blog</h1>
+      <div className="heading-box">
+        <h1>Creating... </h1>
+        {title ? <h2>{title}</h2> : <h2>New Blog</h2>}
+      </div>
       <form id="create-form" onSubmit={handleSubmit}>
-        <div className="form-row">
-          <label htmlFor="bookTitle">Title:</label>
+        <div className="form-row main-info">
+          <label className="main" htmlFor="bookTitle">
+            Title:
+          </label>
 
           <input
             id="bookTitle"
@@ -82,8 +95,10 @@ export default function Create() {
           />
         </div>
 
-        <div className="form-row">
-          <label htmlFor="author">Author:</label>
+        <div className="form-row main-info">
+          <label className="main" htmlFor="author">
+            Author:
+          </label>
           <input
             id="author"
             name="author"
@@ -94,7 +109,9 @@ export default function Create() {
           />
         </div>
         <div className="form-row">
-          <label htmlFor="dateStarted">Started:</label>
+          <label className="main" htmlFor="dateStarted">
+            Started:
+          </label>
           <input
             id="dateStarted"
             name="dateStarted"
@@ -108,7 +125,9 @@ export default function Create() {
         </div>
 
         <div className="form-row">
-          <label htmlFor="dateFinished">Finished:</label>
+          <label className="main" htmlFor="dateFinished">
+            Finished:
+          </label>
           <input
             id="dateFinished"
             name="dateFinished"
@@ -121,8 +140,11 @@ export default function Create() {
           />
         </div>
         <Tags handleTags={handleTags} />
+        <Rating handleRating={handleRating} />
         <div className="form-row-full">
-          <label htmlFor="blogContent">Thoughts on the Book:</label>
+          <label className="main" htmlFor="blogContent">
+            Thoughts on the Book:
+          </label>
         </div>
 
         <textarea

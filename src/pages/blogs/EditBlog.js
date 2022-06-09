@@ -4,7 +4,7 @@ import { useFirestore } from "../../hooks/useFirestore";
 
 import { useDocument } from "../../hooks/useDocument";
 
-// import Tags from "../../components/tags/Tags";
+import Tags from "../../components/tags/Tags";
 
 export default function EditBlog() {
   const navigate = useNavigate();
@@ -15,6 +15,7 @@ export default function EditBlog() {
 
   const [error, setError] = useState(null);
   const [blog, setBlog] = useState(null);
+  // const [tags, setTags] = useState([]);
 
   useEffect(() => {
     if (blogDoc) {
@@ -22,14 +23,18 @@ export default function EditBlog() {
     }
   }, [blogDoc]);
 
-  // const handleTags = (e) => {
-  //   if (e.target.checked === true) {
-  //     setTags([...tags, e.target.value]);
-  //   } else {
-  //     let reducedTags = tags.filter((tag) => tag !== e.target.value);
-  //     setTags(reducedTags);
-  //   }
-  // };
+  const handleTags = (e) => {
+    if (e.target.checked === true) {
+      if (blog.tags) {
+        setBlog({ ...blog, tags: [...blog.tags, e.target.value] });
+      } else {
+        setBlog({ ...blog, tags: [e.target.value] });
+      }
+    } else {
+      let reducedTags = blog.tags.filter((tag) => tag !== e.target.value);
+      setBlog({ ...blog, tags: reducedTags });
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -103,7 +108,7 @@ export default function EditBlog() {
                 value={blog.dateFinished}
               />
             </div>
-            {/* <Tags handleTags={handleTags} /> */}
+            <Tags handleTags={handleTags} prevTags={blog.tags} />
             <div className="form-row-full">
               <label htmlFor="blogContent">Thoughts on the Book:</label>
             </div>
