@@ -25,8 +25,11 @@ export default function Create() {
   const [tags, setTags] = useState([]);
   const [rating, setRating] = useState("");
   const [content, setContent] = useState("");
+  const [formatStart, setFormatStart] = useState("");
+  const [formatFinish, setFormatFinish] = useState("");
+  const { formatDateToday, formatDisplayDate } = useDate();
 
-  const dateToday = useDate();
+  const dateToday = formatDateToday();
   useEffect(() => {
     setDateStarted(dateToday);
   }, [dateToday]);
@@ -44,14 +47,28 @@ export default function Create() {
     setRating(rating);
   };
 
+  const handleDates = () => {
+    if (dateStarted) {
+      setFormatStart(formatDisplayDate(dateStarted));
+    }
+
+    if (dateFinished) {
+      setFormatFinish(formatDisplayDate(dateFinished));
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(false);
+
+    handleDates();
 
     let doc = {
       title,
       author,
       dateStarted,
+      formatStart,
+      formatFinish,
       dateFinished,
       tags,
       rating,

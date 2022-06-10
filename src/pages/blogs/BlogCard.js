@@ -79,7 +79,11 @@ export default function BlogCard({ blog, isSingleBlog }) {
               <div className="card-line date-space">
                 <div className="dateStarted">
                   <p className="date-label">Started:</p>
-                  <p className="date-value">{blog.dateStarted}</p>
+                  {blog.formatStart ? (
+                    <p className="date-value">{blog.formatStart}</p>
+                  ) : (
+                    <p className="date-value">{blog.dateStarted}</p>
+                  )}
                 </div>
 
                 <div className="dateFinished">
@@ -87,6 +91,8 @@ export default function BlogCard({ blog, isSingleBlog }) {
                   <div className="date-value">
                     {blog.dateFinished === "" ? (
                       <p>Currently Reading</p>
+                    ) : blog.formatDate ? (
+                      <p>{blog.formatDate}</p>
                     ) : (
                       <p>{blog.dateFinished}</p>
                     )}
@@ -97,7 +103,6 @@ export default function BlogCard({ blog, isSingleBlog }) {
 
             {blog.tags && (
               <div className="card-line tags">
-                {/* <p className="tags-label">Tags:</p> */}
                 {blog.tags.length === 0 ? (
                   <p className="tags-value">No Tags.</p>
                 ) : (
@@ -113,15 +118,12 @@ export default function BlogCard({ blog, isSingleBlog }) {
             )}
           </div>
         </div>
-        {/* {blog.content && (
-          <div className="card-line-full blog-content">
-            <p className="blog-snippet">{blog.content}</p>
-          </div>
-        )} */}
         {blog.content && (
           <div className="card-line-full blog-content">
             {blogSnips.map((snip) => (
-              <p className="snippet">{snip}</p>
+              <p className="snippet" key={Math.random() * 300}>
+                {snip}
+              </p>
             ))}
           </div>
         )}
