@@ -7,7 +7,8 @@
 
 .create-edit h1 {
   padding-top: 16px;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 40px;
   text-align: center;
 }
 
@@ -50,7 +51,7 @@
 }
 
 .create-edit form {
-  max-width: 1200px;
+  max-width: 1000px;
   display: flex;
   flex-flow: row wrap;
 
@@ -81,7 +82,7 @@
 }
 
 .create-edit fieldset div {
-  flex-basis: 20%;
+  flex-basis: 25%;
 }
 
 .create-edit fieldset {
@@ -142,6 +143,7 @@
   background: none;
   border: 1px solid rgb(66, 20, 34);
   color: rgb(66, 20, 34);
+  background: rgb(152, 117, 120);
 }
 .create-edit input,
 .create-edit select,

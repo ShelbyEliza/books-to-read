@@ -2,8 +2,8 @@ function EditButton() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="48"
-      height="48"
+      width="24"
+      height="24"
       viewBox="0 0 12.7 12.7"
     >
       <g transform="translate(17.249 133.34) scale(.54271)">

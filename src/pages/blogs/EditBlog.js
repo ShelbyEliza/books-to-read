@@ -5,6 +5,7 @@ import { useFirestore } from "../../hooks/useFirestore";
 import { useDocument } from "../../hooks/useDocument";
 
 import Tags from "../../components/tags/Tags";
+import Rating from "../../components/Rating";
 
 export default function EditBlog() {
   const navigate = useNavigate();
@@ -15,11 +16,15 @@ export default function EditBlog() {
 
   const [error, setError] = useState(null);
   const [blog, setBlog] = useState(null);
+  const [defaultRating, setDefaultRating] = useState(null);
   // const [tags, setTags] = useState([]);
 
   useEffect(() => {
     if (blogDoc) {
       setBlog(blogDoc);
+      if (blogDoc.rating) {
+        setDefaultRating(blogDoc.rating);
+      }
     }
   }, [blogDoc]);
 
@@ -34,6 +39,11 @@ export default function EditBlog() {
       let reducedTags = blog.tags.filter((tag) => tag !== e.target.value);
       setBlog({ ...blog, tags: reducedTags });
     }
+  };
+
+  const handleRating = (rating) => {
+    console.log(rating);
+    setBlog({ ...blog, rating: rating });
   };
 
   const handleSubmit = async (e) => {
@@ -109,6 +119,7 @@ export default function EditBlog() {
               />
             </div>
             <Tags handleTags={handleTags} prevTags={blog.tags} />
+            <Rating handleRating={handleRating} defaultRating={defaultRating} />
             <div className="form-row-full">
               <label htmlFor="blogContent">Thoughts on the Book:</label>
             </div>

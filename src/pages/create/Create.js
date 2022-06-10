@@ -40,9 +40,8 @@ export default function Create() {
     }
   };
 
-  const handleRating = (e) => {
-    console.log(e.target.value);
-    setRating(e.target.value);
+  const handleRating = (rating) => {
+    setRating(rating);
   };
 
   const handleSubmit = async (e) => {
@@ -76,8 +75,8 @@ export default function Create() {
   return (
     <div className="create-edit">
       <div className="heading-box">
-        <h1>Creating... </h1>
-        {title ? <h2>{title}</h2> : <h2>New Blog</h2>}
+        <h1 className="heading-title">Creating... </h1>
+        {title ? <h2>{title}</h2> : <h2 className="heading-title">New Blog</h2>}
       </div>
       <form id="create-form" onSubmit={handleSubmit}>
         <div className="form-row main-info">

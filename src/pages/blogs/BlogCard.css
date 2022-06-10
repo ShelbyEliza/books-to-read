@@ -11,6 +11,20 @@
   max-width: 900px;
 }
 
+.blog-card .title-line a,
+.blog-card .author-line a {
+  color: rgb(214, 149, 84);
+}
+.blog-card .rating {
+  display: flex;
+  flex-direction: row;
+}
+.blog-card .rating-icon {
+  background: rgb(214, 149, 84);
+  border-radius: 24px;
+  margin-right: 0.2em;
+}
+
 .content-box {
   background: rgb(66, 20, 34);
   color: rgb(214, 149, 84);
@@ -38,9 +52,6 @@
 
 .card-col-2 {
   flex: 1;
-}
-
-.card-col-2 {
   display: flex;
   justify-content: flex-end;
 }
@@ -49,26 +60,47 @@
   display: flex;
   flex-flow: row wrap;
   flex-basis: 50%;
+  margin-bottom: 8px;
+}
+.title-line {
+  justify-content: space-between;
 }
 
 .title-line,
 .author-line {
-  align-items: center;
+  align-items: end;
+}
+
+.title {
+  font-size: 60px;
+  font-family: "Estonia", cursive;
+  letter-spacing: 0.01em;
+  margin-right: 0.2em;
+}
+
+.title-edit {
+  display: flex;
+  flex-direction: row;
 }
 
 .author {
   padding-left: 16px;
   padding-right: 8px;
+  font-size: 30px;
 }
 
 .authorLink {
   font-size: 30px;
+  margin-right: 0.4em;
 }
 
 .edit {
-  max-width: 20px;
+  max-width: 0.2em;
   max-height: 20px;
   margin: 0px 10px;
+}
+.blog-card img {
+  max-width: 28px;
 }
 
 .card-image {
@@ -86,34 +118,29 @@
   justify-content: space-between;
 }
 
-/* .date-started label,
-.date-finshed label,
-.tags p {
-  display: flex;
-  justify-content: space-between;
-} */
-
 .date-value {
-  padding: 0px 0px 10px 15px;
+  padding: 0px 0px 2px 16px;
 }
-
-.tags-value {
-  padding: 0px 0px 0px 15px;
-}
-
 .tags {
   align-items: center;
+  justify-content: space-between;
 }
-.tags p {
-  padding-right: 8px;
+.tags-value {
+  padding: 0.6em 0.8em;
+  /* border: 1px solid rgb(214, 149, 84); */
+  border-radius: 24px;
+  background: rgb(102, 60, 63);
+}
+.tag {
+  color: #eab4b4;
 }
 
-.blog-snippet,
+.blog-content,
 .about-author {
   background: rgb(102, 60, 63);
   color: #eab4b4;
 
-  margin-top: 8px;
+  /* margin-top: 8px; */
   border-top: 3px solid rgb(214, 149, 84);
   border-bottom: 3px solid rgb(214, 149, 84);
 
@@ -121,20 +148,21 @@
   /* border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px; */
 
-  padding: 8px 32px;
+  padding: 8px 24px;
 
-  text-indent: 0px;
   text-align: left;
 
-  line-height: 1.6em;
+  line-height: 1.2em;
 
-  font-family: "Estonia", cursive;
-  font-size: 24px;
-  font-weight: 600;
+  font-family: "Dosis", sans-serif;
+  font-size: 1.2em;
+  /* font-weight: 600; */
+  letter-spacing: 0.05em;
 }
 
-.blog-snippet :not(p:first-child) {
-  text-indent: 30px;
+.snippet {
+  text-indent: 24px;
+  padding-bottom: 2px;
 }
 
 .about-author :not(p:first-child) {

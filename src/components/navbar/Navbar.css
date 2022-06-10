@@ -7,6 +7,9 @@ nav {
   color: rgb(214, 149, 84);
   font-size: 20px;
 }
+nav a {
+  color: rgb(214, 149, 84);
+}
 
 nav ul {
   border-top: 3px double rgb(214, 149, 84);
