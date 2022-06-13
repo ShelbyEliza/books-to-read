@@ -31,9 +31,9 @@ export default function BlogDetails() {
       {blog && (
         <>
           <BlogCard blog={blog} isSingleBlog={true} />
-          <button className="delete" onClick={(e) => handleDelete(blog)}>
+          {/* <button className="delete" onClick={(e) => handleDelete(blog)}>
             DELETE
-          </button>
+          </button> */}
         </>
       )}
       {error && <p className="error">{error}</p>}

@@ -7,7 +7,7 @@ nav {
   color: rgb(214, 149, 84);
   font-size: 20px;
 }
-nav a {
+a {
   color: rgb(214, 149, 84);
 }
 
@@ -19,29 +19,29 @@ nav ul {
   list-style-type: none;
 }
 
-nav .section {
+.section {
   margin: 0px 32px;
   font-weight: 700;
 }
 
-nav .nav-create-btn {
+.nav-create-btn {
   display: flex;
   padding-top: 12px;
   align-items: center;
   /* border-top: 2px solid rgb(101, 84, 214); */
 }
 
-nav .nav-create-btn:hover {
+.nav-create-btn:hover {
   background: rgb(214, 149, 84);
 }
 
-nav .nav-create-btn:hover a {
+.nav-create-btn:hover a {
   /* background: rgb(214, 149, 84); */
   color: #3d4634ff;
   text-decoration: none;
 }
 
-nav .middle {
+.middle {
   display: flex;
 }
 
@@ -81,7 +81,7 @@ nav .middle {
   /* border: 1px solid salmon; */
 }
 
-nav button {
+button {
   display: flex;
   color: rgb(214, 149, 84);
   background: none;
@@ -89,15 +89,10 @@ nav button {
   margin: 0;
   padding: 0;
   margin-top: 2px;
-  /* border: 1px solid salmon; */
+  border: 1px solid salmon;
 }
 
-/* nav button:hover {
-  text-decoration: underline;
-  color: rgb(228, 190, 151);
-} */
-
-nav .side {
+.side {
   padding: 4px 12px;
   border: 1px solid rgb(214, 149, 84);
   border-top: none;
@@ -110,31 +105,31 @@ nav .side {
   font-size: 12px;
 } */
 
-nav .side:hover {
+.side:hover {
   background: rgb(214, 149, 84);
   color: #3d4634ff;
 }
 
-nav .nav-tab:hover a {
+.nav-tab:hover a {
   color: #3d4634ff;
 }
 
-nav .nav-tab a {
+.nav-tab a {
   text-decoration: none;
 }
 
-nav .side:hover button {
+.side:hover button {
   color: #3d4634ff;
   cursor: pointer;
   text-decoration: underline;
 }
 
-nav .admin-tabs {
+.admin-tabs {
   display: flex;
   flex-direction: row;
 }
 
-nav .admin-tab {
+.admin-tab {
   display: flex;
 
   padding: 12px 12px;
@@ -146,12 +141,12 @@ nav .admin-tab {
   border-bottom-right-radius: 12px;
 }
 
-nav .admin-tab:hover {
+.admin-tab:hover {
   background: rgb(214, 149, 84);
   color: #3d4634ff;
 }
 
-nav .admin-tab:hover a {
+.admin-tab:hover a {
   color: #3d4634ff;
   text-decoration: none;
 }

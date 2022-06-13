@@ -1,0 +1,19 @@
+.content {
+  max-width: 700px;
+  min-width: 694px;
+  margin: auto;
+
+  text-align: center;
+}
+ul {
+  text-align: center;
+}
+
+h1 {
+  padding-bottom: 16px;
+}
+
+.list-item {
+  padding: 8px;
+  list-style-type: none;
+}

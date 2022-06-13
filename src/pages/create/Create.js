@@ -25,9 +25,11 @@ export default function Create() {
   const [tags, setTags] = useState([]);
   const [rating, setRating] = useState("");
   const [content, setContent] = useState("");
-  const [formatStart, setFormatStart] = useState("");
-  const [formatFinish, setFormatFinish] = useState("");
+  // const [formatStart, setFormatStart] = useState("");
+  // const [formatFinish, setFormatFinish] = useState("");
   const { formatDateToday, formatDisplayDate } = useDate();
+  let formatStart = null;
+  let formatFinish = null;
 
   const dateToday = formatDateToday();
   useEffect(() => {
@@ -49,11 +51,11 @@ export default function Create() {
 
   const handleDates = () => {
     if (dateStarted) {
-      setFormatStart(formatDisplayDate(dateStarted));
+      formatStart = formatDisplayDate(dateStarted);
     }
 
     if (dateFinished) {
-      setFormatFinish(formatDisplayDate(dateFinished));
+      formatFinish = formatDisplayDate(dateFinished);
     }
   };
 
@@ -108,6 +110,7 @@ export default function Create() {
             onChange={(e) => setTitle(e.target.value)}
             value={title}
             required="required"
+            size="24"
           />
         </div>
 
@@ -122,6 +125,7 @@ export default function Create() {
             onChange={(e) => setAuthor(e.target.value)}
             value={author}
             required="required"
+            size="24"
           />
         </div>
         <div className="form-row">

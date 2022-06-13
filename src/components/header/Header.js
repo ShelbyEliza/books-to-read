@@ -1,5 +1,5 @@
 // styles & assets:
-import "./Header.css";
+import "./Header.module.css";
 import Banner from "../../assets/Banner";
 
 import { Link } from "react-router-dom";

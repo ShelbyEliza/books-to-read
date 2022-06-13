@@ -3,15 +3,17 @@ import "./BlogCard.css";
 import EditButton from "../../assets/EditButton";
 import BoltIcon from "../../assets/BoltIcon.png";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useFirestore } from "../../hooks/useFirestore";
 import { useEffect, useState } from "react";
 
 export default function BlogCard({ blog, isSingleBlog }) {
-  const { deleteBlog } = useFirestore();
+  const { deleteBlog, response } = useFirestore();
   const [ratingArray, setRatingArray] = useState([]);
   const [blogSnips, setBlogSnips] = useState([]);
+  const [showDelete, setShowDelete] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (blog) {
@@ -25,8 +27,15 @@ export default function BlogCard({ blog, isSingleBlog }) {
     }
   }, [blog]);
 
-  const handleDelete = (blog) => {
-    deleteBlog(blog);
+  const handleDelete = async (blog) => {
+    if (isSingleBlog) {
+      await deleteBlog(blog);
+      if (!response.error) {
+        navigate("/");
+      }
+    } else {
+      await deleteBlog(blog);
+    }
   };
 
   return (
@@ -89,10 +98,9 @@ export default function BlogCard({ blog, isSingleBlog }) {
                 <div className="dateFinished">
                   <p className="date-label">Finished:</p>
                   <div className="date-value">
-                    {blog.dateFinished === "" ? (
-                      <p>Currently Reading</p>
-                    ) : blog.formatDate ? (
-                      <p>{blog.formatDate}</p>
+                    {blog.dateFinished === "" && <p>Currently Reading</p>}
+                    {blog.formatFinish ? (
+                      <p>{blog.formatFinish}</p>
                     ) : (
                       <p>{blog.dateFinished}</p>
                     )}
@@ -127,9 +135,26 @@ export default function BlogCard({ blog, isSingleBlog }) {
             ))}
           </div>
         )}
-        {!isSingleBlog && (
-          <button className="delete" onClick={(e) => handleDelete(blog)}>
-            DELETE
+        {showDelete === true ? (
+          <>
+            <p className="delete delete-message">
+              Are you sure you would like to delete this blog permanently?
+            </p>
+            <div className="confirm-del-container">
+              <button
+                className="delete-confirmed"
+                onClick={() => handleDelete(blog)}
+              >
+                Yes, delete this blog
+              </button>
+              <button className="cancel" onClick={() => setShowDelete(false)}>
+                Cancel
+              </button>
+            </div>
+          </>
+        ) : (
+          <button className="delete" onClick={() => setShowDelete(true)}>
+            DELETE?
           </button>
         )}
       </div>

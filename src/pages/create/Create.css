@@ -42,7 +42,6 @@
 
 .create-edit .tags label {
   font-weight: 400;
-  padding-left: 8px;
 }
 
 .create-edit .tags .tag-option {
@@ -51,9 +50,11 @@
 }
 
 .create-edit form {
-  max-width: 1000px;
+  max-width: 900px;
   display: flex;
   flex-flow: row wrap;
+
+  border-radius: 12px;
 
   background: rgb(123, 78, 81);
   color: #2e2525ff;
@@ -135,15 +136,19 @@
 }
 
 .create-edit .main-info input {
-  max-height: 240px;
+  text-align: left;
 
-  font-family: "Calligraffitti", cursive;
+  font-family: "Dosis", sans-serif;
   font-weight: 600;
-  font-size: 32px;
-  background: none;
-  border: 1px solid rgb(66, 20, 34);
-  color: rgb(66, 20, 34);
-  background: rgb(152, 117, 120);
+  font-size: 16px;
+
+  width: 100%;
+  padding: 2px 12px;
+  margin: 0 16px;
+
+  border: 1px solid rgb(102, 60, 63);
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 .create-edit input,
 .create-edit select,
@@ -156,6 +161,11 @@
   border-radius: 2px;
 }
 
+.create-edit .main-info input:focus {
+  outline: none !important;
+  border: 1px solid #eab4b4;
+}
+
 .create-edit textarea {
   flex: 1;
 
@@ -163,6 +173,7 @@
   min-height: 200px;
 
   padding: 10px;
+  border-radius: 12px;
 
   text-indent: 30px;
   text-align: left;
@@ -171,7 +182,7 @@
 
 .create-edit textarea:focus {
   border: 1px solid #2e2525ff;
-  border-radius: 2px;
+  border-radius: 12px;
 
   outline: none !important;
 }

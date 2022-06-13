@@ -1,5 +1,5 @@
 // styles:
-import "./Navbar.css";
+import styles from "./Navbar.module.css";
 
 import { useLogout } from "../../hooks/useLogout";
 import { useAuthContext } from "../../hooks/useAuthContext";
@@ -14,11 +14,11 @@ export default function Navbar() {
     <nav>
       <ul>
         {!user && (
-          <div className="admin-tabs">
-            <li className="admin-tab">
+          <div className={styles["admin-tabs"]}>
+            <li className={styles["admin-tab"]}>
               <Link to="/signup">Sign Up</Link>
             </li>
-            <li className="admin-tab">
+            <li className={styles["admin-tab"]}>
               <Link to="/login">Log In</Link>
             </li>
           </div>
@@ -26,27 +26,31 @@ export default function Navbar() {
 
         {user && (
           <>
-            <div className="section side nav-create-btn">
+            <div
+              className={`${styles.section} ${styles.side} ${styles["nav-create-btn"]}`}
+            >
               <li>
                 <Link to="/create">Add Blog</Link>
               </li>
             </div>
 
-            <div className="middle section">
-              <li className="nav-tab">
+            <div className={`${styles.middle} ${styles.section}`}>
+              <li className={styles["nav-tab"]}>
                 <Link to="/AllBlogs">All Blogs</Link>
               </li>
-              <li className="nav-tab">
+              <li className={styles["nav-tab"]}>
                 <Link to="/AllAuthors">Authors</Link>
               </li>
-              <li className="nav-tab">Tags</li>
+              <li className={styles["nav-tab"]}>Tags</li>
             </div>
-            <div className="user-tab section side">
+            <div
+              className={`${styles["user-tab"]} ${styles.section} ${styles.side}`}
+            >
               <li>
                 {!isPending && <button onClick={logout}>Logout,</button>}
                 {isPending && <button disabled>Logging Out...</button>}
               </li>
-              <p className="user-name">{user.displayName}?</p>
+              <p className={styles["user-name"]}>{user.displayName}?</p>
             </div>
           </>
         )}

@@ -95,6 +95,8 @@ a:hover {
   display: flex;
   margin: auto;
 
+  cursor: pointer;
+
   padding: 8px 96px;
 
   background: rgb(214, 149, 84);
@@ -108,4 +110,34 @@ a:hover {
 
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
+}
+
+.confirm-del-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.delete-message {
+  border-radius: 0px;
+}
+
+.cancel,
+.delete-confirmed {
+  padding: 16px 24px;
+
+  font-weight: 700;
+  font-size: 16px;
+  border: 4px solid rgb(214, 149, 84);
+  border-top: none;
+  border-bottom: none;
+
+  cursor: pointer;
+  color: #eab4b4;
+  background: rgb(102, 60, 63);
+}
+
+.cancel:hover,
+.delete-confirmed:hover {
+  color: rgb(102, 60, 63);
+  background: #eab4b4;
 }
