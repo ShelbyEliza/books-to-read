@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuthContext } from "./hooks/useAuthContext";
 
-import Home from "./pages/home/Home";
+import Home from "./pages/Home";
 import Header from "./components/header/Header";
-import Create from "./pages/create/Create";
+import Create from "./pages/Create";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import AllBlogs from "./pages/blogs/AllBlogs";

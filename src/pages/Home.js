@@ -1,5 +1,5 @@
-import { useCollection } from "../../hooks/useCollection";
-import BlogCard from "../blogs/BlogCard";
+import { useCollection } from "../hooks/useCollection";
+import BlogCard from "./blogs/BlogCard";
 
 export default function Home() {
   const { documents: blogs } = useCollection("blogs");

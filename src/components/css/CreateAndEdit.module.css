@@ -1,0 +1,214 @@
+/* font-family: "Bilbo", cursive; */
+/* font-family: "Charm", cursive; */
+/* font-family: "Estonia", cursive; */
+
+.content {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  font-size: 24px;
+}
+
+.heading {
+  padding-top: 16px;
+  padding-bottom: 32px;
+  font-weight: 600;
+  font-size: 40px;
+  text-align: center;
+}
+
+.content label,
+.content legend {
+  font-weight: 600;
+  font-size: 1.4em;
+}
+
+.content fieldset {
+  margin: 20px;
+}
+
+.content form {
+  max-width: 900px;
+  display: flex;
+  flex-flow: row wrap;
+
+  border-radius: 12px;
+
+  background: var(--light-primary-bg);
+  color: var(--extra-text);
+
+  margin: 0px 0px 20px 0px;
+  padding: 20px 40px;
+}
+
+.form-row,
+.form-row-full {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid var(--secondary-bg);
+}
+
+.form-row {
+  flex-basis: 50%;
+  align-items: center;
+
+  margin-bottom: 8px;
+  padding: 2px;
+
+  /* border: 1px solid var(--secondary-bg); */
+}
+
+.form-row-full {
+  flex-basis: 100%;
+}
+
+.content fieldset {
+  border: 1px solid var(--secondary-bg);
+}
+
+.content fieldset {
+  display: flex;
+  flex-flow: row wrap;
+  border: none;
+}
+
+.content legend {
+  flex: 1;
+  width: 100%;
+}
+
+.title label {
+  padding: 8px 20px 0px 0px;
+  margin-bottom: 8px;
+}
+
+.content input {
+  border: none;
+  margin: 4px 0px 0px 0px;
+  max-height: 24px;
+  text-align: center;
+}
+
+.content form div:nth-of-type(odd) input {
+  margin-right: 4px;
+}
+
+.content form div:nth-of-type(even) label {
+  margin-left: 4px;
+}
+
+.title input {
+  text-align: left;
+
+  font-family: "Dosis", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+
+  width: 100%;
+  padding: 2px 12px;
+  margin: 0 16px;
+
+  border: 1px solid rgb(102, 60, 63);
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.content input,
+.content select,
+.content textarea,
+.content button {
+  background: #846545ff;
+  color: #2e2525ff;
+
+  border: 1px solid #2e2525ff;
+  border-radius: 2px;
+}
+
+.title input:focus {
+  outline: none !important;
+  border: 1px solid #eab4b4;
+}
+
+.content textarea {
+  flex: 1;
+
+  width: 100%;
+  min-height: 200px;
+
+  padding: 10px;
+  border-radius: 12px;
+
+  text-indent: 30px;
+  text-align: left;
+  font-size: 16px;
+}
+
+.content textarea:focus {
+  border: 1px solid #2e2525ff;
+  border-radius: 12px;
+
+  outline: none !important;
+}
+
+.content button {
+  /* content-box padding + form margin */
+  background: #966533ff;
+  margin-left: 50px;
+  margin-bottom: 30px;
+  padding: 10px 20px;
+  font-size: medium;
+}
+
+/* Rating */
+.rating-container {
+  display: flex;
+
+  justify-content: space-between;
+
+  font-size: 20px;
+}
+.rating-option {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rating-option {
+  padding: 32px;
+  /* margin: 320px; */
+}
+
+/* Tags */
+.tags-container fieldset {
+  display: flex;
+  margin-left: 60px;
+}
+.tags-container legend {
+  margin-left: -60px;
+}
+
+.tags-container label {
+  font-weight: 400;
+}
+
+.tag-option {
+  flex-basis: 25%;
+  margin-bottom: 2px;
+  border: 1px solid var(--secondary-bg);
+  font-family: "Dosis", sans-serif;
+}
+
+/* Tablet Styles */
+@media only screen and (min-width: 510px) and (max-width: 700px) {
+  .content {
+    font-size: 12px;
+  }
+}
+
+/* Mobile Styles */
+@media only screen and (max-width: 509px) {
+  .content {
+    font-size: 10px;
+  }
+}

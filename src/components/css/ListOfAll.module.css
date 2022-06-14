@@ -5,15 +5,16 @@
 
   text-align: center;
 }
-ul {
-  text-align: center;
-}
-
-h1 {
+.heading {
   padding-bottom: 16px;
+  padding-top: 32px;
 }
-
 .list-item {
-  padding: 8px;
+  padding: 16px;
   list-style-type: none;
+}
+.link {
+  color: rgb(214, 149, 84);
+  font-size: 60px;
+  font-family: "Estonia", cursive;
 }

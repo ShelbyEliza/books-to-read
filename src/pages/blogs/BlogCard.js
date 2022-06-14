@@ -1,5 +1,6 @@
 // styles:
-import "./BlogCard.css";
+import styles from "../../components/css/Card.module.css";
+
 import EditButton from "../../assets/EditButton";
 import BoltIcon from "../../assets/BoltIcon.png";
 
@@ -9,7 +10,7 @@ import { useFirestore } from "../../hooks/useFirestore";
 import { useEffect, useState } from "react";
 
 export default function BlogCard({ blog, isSingleBlog }) {
-  const { deleteBlog, response } = useFirestore();
+  const { deleteBlog, response, error } = useFirestore();
   const [ratingArray, setRatingArray] = useState([]);
   const [blogSnips, setBlogSnips] = useState([]);
   const [showDelete, setShowDelete] = useState(false);
@@ -39,26 +40,28 @@ export default function BlogCard({ blog, isSingleBlog }) {
   };
 
   return (
-    <div className="blog-card">
-      <div key={blog.id} className="content-box">
-        <div className="top-container">
-          <div className="card-col card-col-1">
-            <div className="card-line title-line">
-              <div className="title-edit">
-                <Link className="title" to={`/blogDetails/${blog.id}`}>
-                  <h1 className="title">{blog.title}</h1>
-                </Link>
-
+    <div className={styles.card}>
+      <div className={styles["content-box"]}>
+        <div className={styles["top-container"]}>
+          <div className={`${styles["card-col"]} ${styles["card-col-1"]}`}>
+            <div className={`${styles["card-line"]} ${styles["title-line"]}`}>
+              <div className={styles["title-edit"]}>
+                <h1>
+                  <Link className={styles.title} to={`/blogDetails/${blog.id}`}>
+                    {blog.title}
+                  </Link>
+                </h1>
                 <Link to={`/editBlog/${blog.id}`}>
-                  <EditButton className="edit" blog={blog} />
+                  <EditButton className={styles.edit} blog={blog} />
                 </Link>
               </div>
+
               {blog.rating && (
-                <div className="rating">
+                <div className={styles.rating}>
                   {ratingArray.map((rating) => (
                     <div key={rating}>
                       <img
-                        className="rating-icon"
+                        className={styles["rating-icon"]}
                         alt="A number of lightening bolts indicating the rating."
                         src={BoltIcon}
                       />
@@ -69,40 +72,48 @@ export default function BlogCard({ blog, isSingleBlog }) {
             </div>
 
             {blog.author && (
-              <div className="card-line author-line">
-                <p className="author">by</p>
+              <div
+                className={`${styles["card-line"]} ${styles["author-line"]}`}
+              >
+                <p className={styles.author}>by</p>
                 <Link
-                  className="authorLink"
+                  className={styles["author-link"]}
                   to={`/authorDetails/${blog.authorID}`}
                 >
                   {blog.author}
                 </Link>
 
                 <Link to="#">
-                  <EditButton className="edit" />
+                  <EditButton className={styles.edit} />
                 </Link>
               </div>
             )}
 
             {blog.dateStarted && (
-              <div className="card-line date-space">
-                <div className="dateStarted">
-                  <p className="date-label">Started:</p>
+              <div
+                className={`${styles["card-line"]} ${styles["date-container"]}`}
+              >
+                <div className={styles["date-started"]}>
+                  <p className={styles["date-label"]}>Started:</p>
                   {blog.formatStart ? (
-                    <p className="date-value">{blog.formatStart}</p>
+                    <p className={styles["date-value"]}>{blog.formatStart}</p>
                   ) : (
-                    <p className="date-value">{blog.dateStarted}</p>
+                    <p className={styles["date-value"]}>{blog.dateStarted}</p>
                   )}
                 </div>
 
-                <div className="dateFinished">
-                  <p className="date-label">Finished:</p>
-                  <div className="date-value">
+                <div className={styles["date-finished"]}>
+                  <p className={styles["date-label"]}>Finished:</p>
+                  <div>
                     {blog.dateFinished === "" && <p>Currently Reading</p>}
                     {blog.formatFinish ? (
-                      <p>{blog.formatFinish}</p>
+                      <p className={styles["date-value"]}>
+                        {blog.formatFinish}
+                      </p>
                     ) : (
-                      <p>{blog.dateFinished}</p>
+                      <p className={styles["date-value"]}>
+                        {blog.dateFinished}
+                      </p>
                     )}
                   </div>
                 </div>
@@ -110,13 +121,13 @@ export default function BlogCard({ blog, isSingleBlog }) {
             )}
 
             {blog.tags && (
-              <div className="card-line tags">
+              <div className={`${styles["card-line"]} ${styles.tags}`}>
                 {blog.tags.length === 0 ? (
-                  <p className="tags-value">No Tags.</p>
+                  <p className={styles["tags-value"]}>No Tags.</p>
                 ) : (
                   blog.tags.map((tag) => (
-                    <p key={tag} className="tags-value">
-                      <Link key={tag} className="tag" to="#">
+                    <p key={tag} className={styles["tags-value"]}>
+                      <Link key={tag} className={styles.tag} to="#">
                         {tag}
                       </Link>
                     </p>
@@ -127,9 +138,9 @@ export default function BlogCard({ blog, isSingleBlog }) {
           </div>
         </div>
         {blog.content && (
-          <div className="card-line-full blog-content">
+          <div className={`${styles["card-line-full"]} ${styles["content"]}`}>
             {blogSnips.map((snip) => (
-              <p className="snippet" key={Math.random() * 300}>
+              <p className={styles.snippet} key={Math.random() * 300}>
                 {snip}
               </p>
             ))}
@@ -158,6 +169,8 @@ export default function BlogCard({ blog, isSingleBlog }) {
           </button>
         )}
       </div>
+      {/* make sure this error works! */}
+      {error && <p className="error">{error}</p>}
     </div>
   );
 }

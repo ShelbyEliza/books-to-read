@@ -1,15 +1,13 @@
 // styles:
-import "./Create.css";
-
-// import { v4 as uuidv4 } from "uuid";
+import styles from "../components/css/CreateAndEdit.module.css";
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useFirestore } from "../../hooks/useFirestore";
+import { useFirestore } from "../hooks/useFirestore";
 
-import Tags from "../../components/tags/Tags";
-import Rating from "../../components/Rating";
-import useDate from "../../hooks/useDate";
+import Tags from "../components/Tags";
+import Rating from "../components/Rating";
+import useDate from "../hooks/useDate";
 
 export default function Create() {
   const navigate = useNavigate();
@@ -25,8 +23,6 @@ export default function Create() {
   const [tags, setTags] = useState([]);
   const [rating, setRating] = useState("");
   const [content, setContent] = useState("");
-  // const [formatStart, setFormatStart] = useState("");
-  // const [formatFinish, setFormatFinish] = useState("");
   const { formatDateToday, formatDisplayDate } = useDate();
   let formatStart = null;
   let formatFinish = null;
@@ -92,18 +88,16 @@ export default function Create() {
   };
 
   return (
-    <div className="create-edit">
-      <div className="heading-box">
-        <h1 className="heading-title">Creating... </h1>
-        {title ? <h2>{title}</h2> : <h2 className="heading-title">New Blog</h2>}
-      </div>
+    <div className={styles.content}>
+      <h1 className={styles["heading"]}>Creating... </h1>
       <form id="create-form" onSubmit={handleSubmit}>
-        <div className="form-row main-info">
-          <label className="main" htmlFor="bookTitle">
+        <div className={`${styles["form-row"]} ${styles["title-container"]}`}>
+          <label className={styles.title} htmlFor="bookTitle">
             Title:
           </label>
 
           <input
+            className={styles.title}
             id="bookTitle"
             name="bookTitle"
             type="text"
@@ -114,11 +108,12 @@ export default function Create() {
           />
         </div>
 
-        <div className="form-row main-info">
-          <label className="main" htmlFor="author">
+        <div className={`${styles["form-row"]} ${styles["author-container"]}`}>
+          <label className={styles.author} htmlFor="author">
             Author:
           </label>
           <input
+            className={styles.author}
             id="author"
             name="author"
             type="text"
@@ -128,10 +123,8 @@ export default function Create() {
             size="24"
           />
         </div>
-        <div className="form-row">
-          <label className="main" htmlFor="dateStarted">
-            Started:
-          </label>
+        <div className={styles["form-row"]}>
+          <label htmlFor="dateStarted">Started:</label>
           <input
             id="dateStarted"
             name="dateStarted"
@@ -144,10 +137,8 @@ export default function Create() {
           />
         </div>
 
-        <div className="form-row">
-          <label className="main" htmlFor="dateFinished">
-            Finished:
-          </label>
+        <div className={styles["form-row"]}>
+          <label htmlFor="dateFinished">Finished:</label>
           <input
             id="dateFinished"
             name="dateFinished"
@@ -161,10 +152,8 @@ export default function Create() {
         </div>
         <Tags handleTags={handleTags} />
         <Rating handleRating={handleRating} />
-        <div className="form-row-full">
-          <label className="main" htmlFor="blogContent">
-            Thoughts on the Book:
-          </label>
+        <div className={styles["form-row-full"]}>
+          <label htmlFor="blogContent">Thoughts on the Book:</label>
         </div>
 
         <textarea

@@ -41,7 +41,9 @@ export default function Navbar() {
               <li className={styles["nav-tab"]}>
                 <Link to="/AllAuthors">Authors</Link>
               </li>
-              <li className={styles["nav-tab"]}>Tags</li>
+              <li className={styles["nav-tab"]}>
+                <Link to="#">Tags</Link>
+              </li>
             </div>
             <div
               className={`${styles["user-tab"]} ${styles.section} ${styles.side}`}

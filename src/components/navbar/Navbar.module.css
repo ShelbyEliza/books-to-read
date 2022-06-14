@@ -2,17 +2,20 @@ nav {
   margin: auto;
 
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
 
-  color: rgb(214, 149, 84);
-  font-size: 20px;
+  color: var(--primary-accent);
+  font-size: 16px;
+  font-family: "Dosis", sans-serif;
+
+  border-top: 3px double var(--primary-accent);
 }
-a {
-  color: rgb(214, 149, 84);
+nav a {
+  font-size: 1.2em;
+  color: var(--primary-accent);
 }
 
 nav ul {
-  border-top: 3px double rgb(214, 149, 84);
   display: flex;
 
   max-width: 900px;
@@ -20,24 +23,22 @@ nav ul {
 }
 
 .section {
-  margin: 0px 32px;
+  margin: 0px 20px;
   font-weight: 700;
+  text-align: center;
 }
 
 .nav-create-btn {
   display: flex;
-  padding-top: 12px;
   align-items: center;
-  /* border-top: 2px solid rgb(101, 84, 214); */
 }
 
 .nav-create-btn:hover {
-  background: rgb(214, 149, 84);
+  background: var(--primary-accent);
 }
 
 .nav-create-btn:hover a {
-  /* background: rgb(214, 149, 84); */
-  color: #3d4634ff;
+  color: var(--secondary-bg);
   text-decoration: none;
 }
 
@@ -48,70 +49,67 @@ nav ul {
 .nav-tab {
   display: flex;
 
-  padding: 12px 12px;
-  border: 1px solid rgb(214, 149, 84);
+  padding: 1em 1em;
+
+  background: var(--light-primary-bg);
+  border: 1px solid var(--primary-accent);
   border-top: none;
 
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
+
+  text-align: center;
+  align-items: center;
 }
 
 .nav-tab:hover {
-  background: rgb(214, 149, 84);
-  color: #3d4634ff;
+  background: var(--primary-accent);
+  color: var(--light-primary-bg);
 }
 
 .user-tab {
   display: flex;
 
   flex-direction: column;
-  /* border-bottom: 3px solid #704c28;
-  border-left: 3px solid #704c28; */
 }
 
 .user-name {
   display: flex;
   margin-top: 2px;
   margin-bottom: 0px;
-  padding-bottom: 0px;
 
   justify-content: center;
-  font-size: 14px;
-
-  /* border: 1px solid salmon; */
+  font-size: 1em;
 }
 
-button {
+nav button {
   display: flex;
-  color: rgb(214, 149, 84);
+  color: var(--primary-accent);
   background: none;
   border: none;
   margin: 0;
   padding: 0;
   margin-top: 2px;
-  border: 1px solid salmon;
 }
 
 .side {
+  justify-content: center;
+
   padding: 4px 12px;
-  border: 1px solid rgb(214, 149, 84);
+  border: 1px solid var(--primary-accent);
   border-top: none;
 
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
 }
 
-/* nav .user-name {
-  font-size: 12px;
-} */
-
 .side:hover {
-  background: rgb(214, 149, 84);
-  color: #3d4634ff;
+  background: var(--primary-accent);
+  color: var(--light-primary-bg);
 }
 
 .nav-tab:hover a {
-  color: #3d4634ff;
+  color: var(--primary-bg);
 }
 
 .nav-tab a {
@@ -119,7 +117,7 @@ button {
 }
 
 .side:hover button {
-  color: #3d4634ff;
+  color: var(--light-primary-bg);
   cursor: pointer;
   text-decoration: underline;
 }
@@ -134,7 +132,7 @@ button {
 
   padding: 12px 12px;
   margin: 0px 12px;
-  border: 1px solid rgb(214, 149, 84);
+  border: 1px solid var(--primary-accent);
   border-top: none;
 
   border-bottom-left-radius: 12px;
@@ -142,11 +140,25 @@ button {
 }
 
 .admin-tab:hover {
-  background: rgb(214, 149, 84);
-  color: #3d4634ff;
+  background: var(--primary-accent);
+  color: var(--light-primary-bg);
 }
 
 .admin-tab:hover a {
-  color: #3d4634ff;
+  color: var(--light-primary-bg);
   text-decoration: none;
+}
+
+/* Tablet Styles */
+@media only screen and (min-width: 510px) and (max-width: 700px) {
+  nav {
+    font-size: 12px;
+  }
+}
+
+/* Mobile Styles */
+@media only screen and (max-width: 509px) {
+  nav {
+    font-size: 10px;
+  }
 }

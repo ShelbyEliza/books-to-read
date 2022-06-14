@@ -1,3 +1,6 @@
+// styles:
+import styles from "./css/CreateAndEdit.module.css";
+
 const tagList = [
   "Sci-fi",
   "Informative",
@@ -13,7 +16,7 @@ const tagList = [
 
 export default function Tags({ handleTags, prevTags }) {
   return (
-    <div className="form-row-full tags">
+    <div className={styles["tags-container"]}>
       <fieldset>
         <legend>Tags:</legend>
         {tagList.map((tag) => {
@@ -22,7 +25,7 @@ export default function Tags({ handleTags, prevTags }) {
             checked = true;
           }
           return (
-            <div key={tag.toLowerCase()} className="tag-option">
+            <div key={tag.toLowerCase()} className={styles["tag-option"]}>
               <input
                 type="checkbox"
                 id={tag.toLowerCase()}

@@ -1,3 +1,6 @@
+// styles:
+import styles from "./css/CreateAndEdit.module.css";
+
 import { useState } from "react";
 
 const ratingList = [1, 2, 3, 4, 5];
@@ -13,12 +16,12 @@ export default function Rating({ handleRating, defaultRating }) {
   };
 
   return (
-    <fieldset>
-      <legend>Rating</legend>
-      <div className="rating-container">
+    <div className={styles["rating-container"]}>
+      <fieldset>
+        <legend>Rating:</legend>
         {ratingList.map((rating) => {
           return (
-            <div className="rating-option" key={rating}>
+            <div className={styles["rating-option"]} key={rating}>
               <input
                 name="rating"
                 type="radio"
@@ -27,13 +30,13 @@ export default function Rating({ handleRating, defaultRating }) {
                 onChange={(e) => changeRating(rating)}
                 checked={rating === selectedRating ? true : false}
               />
-              <label className="rating-label" htmlFor={rating}>
+              <label className={styles["rating-label"]} htmlFor={rating}>
                 {rating}
               </label>
             </div>
           );
         })}
-      </div>
-    </fieldset>
+      </fieldset>
+    </div>
   );
 }

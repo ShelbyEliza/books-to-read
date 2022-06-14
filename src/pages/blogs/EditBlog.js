@@ -4,7 +4,7 @@ import { useFirestore } from "../../hooks/useFirestore";
 
 import { useDocument } from "../../hooks/useDocument";
 
-import Tags from "../../components/tags/Tags";
+import Tags from "../../components/Tags";
 import Rating from "../../components/Rating";
 
 export default function EditBlog() {
