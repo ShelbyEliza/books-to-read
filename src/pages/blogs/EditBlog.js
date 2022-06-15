@@ -1,3 +1,6 @@
+// styles:
+import styles from "../../components/css/CreateAndEdit.module.css";
+
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFirestore } from "../../hooks/useFirestore";
@@ -61,35 +64,46 @@ export default function EditBlog() {
   return (
     <div>
       {blog && (
-        <div className="create-edit">
-          <h1>Currently Editting</h1>
-          <h2>{blog.title}</h2>
+        <div className={styles.content}>
+          <h1 className={styles["heading"]}>Editting...</h1>
           <form id="edit-form" onSubmit={handleSubmit}>
-            <div className="form-row">
-              <label htmlFor="bookTitle">Title:</label>
+            <div
+              className={`${styles["form-row"]} ${styles["title-container"]}`}
+            >
+              <label className={styles.title} htmlFor="bookTitle">
+                Title:
+              </label>
 
               <input
+                className={styles.title}
                 id="bookTitle"
                 name="bookTitle"
                 type="text"
                 onChange={(e) => setBlog({ ...blog, title: e.target.value })}
                 value={blog.title}
                 required="required"
+                size="24"
               />
             </div>
 
-            <div className="form-row">
-              <label htmlFor="author">Author:</label>
+            <div
+              className={`${styles["form-row"]} ${styles["author-container"]}`}
+            >
+              <label className={styles.author} htmlFor="author">
+                Author:
+              </label>
               <input
+                className={styles.author}
                 id="author"
                 name="author"
                 type="text"
                 onChange={(e) => setBlog({ ...blog, author: e.target.value })}
                 value={blog.author}
                 required="required"
+                size="24"
               />
             </div>
-            <div className="form-row">
+            <div className={styles["form-row"]}>
               <label htmlFor="dateStarted">Started:</label>
               <input
                 id="dateStarted"
@@ -104,7 +118,7 @@ export default function EditBlog() {
               />
             </div>
 
-            <div className="form-row">
+            <div className={styles["form-row"]}>
               <label htmlFor="dateFinished">Finished:</label>
               <input
                 id="dateFinished"
@@ -120,7 +134,7 @@ export default function EditBlog() {
             </div>
             <Tags handleTags={handleTags} prevTags={blog.tags} />
             <Rating handleRating={handleRating} defaultRating={defaultRating} />
-            <div className="form-row-full">
+            <div className={styles["form-row-full"]}>
               <label htmlFor="blogContent">Thoughts on the Book:</label>
             </div>
 

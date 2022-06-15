@@ -8,6 +8,7 @@ import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import AllBlogs from "./pages/blogs/AllBlogs";
 import AllAuthors from "./pages/authors/AllAuthors";
+import AllTags from "./pages/AllTags";
 import BlogDetails from "./pages/blogs/BlogDetails";
 import AuthorDetails from "./pages/authors/AuthorDetails";
 import EditBlog from "./pages/blogs/EditBlog";
@@ -36,6 +37,10 @@ function App() {
             <Route
               path="/allAuthors"
               element={user ? <AllAuthors /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/allTags"
+              element={user ? <AllTags /> : <Navigate to="/login" />}
             />
             <Route
               path="/blogDetails/:id"

@@ -95,7 +95,6 @@ export default function Create() {
           <label className={styles.title} htmlFor="bookTitle">
             Title:
           </label>
-
           <input
             className={styles.title}
             id="bookTitle"

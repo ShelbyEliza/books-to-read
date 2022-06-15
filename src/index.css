@@ -20,8 +20,11 @@ font-family: 'Lora', serif;
 :root {
   /*Background*/
   --primary-bg: rgb(102, 60, 63);
+  --lightest-primary-bg: rgb(237, 210, 212);
   --light-primary-bg: rgb(123, 78, 81);
+  --dark-primary-bg: rgb(81, 55, 56);
   --primary-accent: rgb(214, 149, 84);
+  --light-primary-accent: rgb(255, 207, 158);
   --secondary-bg: rgb(66, 20, 34);
 
   /* Text */
@@ -43,6 +46,22 @@ body {
   font-size: 18px;
   font-family: "Lato", sans-serif;
   background: var(--primary-bg);
+}
+nav a {
+  background: var(--light-primary-bg);
+  border: 1px solid var(--light-primary-accent);
+}
+
+.active {
+  color: var(--light-primary-accent);
+}
+.active:hover {
+  text-decoration: none;
+}
+.active {
+  background: var(--dark-primary-bg);
+  border: 1px solid var(--light-primary-accent);
+  border-top: none;
 }
 
 .content {

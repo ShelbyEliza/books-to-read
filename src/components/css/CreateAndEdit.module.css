@@ -21,7 +21,7 @@
 .content label,
 .content legend {
   font-weight: 600;
-  font-size: 1.4em;
+  font-size: 1.2em;
 }
 
 .content fieldset {
@@ -46,7 +46,7 @@
 .form-row-full {
   display: flex;
   justify-content: space-between;
-  border: 1px solid var(--secondary-bg);
+  /* border: 1px solid var(--secondary-bg); */
 }
 
 .form-row {
@@ -61,10 +61,6 @@
 
 .form-row-full {
   flex-basis: 100%;
-}
-
-.content fieldset {
-  border: 1px solid var(--secondary-bg);
 }
 
 .content fieldset {
@@ -84,10 +80,8 @@
 }
 
 .content input {
-  border: none;
   margin: 4px 0px 0px 0px;
   max-height: 24px;
-  text-align: center;
 }
 
 .content form div:nth-of-type(odd) input {
@@ -98,33 +92,27 @@
   margin-left: 4px;
 }
 
-.title input {
-  text-align: left;
-
-  font-family: "Dosis", sans-serif;
-  font-weight: 600;
-  font-size: 16px;
-
-  width: 100%;
-  padding: 2px 12px;
+.form-row input {
   margin: 0 16px;
+  padding: 16px 8px;
 
-  border: 1px solid rgb(102, 60, 63);
-  border-radius: 4px;
-  box-sizing: border-box;
+  /* width: 100%; */
+
+  text-align: left;
+  font-family: "Dosis", sans-serif;
+  font-size: 20px;
 }
 .content input,
 .content select,
 .content textarea,
 .content button {
-  background: #846545ff;
-  color: #2e2525ff;
+  background: var(--lightest-primary-bg);
 
-  border: 1px solid #2e2525ff;
-  border-radius: 2px;
+  border: 1px solid var(--primary-bg);
+  border-radius: 4px;
 }
 
-.title input:focus {
+.form-row input:focus {
   outline: none !important;
   border: 1px solid #eab4b4;
 }
@@ -135,7 +123,8 @@
   width: 100%;
   min-height: 200px;
 
-  padding: 10px;
+  margin-top: 1em;
+  padding: 1em;
   border-radius: 12px;
 
   text-indent: 30px;
@@ -144,7 +133,7 @@
 }
 
 .content textarea:focus {
-  border: 1px solid #2e2525ff;
+  border: 1px solid var(--extra-text);
   border-radius: 12px;
 
   outline: none !important;
@@ -156,7 +145,7 @@
   margin-left: 50px;
   margin-bottom: 30px;
   padding: 10px 20px;
-  font-size: medium;
+  font-size: 0.8em;
 }
 
 /* Rating */
@@ -195,8 +184,9 @@
 .tag-option {
   flex-basis: 25%;
   margin-bottom: 2px;
-  border: 1px solid var(--secondary-bg);
+  /* border: 1px solid var(--secondary-bg); */
   font-family: "Dosis", sans-serif;
+  font-size: 0.7em;
 }
 
 /* Tablet Styles */

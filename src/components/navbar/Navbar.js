@@ -4,7 +4,7 @@ import styles from "./Navbar.module.css";
 import { useLogout } from "../../hooks/useLogout";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
   const { logout, isPending } = useLogout();
@@ -16,36 +16,56 @@ export default function Navbar() {
         {!user && (
           <div className={styles["admin-tabs"]}>
             <li className={styles["admin-tab"]}>
-              <Link to="/signup">Sign Up</Link>
+              <NavLink to="/signup">Sign Up</NavLink>
             </li>
             <li className={styles["admin-tab"]}>
-              <Link to="/login">Log In</Link>
+              <NavLink to="/login">Log In</NavLink>
             </li>
           </div>
         )}
 
         {user && (
           <>
-            <div
-              className={`${styles.section} ${styles.side} ${styles["nav-create-btn"]}`}
-            >
+            <li>
+              <NavLink
+                className={`${styles.section} ${styles["create-tab"]}`}
+                to="/create"
+              >
+                Add Blog
+              </NavLink>
+            </li>
+
+            <div className={`${styles.middle} ${styles.section}`}>
               <li>
-                <Link to="/create">Add Blog</Link>
+                <NavLink className={styles["nav-tab"]} to="/AllBlogs">
+                  All Blogs
+                </NavLink>
+              </li>
+              <li>
+                <NavLink className={styles["nav-tab"]} to="/AllAuthors">
+                  Authors
+                </NavLink>
+              </li>
+              <li>
+                <NavLink className={styles["nav-tab"]} to="/AllTags">
+                  Tags
+                </NavLink>
               </li>
             </div>
 
-            <div className={`${styles.middle} ${styles.section}`}>
-              <li className={styles["nav-tab"]}>
-                <Link to="/AllBlogs">All Blogs</Link>
+            {!isPending ? (
+              <li className={`${styles.section} ${styles.logout}`}>
+                <button onClick={logout}>Logout,</button>
+                <p className={styles["user-name"]}>{user.displayName}?</p>
               </li>
-              <li className={styles["nav-tab"]}>
-                <Link to="/AllAuthors">Authors</Link>
+            ) : (
+              <li className={`${styles.section} ${styles.logout}`}>
+                <button disabled>Logging Out...</button>
+                <p className={styles["user-name"]}>{user.displayName}?</p>
               </li>
-              <li className={styles["nav-tab"]}>
-                <Link to="#">Tags</Link>
-              </li>
-            </div>
-            <div
+            )}
+
+            {/* <div
               className={`${styles["user-tab"]} ${styles.section} ${styles.side}`}
             >
               <li>
@@ -53,7 +73,7 @@ export default function Navbar() {
                 {isPending && <button disabled>Logging Out...</button>}
               </li>
               <p className={styles["user-name"]}>{user.displayName}?</p>
-            </div>
+            </div> */}
           </>
         )}
       </ul>
