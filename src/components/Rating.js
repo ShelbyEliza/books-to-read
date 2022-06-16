@@ -21,8 +21,9 @@ export default function Rating({ handleRating, defaultRating }) {
         <legend>Rating:</legend>
         {ratingList.map((rating) => {
           return (
-            <div className={styles["rating-option"]} key={rating}>
+            <div className={styles["rating-holder"]} key={rating}>
               <input
+                className={styles.rating}
                 name="rating"
                 type="radio"
                 id={rating}
@@ -30,7 +31,14 @@ export default function Rating({ handleRating, defaultRating }) {
                 onChange={(e) => changeRating(rating)}
                 checked={rating === selectedRating ? true : false}
               />
-              <label className={styles["rating-label"]} htmlFor={rating}>
+              <label
+                className={
+                  rating === selectedRating
+                    ? `${styles.selected} ${styles["rating-option"]}`
+                    : styles["rating-option"]
+                }
+                htmlFor={rating}
+              >
                 {rating}
               </label>
             </div>

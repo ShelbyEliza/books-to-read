@@ -7,7 +7,9 @@
   flex-direction: column;
 
   align-items: center;
+  font-family: "Dosis", sans-serif;
   font-size: 24px;
+  color: var(--light-primary-accent);
 }
 
 .heading {
@@ -53,7 +55,7 @@
   flex-basis: 50%;
   align-items: center;
 
-  margin-bottom: 8px;
+  margin-bottom: 20px;
   padding: 2px;
 
   /* border: 1px solid var(--secondary-bg); */
@@ -84,19 +86,17 @@
   max-height: 24px;
 }
 
-.content form div:nth-of-type(odd) input {
-  margin-right: 4px;
+.form-row:nth-of-type(odd) input {
+  margin-right: 12px;
 }
 
-.content form div:nth-of-type(even) label {
-  margin-left: 4px;
+.form-row:nth-of-type(even) label {
+  margin-left: 12px;
 }
 
 .form-row input {
   margin: 0 16px;
   padding: 16px 8px;
-
-  /* width: 100%; */
 
   text-align: left;
   font-family: "Dosis", sans-serif;
@@ -104,12 +104,14 @@
 }
 .content input,
 .content select,
-.content textarea,
-.content button {
+.content textarea {
   background: var(--lightest-primary-bg);
 
   border: 1px solid var(--primary-bg);
   border-radius: 4px;
+}
+.content input[type="date"] {
+  cursor: text;
 }
 
 .form-row input:focus {
@@ -139,64 +141,131 @@
   outline: none !important;
 }
 
-.content button {
+.post-btn {
   /* content-box padding + form margin */
-  background: #966533ff;
   margin-left: 50px;
   margin-bottom: 30px;
   padding: 10px 20px;
+
+  border: 1px solid rgb(75, 53, 53);
+  border-radius: 4px;
+  box-shadow: 2px 2px 8px rgba(48, 33, 33, 0.466);
+
+  background: var(--dark-primary-bg);
+  color: var(--lightest-primary-bg);
+
+  font-family: "Dosis", sans-serif;
+  font-weight: 600;
   font-size: 0.8em;
+
+  cursor: pointer;
 }
 
-/* Rating */
-.rating-container {
-  display: flex;
-
-  justify-content: space-between;
-
-  font-size: 20px;
-}
-.rating-option {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.rating-option {
-  padding: 32px;
-  /* margin: 320px; */
+.post-btn:hover {
+  background: var(--lightest-primary-bg);
+  color: var(--dark-primary-bg);
 }
 
-/* Tags */
+/* --------------- Tags -------------------- */
 .tags-container fieldset {
   display: flex;
   margin-left: 60px;
+  justify-content: space-between;
 }
 .tags-container legend {
   margin-left: -60px;
+  margin-top: 12px;
 }
 
 .tags-container label {
   font-weight: 400;
 }
+.tag-holder {
+  display: flex;
+  flex: 1 20%;
+  justify-content: center;
 
-.tag-option {
-  flex-basis: 25%;
-  margin-bottom: 2px;
-  /* border: 1px solid var(--secondary-bg); */
-  font-family: "Dosis", sans-serif;
-  font-size: 0.7em;
+  margin: 4px;
 }
 
-/* Tablet Styles */
+.tag-option {
+  display: flex;
+  align-items: center;
+  padding: 4px 16px;
+
+  border: 1px solid var(--lightest-primary-bg);
+  border-radius: 8px;
+
+  color: var(--lightest-primary-bg);
+  text-align: center;
+  font-family: "Dosis", sans-serif;
+  font-size: 0.7em;
+
+  cursor: pointer;
+}
+
+.tag-option:hover {
+  background: var(--dark-primary-bg);
+}
+.checked {
+  background: var(--dark-primary-bg);
+}
+.tag {
+  display: none;
+}
+
+/* -------------------- Rating --------------------- */
+.rating-container {
+  display: flex;
+  margin-top: -20px;
+}
+.rating-container div:first-of-type {
+  margin-left: 96px;
+}
+.rating-container div {
+  margin-top: 12px;
+  margin-left: 12px;
+}
+.rating-holder {
+  font-size: 20px;
+  display: flex;
+  flex-direction: 20%;
+  justify-content: space-between;
+
+  margin: 4px;
+}
+
+.rating-option {
+  display: flex;
+  align-items: center;
+  padding: 4px 16px;
+
+  border: 1px solid var(--lightest-primary-bg);
+  border-radius: 8px;
+
+  color: var(--lightest-primary-bg);
+  text-align: center;
+  font-family: "Dosis", sans-serif;
+  font-size: 0.7em;
+
+  cursor: pointer;
+}
+
+.rating {
+  display: none;
+}
+.selected {
+  background: var(--dark-primary-bg);
+}
+
+/* -------------------- Tablet Styles ---------------- */
 @media only screen and (min-width: 510px) and (max-width: 700px) {
   .content {
     font-size: 12px;
   }
 }
 
-/* Mobile Styles */
+/* ------------------- Mobile Styles ----------------- */
 @media only screen and (max-width: 509px) {
   .content {
     font-size: 10px;

@@ -1,5 +1,5 @@
 // styles:
-import "./Login.css";
+import styles from "./Admin.module.css";
 
 import { useState } from "react";
 import { useLogin } from "../../hooks/useLogin";
@@ -15,13 +15,13 @@ export default function Login() {
   };
 
   return (
-    <div className="login">
-      <form className="login-form" onSubmit={handleSubmit}>
-        <h2>Login</h2>
-        <div className="input-container">
+    <div className={styles.content}>
+      <form onSubmit={handleSubmit}>
+        <h1>Login</h1>
+        <div className={styles["content-container"]}>
           <label>
             <span>Email:</span>
-            <div></div>
+
             <input
               required
               autoComplete="email"
@@ -32,7 +32,7 @@ export default function Login() {
           </label>
           <label>
             <span>Password:</span>
-            <div></div>
+
             <input
               required
               autoComplete="current-password"
@@ -41,9 +41,11 @@ export default function Login() {
               value={password}
             />
           </label>
-          {!isPending && <button className="btn">Log In</button>}
+          {!isPending && (
+            <button className={styles["login-signup-btn"]}>Log In</button>
+          )}
           {isPending && (
-            <button className="btn" disabled>
+            <button className={styles["login-signup-btn"]} disabled>
               Logging In...
             </button>
           )}

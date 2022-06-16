@@ -25,8 +25,9 @@ export default function Tags({ handleTags, prevTags }) {
             checked = true;
           }
           return (
-            <div key={tag.toLowerCase()} className={styles["tag-option"]}>
+            <div key={tag.toLowerCase()} className={styles["tag-holder"]}>
               <input
+                className={styles.tag}
                 type="checkbox"
                 id={tag.toLowerCase()}
                 name="tags"
@@ -34,7 +35,16 @@ export default function Tags({ handleTags, prevTags }) {
                 value={tag}
                 defaultChecked={checked ? "checked" : ""}
               />
-              <label htmlFor={tag.toLowerCase()}>{tag}</label>
+              <label
+                className={
+                  checked
+                    ? `${styles.checked} ${styles["tag-option"]}`
+                    : styles["tag-option"]
+                }
+                htmlFor={tag.toLowerCase()}
+              >
+                {tag}
+              </label>
             </div>
           );
         })}

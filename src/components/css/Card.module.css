@@ -146,8 +146,8 @@
 }
 
 .content {
-  background: var(--primary-bg);
-  color: var(--primary-text);
+  background: var(--light-primary-bg);
+  color: var(--lightest-primary-bg);
 
   border-top: 3px solid var(--primary-accent);
   border-bottom: 3px solid var(--primary-accent);

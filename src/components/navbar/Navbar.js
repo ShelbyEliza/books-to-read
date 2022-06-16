@@ -9,17 +9,24 @@ import { NavLink } from "react-router-dom";
 export default function Navbar() {
   const { logout, isPending } = useLogout();
   const { user } = useAuthContext();
+  if (user) {
+    console.log(user.displayName);
+  }
 
   return (
     <nav>
       <ul>
         {!user && (
           <div className={styles["admin-tabs"]}>
-            <li className={styles["admin-tab"]}>
-              <NavLink to="/signup">Sign Up</NavLink>
+            <li>
+              <NavLink className={styles["admin-tab"]} to="/signup">
+                Sign Up
+              </NavLink>
             </li>
-            <li className={styles["admin-tab"]}>
-              <NavLink to="/login">Log In</NavLink>
+            <li>
+              <NavLink className={styles["admin-tab"]} to="/login">
+                Log In
+              </NavLink>
             </li>
           </div>
         )}
@@ -55,8 +62,12 @@ export default function Navbar() {
 
             {!isPending ? (
               <li className={`${styles.section} ${styles.logout}`}>
-                <button onClick={logout}>Logout,</button>
-                <p className={styles["user-name"]}>{user.displayName}?</p>
+                <button onClick={logout}>
+                  <span>Logout,</span>
+                  <span className={styles["user-name"]}>
+                    {user.displayName}?
+                  </span>
+                </button>
               </li>
             ) : (
               <li className={`${styles.section} ${styles.logout}`}>
@@ -64,16 +75,6 @@ export default function Navbar() {
                 <p className={styles["user-name"]}>{user.displayName}?</p>
               </li>
             )}
-
-            {/* <div
-              className={`${styles["user-tab"]} ${styles.section} ${styles.side}`}
-            >
-              <li>
-                {!isPending && <button onClick={logout}>Logout,</button>}
-                {isPending && <button disabled>Logging Out...</button>}
-              </li>
-              <p className={styles["user-name"]}>{user.displayName}?</p>
-            </div> */}
           </>
         )}
       </ul>

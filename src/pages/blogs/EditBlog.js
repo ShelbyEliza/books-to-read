@@ -32,13 +32,15 @@ export default function EditBlog() {
   }, [blogDoc]);
 
   const handleTags = (e) => {
-    if (e.target.checked === true) {
+    if (e.target.checked) {
+      console.log("Add Tag");
       if (blog.tags) {
         setBlog({ ...blog, tags: [...blog.tags, e.target.value] });
       } else {
         setBlog({ ...blog, tags: [e.target.value] });
       }
     } else {
+      console.log("Remove Tag");
       let reducedTags = blog.tags.filter((tag) => tag !== e.target.value);
       setBlog({ ...blog, tags: reducedTags });
     }
@@ -146,11 +148,11 @@ export default function EditBlog() {
             ></textarea>
           </form>
           {response.isPending ? (
-            <button className="btn" disabled>
+            <button className={styles["post-btn"]} disabled>
               Updating Blog...
             </button>
           ) : (
-            <button form="edit-form" className="btn">
+            <button form="edit-form" className={styles["post-btn"]}>
               Update!
             </button>
           )}

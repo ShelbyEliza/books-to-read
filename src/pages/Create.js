@@ -33,6 +33,7 @@ export default function Create() {
   }, [dateToday]);
 
   const handleTags = (e) => {
+    console.log(e.target.checked);
     if (e.target.checked === true) {
       setTags([...tags, e.target.value]);
     } else {
@@ -149,7 +150,7 @@ export default function Create() {
             value={dateFinished}
           />
         </div>
-        <Tags handleTags={handleTags} />
+        <Tags handleTags={handleTags} prevTags={tags} />
         <Rating handleRating={handleRating} />
         <div className={styles["form-row-full"]}>
           <label htmlFor="blogContent">Thoughts on the Book:</label>
@@ -163,11 +164,11 @@ export default function Create() {
         ></textarea>
       </form>
       {response.isPending ? (
-        <button className="btn" disabled>
+        <button className={styles["post-btn"]} disabled>
           Posting Blog...
         </button>
       ) : (
-        <button form="create-form" className="btn">
+        <button form="create-form" className={styles["post-btn"]}>
           Post!
         </button>
       )}

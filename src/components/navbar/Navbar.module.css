@@ -77,6 +77,7 @@ nav button {
   display: flex;
   justify-content: center;
   flex-direction: column;
+  text-align: center;
 
   padding: 0.4em 1.4em;
 
@@ -87,6 +88,11 @@ nav button {
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
 }
+.logout button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
 /* hover */
 nav a:hover,
@@ -95,6 +101,7 @@ nav a:hover,
   color: var(--light-primary-bg);
 }
 
+.admin-tab:hover,
 .nav-tab:hover,
 .create-tab:hover,
 .logout:hover {
@@ -112,6 +119,8 @@ nav a:hover,
   text-decoration: underline;
 }
 
+/* -------------------- Admin ----------------------- */
+
 .admin-tabs {
   display: flex;
   flex-direction: row;
@@ -120,23 +129,13 @@ nav a:hover,
 .admin-tab {
   display: flex;
 
-  padding: 12px 12px;
+  padding: 0.4em 1.4em;
   margin: 0px 12px;
-  border: 1px solid var(--primary-accent);
+
   border-top: none;
 
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
-}
-
-.admin-tab:hover {
-  background: var(--primary-accent);
-  color: var(--light-primary-bg);
-}
-
-.admin-tab:hover a {
-  color: var(--light-primary-bg);
-  text-decoration: none;
 }
 
 /* Tablet Styles */
