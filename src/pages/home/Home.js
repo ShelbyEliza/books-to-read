@@ -10,22 +10,23 @@ export default function Home() {
 
   return (
     <div className={styles.content}>
-      {blogs && blogs.length > 0 ? (
-        blogs.map((blog) => (
-          <div key={blog.id}>
-            <BlogCard blog={blog} isSingleBlog={false} />
+      {blogs &&
+        (blogs.length > 0 ? (
+          blogs.map((blog) => (
+            <div key={blog.id}>
+              <BlogCard blog={blog} isSingleBlog={false} />
+            </div>
+          ))
+        ) : (
+          <div className={styles["message-container"]}>
+            <h1 className={styles["message-header"]}>
+              Sorry, there are no blogs to display.
+            </h1>
+            <Link className={styles["link"]} to="/create">
+              Would you like to write your first blog?
+            </Link>
           </div>
-        ))
-      ) : (
-        <div className={styles["message-container"]}>
-          <h1 className={styles["message-header"]}>
-            Sorry, there are no blogs to display.
-          </h1>
-          <Link className={styles["link"]} to="/create">
-            Would you like to write your first blog?
-          </Link>
-        </div>
-      )}
+        ))}
     </div>
   );
 }

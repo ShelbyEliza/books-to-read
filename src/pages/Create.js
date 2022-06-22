@@ -33,7 +33,6 @@ export default function Create() {
   }, [dateToday]);
 
   const handleTags = (e) => {
-    console.log(e.target.checked);
     if (e.target.checked === true) {
       setTags([...tags, e.target.value]);
     } else {

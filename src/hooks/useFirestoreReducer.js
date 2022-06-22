@@ -46,6 +46,13 @@ const firestoreReducer = (state, action) => {
         success: true,
         error: null,
       };
+    case "UPDATED_ABOUT_AUTHOR":
+      return {
+        isPending: false,
+        document: action.payload,
+        success: true,
+        error: null,
+      };
     case "UPDATED_KEY":
       return {
         isPending: false,

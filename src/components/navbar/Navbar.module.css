@@ -54,15 +54,6 @@ nav ul {
   align-items: center;
 }
 
-.user-name {
-  display: flex;
-  margin-top: 2px;
-  margin-bottom: 0px;
-
-  justify-content: center;
-  font-size: 1em;
-}
-
 nav button {
   display: flex;
   color: var(--light-primary-accent);
@@ -91,7 +82,7 @@ nav button {
 .logout button {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
 }
 
 /* hover */
@@ -116,7 +107,6 @@ nav a:hover,
 .logout:hover button {
   color: var(--light-primary-bg);
   cursor: pointer;
-  text-decoration: underline;
 }
 
 /* -------------------- Admin ----------------------- */

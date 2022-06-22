@@ -52,7 +52,7 @@ export default function BlogCard({ blog, isSingleBlog }) {
                   </Link>
                 </h1>
                 <Link to={`/editBlog/${blog.id}`}>
-                  <EditButton className={styles.edit} blog={blog} />
+                  <EditButton className={styles.edit} />
                 </Link>
               </div>
 
@@ -81,10 +81,6 @@ export default function BlogCard({ blog, isSingleBlog }) {
                   to={`/authorDetails/${blog.authorID}`}
                 >
                   {blog.author}
-                </Link>
-
-                <Link to="#">
-                  <EditButton className={styles.edit} />
                 </Link>
               </div>
             )}

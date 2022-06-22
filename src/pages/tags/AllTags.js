@@ -1,5 +1,7 @@
 // styles:
-import styles from "../components/css/ListOfAll.module.css";
+import styles from "../../components/css/ListOfAll.module.css";
+
+import { Link } from "react-router-dom";
 
 const tagList = [
   "Sci-fi",
@@ -21,7 +23,9 @@ export default function AllTags() {
       <ul>
         {tagList.map((tag) => (
           <li className={styles["list-item"]} key={tag}>
-            <h1>{tag}</h1>
+            <Link to={`/tagDetails/${tag}`}>
+              <h1>{tag}</h1>
+            </Link>
           </li>
         ))}
       </ul>

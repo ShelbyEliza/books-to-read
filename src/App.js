@@ -8,10 +8,12 @@ import Login from "./pages/admin/Login";
 import Signup from "./pages/admin/Signup";
 import AllBlogs from "./pages/blogs/AllBlogs";
 import AllAuthors from "./pages/authors/AllAuthors";
-import AllTags from "./pages/AllTags";
+import AllTags from "./pages/tags/AllTags";
+import TagDetails from "./pages/tags/TagDetails";
 import BlogDetails from "./pages/blogs/BlogDetails";
 import AuthorDetails from "./pages/authors/AuthorDetails";
 import EditBlog from "./pages/blogs/EditBlog";
+import EditAuthor from "./pages/authors/EditAuthor";
 
 function App() {
   const { user, authIsReady } = useAuthContext();
@@ -51,8 +53,16 @@ function App() {
               element={user ? <AuthorDetails /> : <Navigate to="/login" />}
             />
             <Route
+              path="/tagDetails/:tag"
+              element={user ? <TagDetails /> : <Navigate to="/login" />}
+            />
+            <Route
               path="/editBlog/:id"
               element={user ? <EditBlog /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/editAuthor/:id"
+              element={user ? <EditAuthor /> : <Navigate to="/login" />}
             />
             <Route
               path="/login"

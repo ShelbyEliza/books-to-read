@@ -9,9 +9,6 @@ import { NavLink } from "react-router-dom";
 export default function Navbar() {
   const { logout, isPending } = useLogout();
   const { user } = useAuthContext();
-  if (user) {
-    console.log(user.displayName);
-  }
 
   return (
     <nav>
@@ -63,8 +60,8 @@ export default function Navbar() {
             {!isPending ? (
               <li className={`${styles.section} ${styles.logout}`}>
                 <button onClick={logout}>
-                  <span>Logout,</span>
-                  <span className={styles["user-name"]}>
+                  <span>
+                    Logout,<br></br>
                     {user.displayName}?
                   </span>
                 </button>

@@ -32,7 +32,6 @@ export default function useDate() {
       formatDate(dateToday.getMonth() + 1) +
       "-" +
       formatDate(dateToday.getDate());
-    // console.log(dateTodayString);
 
     return dateTodayString;
   };
@@ -50,7 +49,6 @@ export default function useDate() {
 
     const dateString = `${month} ${day}, ${year}`;
 
-    console.log(dateString);
     return dateString;
   };
 

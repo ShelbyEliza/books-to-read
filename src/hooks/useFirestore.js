@@ -253,6 +253,33 @@ export const useFirestore = () => {
     }
   };
 
+  const updateAboutAuthor = async (aboutAuthor, authorID) => {
+    dispatch({ type: "IS_PENDING" });
+
+    try {
+      const { docRef: authorDocRef } = await getDocRefOrData(
+        authorsCollection,
+        authorID
+      );
+      const { docRef: keyDocRef } = await getDocRefOrData(
+        keysCollection,
+        authorID
+      );
+
+      const updatedAuthorData = await updateDoc(authorDocRef, {
+        aboutAuthor: aboutAuthor,
+      });
+      await updateDoc(keyDocRef, { aboutAuthor: aboutAuthor });
+
+      dispatchIfNotCancelled({
+        type: "UPDATED_ABOUT_AUTHOR",
+        payload: updatedAuthorData,
+      });
+    } catch (err) {
+      dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
+    }
+  };
+
   const updateData = async (updatedData) => {
     dispatch({ type: "IS_PENDING" });
 
@@ -351,10 +378,6 @@ export const useFirestore = () => {
     }
   };
 
-  useEffect(() => {
-    return () => setIsCancelled(true);
-  }, []);
-
   const deleteBlog = async (blog) => {
     dispatch({ type: "IS_PENDING" });
     const blogDoc = doc(blogsCollection, blog.id);
@@ -403,6 +426,7 @@ export const useFirestore = () => {
     addAuthor,
     setKey,
     updateData,
+    updateAboutAuthor,
     updateBlog,
     updateAuthor,
     updateKey,

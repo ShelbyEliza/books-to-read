@@ -24,7 +24,7 @@ export default function AuthorCard({ author, keyInfo }) {
               <div className={`${styles["card-line"]} ${styles["title-line"]}`}>
                 <h1 className={styles.title}>{author.name}</h1>
 
-                <Link to="#">
+                <Link to={`/editAuthor/${author.id}`}>
                   <EditButton className={styles.edit} />
                 </Link>
               </div>

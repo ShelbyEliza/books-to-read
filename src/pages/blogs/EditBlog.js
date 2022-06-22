@@ -20,7 +20,6 @@ export default function EditBlog() {
   const [error, setError] = useState(null);
   const [blog, setBlog] = useState(null);
   const [defaultRating, setDefaultRating] = useState(null);
-  // const [tags, setTags] = useState([]);
 
   useEffect(() => {
     if (blogDoc) {
