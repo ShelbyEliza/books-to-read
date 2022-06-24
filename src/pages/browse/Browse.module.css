@@ -1,0 +1,111 @@
+.container {
+  max-width: 700px;
+  min-width: 694px;
+  margin: auto;
+
+  text-align: center;
+
+  color: var(--lightest-primary-bg);
+}
+.heading {
+  padding: 32px 0;
+}
+.content {
+  display: grid;
+
+  grid-template-columns: 1fr 0.1fr 1fr;
+}
+.gap {
+  padding: 7px 12px;
+}
+
+/* ul */
+.first-section ul {
+  border-right: 1px solid var(--light-primary-accent);
+  border-bottom-right-radius: 12px;
+}
+.second-section ul {
+  border-left: 1px solid var(--light-primary-accent);
+  border-bottom-left-radius: 12px;
+}
+
+/* minor-heading */
+.minor-heading {
+  padding: 6px 12px;
+
+  background: var(--light-primary-bg);
+  color: var(--lightest-primary-bg);
+
+  border: 1px solid var(--light-primary-accent);
+  border-top: 2px solid var(--light-primary-accent);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+
+  cursor: pointer;
+}
+.first-section .minor-heading {
+  margin-left: 240px;
+}
+.second-section .minor-heading {
+  margin-right: 240px;
+}
+
+/* list-item */
+.list-item {
+  padding: 8px;
+
+  background: var(--light-primary-bg);
+
+  border: 1px solid var(--light-primary-accent);
+  box-shadow: 3px 3px 5px rgba(50, 50, 50, 0.1);
+
+  font-size: 1.2em;
+
+  list-style-type: none;
+}
+.first-section .list-item:last-of-type {
+  border-bottom-right-radius: 12px;
+}
+.second-section .list-item:last-of-type {
+  border-bottom-left-radius: 12px;
+}
+.first-section .list-item {
+  margin-left: 20px;
+
+  border-right: none;
+
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.second-section .list-item {
+  margin-right: 20px;
+
+  border-left: none;
+
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+/* li:hover */
+.section li:hover {
+  background: var(--secondary);
+  color: var(--lightest-primary-bg);
+
+  cursor: pointer;
+}
+.first-section li:hover {
+  margin-left: 2px;
+  border-right: none;
+}
+.second-section li:hover {
+  margin-right: 2px;
+  border-left: none;
+}
+
+/* li:hover a */
+.section li:hover a {
+  text-decoration: none;
+}
+.section li a {
+  color: var(--lightest-primary-bg);
+}

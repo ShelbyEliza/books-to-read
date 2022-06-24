@@ -48,18 +48,17 @@ body {
   background: var(--primary-bg);
 }
 nav a {
-  background: var(--light-primary-bg);
+  background: linear-gradient(var(--primary-bg), var(--light-primary-bg));
+
   border: 1px solid var(--light-primary-accent);
 }
 
-.active {
-  color: var(--light-primary-accent);
-}
 .active:hover {
   text-decoration: none;
 }
 .active {
-  background: var(--dark-primary-bg);
+  color: var(--light-primary-accent);
+  background: linear-gradient(var(--primary-bg), var(--dark-primary-bg));
   border: 1px solid var(--light-primary-accent);
   border-top: none;
 }

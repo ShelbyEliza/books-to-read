@@ -123,7 +123,11 @@ export default function BlogCard({ blog, isSingleBlog }) {
                 ) : (
                   blog.tags.map((tag) => (
                     <p key={tag} className={styles["tags-value"]}>
-                      <Link key={tag} className={styles.tag} to="#">
+                      <Link
+                        key={tag}
+                        className={styles.tag}
+                        to={`/tagDetails/${tag}`}
+                      >
                         {tag}
                       </Link>
                     </p>

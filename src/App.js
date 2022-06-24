@@ -9,7 +9,9 @@ import Signup from "./pages/admin/Signup";
 import AllBlogs from "./pages/blogs/AllBlogs";
 import AllAuthors from "./pages/authors/AllAuthors";
 import AllTags from "./pages/tags/AllTags";
+import Browse from "./pages/browse/Browse";
 import TagDetails from "./pages/tags/TagDetails";
+import RatingDetails from "./pages/browse/RatingDetails";
 import BlogDetails from "./pages/blogs/BlogDetails";
 import AuthorDetails from "./pages/authors/AuthorDetails";
 import EditBlog from "./pages/blogs/EditBlog";
@@ -45,6 +47,10 @@ function App() {
               element={user ? <AllTags /> : <Navigate to="/login" />}
             />
             <Route
+              path="/browse"
+              element={user ? <Browse /> : <Navigate to="/login" />}
+            />
+            <Route
               path="/blogDetails/:id"
               element={user ? <BlogDetails /> : <Navigate to="/login" />}
             />
@@ -55,6 +61,10 @@ function App() {
             <Route
               path="/tagDetails/:tag"
               element={user ? <TagDetails /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/ratingDetails/:rating"
+              element={user ? <RatingDetails /> : <Navigate to="/login" />}
             />
             <Route
               path="/editBlog/:id"

@@ -42,7 +42,7 @@ export default function Navbar() {
             <div className={`${styles.middle} ${styles.section}`}>
               <li>
                 <NavLink className={styles["nav-tab"]} to="/AllBlogs">
-                  All Blogs
+                  Blogs
                 </NavLink>
               </li>
               <li>
@@ -51,8 +51,8 @@ export default function Navbar() {
                 </NavLink>
               </li>
               <li>
-                <NavLink className={styles["nav-tab"]} to="/AllTags">
-                  Tags
+                <NavLink className={styles["nav-tab"]} to="/browse">
+                  Browse
                 </NavLink>
               </li>
             </div>

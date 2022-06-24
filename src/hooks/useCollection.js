@@ -18,6 +18,7 @@ export const useCollection = (coll, _q) => {
     ref = collection(ref, coll);
 
     if (q) {
+      console.log(q);
       ref = query(ref, where(...q));
     }
 
