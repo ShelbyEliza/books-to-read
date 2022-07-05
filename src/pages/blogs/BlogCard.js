@@ -126,7 +126,8 @@ export default function BlogCard({ blog, isSingleBlog }) {
                       <Link
                         key={tag}
                         className={styles.tag}
-                        to={`/tagDetails/${tag}`}
+                        state={{ from: tag }}
+                        to={`/browse`}
                       >
                         {tag}
                       </Link>

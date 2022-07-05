@@ -51,7 +51,11 @@ export default function Navbar() {
                 </NavLink>
               </li>
               <li>
-                <NavLink className={styles["nav-tab"]} to="/browse">
+                <NavLink
+                  className={styles["nav-tab"]}
+                  to="/browse"
+                  state={{ from: false }}
+                >
                   Browse
                 </NavLink>
               </li>

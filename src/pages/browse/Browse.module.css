@@ -109,3 +109,12 @@
 .section li a {
   color: var(--lightest-primary-bg);
 }
+
+.msg-select-category {
+  padding: 20px;
+
+  background: var(--light-primary-bg);
+
+  border: 1px solid var(--light-primary-accent);
+  border-radius: 12px;
+}
