@@ -1,3 +1,6 @@
+// styles:
+import styles from "../../components/css/BrowseDetails.module.css";
+
 import { Link } from "react-router-dom";
 
 import { useCollection } from "../../hooks/useCollection";
@@ -9,22 +12,24 @@ export default function TagDetails({ tag }) {
     tag,
   ]);
   return (
-    <div>
-      <h1>{tag} Blogs</h1>
-      <div>
+    <div className={styles["open-list-container"]}>
+      <h1 className={styles["minor-heading"]}>{tag} Blogs</h1>
+      <ul className={styles["open-list-content"]}>
         {blogsWithTag &&
           (blogsWithTag.length > 0 ? (
             blogsWithTag.map((blog) => (
-              <Link key={blog.id} to={`/blogDetails/${blog.id}`}>
-                <h2>{blog.title}</h2>
-              </Link>
+              <li key={blog.id} className={styles.option}>
+                <Link className={styles.link} to={`/blogDetails/${blog.id}`}>
+                  {blog.title}
+                </Link>
+              </li>
             ))
           ) : (
             <div>
               <h3>No blogs with this tag found.</h3>
             </div>
           ))}
-      </div>
+      </ul>
     </div>
   );
 }

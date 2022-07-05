@@ -1,0 +1,36 @@
+.open-list-container {
+  padding: 20px;
+
+  background: var(--light-primary-bg);
+
+  border: 1px solid var(--light-primary-accent);
+  border-radius: 12px;
+}
+.minor-heading {
+  margin-bottom: 20px;
+}
+.open-list-content {
+  display: flex;
+  flex-direction: column;
+
+  list-style-type: none;
+}
+.option {
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
+}
+.link {
+  border: 1px solid darkcyan;
+  padding: 12px 24px;
+
+  color: var(--lightest-primary-bg);
+  border-radius: 12px;
+}
+
+.link:hover {
+  text-decoration: none;
+}
+.link:hover {
+  background: darkcyan;
+}

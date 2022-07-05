@@ -1,8 +1,6 @@
 // styles:
 import styles from "./Browse.module.css";
 
-import { Link } from "react-router-dom";
-
 import { useState, useEffect } from "react";
 import RatingDetails from "./RatingDetails";
 import TagDetails from "../tags/TagDetails";

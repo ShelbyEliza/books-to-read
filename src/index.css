@@ -19,21 +19,27 @@ font-family: 'Lora', serif;
 
 :root {
   /*Background*/
-  --primary-bg: rgb(102, 60, 63);
-  --lightest-primary-bg: rgb(237, 210, 212);
-  --light-primary-bg: rgb(123, 78, 81);
-  --dark-primary-bg: rgb(81, 55, 56);
-  --primary-accent: rgb(214, 149, 84);
-  --light-primary-accent: rgb(255, 207, 158);
-  --secondary-bg: rgb(66, 20, 34);
+  --primary-bg: #663c3f;
+  --lightest-primary-bg: #edd2d4;
+  --light-primary-bg: #7b4e51;
+  --dark-primary-bg: #513738;
+  --primary-accent: #d69554;
+  --light-primary-accent: #ffcf9e;
+  --secondary-bg: #421422;
 
   /* Text */
   --primary-text: #eab4b4;
   --extra-text: #2e2525ff;
 
   /* Error */
-  --error-bg: rgb(237, 217, 217);
-  --error-accent: rgb(204, 61, 61);
+  --error-bg: #edd9d9;
+  --error-accent: #cc3d3d;
+
+  /* Pre-made options:
+    seagreen
+    darkcyan
+    rebeccapurple
+  */
 }
 
 * {
