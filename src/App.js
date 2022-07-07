@@ -3,6 +3,7 @@ import { useAuthContext } from "./hooks/useAuthContext";
 
 import Home from "./pages/home/Home";
 import Header from "./components/header/Header";
+import Navbar from "./components/navbar/Navbar";
 import Create from "./pages/Create";
 import Login from "./pages/admin/Login";
 import Signup from "./pages/admin/Signup";
@@ -25,6 +26,7 @@ function App() {
       {authIsReady && (
         <BrowserRouter>
           <Header />
+          <Navbar />
           <Routes>
             <Route
               path="/"

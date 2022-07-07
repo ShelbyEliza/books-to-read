@@ -4,7 +4,7 @@ nav {
   display: flex;
   justify-content: center;
 
-  border-top: 3px double var(--light-primary-accent);
+  /* border-top: 3px double var(--light-primary-accent); */
 
   text-align: center;
   font-family: "Dosis", sans-serif;
@@ -84,6 +84,8 @@ nav button {
 .logout button {
   display: flex;
   flex-direction: column;
+  font-family: "Dosis", sans-serif;
+  font-weight: 700;
   /* justify-content: center; */
 }
 
@@ -111,6 +113,8 @@ nav a:hover,
   cursor: pointer;
 }
 
+/* -------------------- Mobile Menu ----------------------- */
+
 /* -------------------- Admin ----------------------- */
 
 .admin-tabs {
@@ -131,16 +135,27 @@ nav a:hover,
   border-bottom-right-radius: 12px;
 }
 
-/* Tablet Styles */
+/* -------------------- Tablet Styles ---------------- */
 @media only screen and (min-width: 510px) and (max-width: 700px) {
   nav {
     font-size: 12px;
+    border: 2px solid rgb(255, 208, 0);
+  }
+  .logout {
+    padding: 0.2em 1em;
   }
 }
 
-/* Mobile Styles */
+/* -------------------- Mobile Styles -------------------- */
 @media only screen and (max-width: 509px) {
   nav {
-    font-size: 10px;
+    font-size: 8px;
+  }
+  .create-tab {
+  }
+}
+@media only screen and (max-width: 360px) {
+  nav {
+    font-size: 6px;
   }
 }

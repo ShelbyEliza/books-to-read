@@ -264,15 +264,15 @@
 }
 
 /* -------------------- Tablet Styles ---------------- */
-@media only screen and (min-width: 510px) and (max-width: 700px) {
+/* @media only screen and (min-width: 510px) and (max-width: 700px) {
   .content {
     font-size: 12px;
   }
-}
+} */
 
 /* ------------------- Mobile Styles ----------------- */
-@media only screen and (max-width: 509px) {
+/* @media only screen and (max-width: 509px) {
   .content {
     font-size: 10px;
   }
-}
+} */

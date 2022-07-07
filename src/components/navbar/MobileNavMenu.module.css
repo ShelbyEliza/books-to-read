@@ -1,0 +1,26 @@
+.mobile-nav-menu {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  font-size: 12px;
+}
+.mobile-nav-tab {
+  padding: 0px 6px;
+
+  font-family: "Dosis", sans-serif;
+  font-size: 1.1em;
+
+  border-top: none;
+}
+.mobile-logout-tab {
+  margin-left: 20px;
+
+  background: linear-gradient(var(--primary-bg), var(--light-primary-bg));
+
+  border: 1px solid var(--light-primary-accent);
+  border-top: none;
+}
+.mobile-logout-tab button {
+  font-weight: 700;
+}

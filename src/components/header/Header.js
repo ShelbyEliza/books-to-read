@@ -1,9 +1,9 @@
 // styles & assets:
+import { ReactComponent as Banner } from "../../assets/Banner.svg";
 import "./Header.module.css";
-import Banner from "../../assets/Banner";
 
 import { Link } from "react-router-dom";
-import Navbar from "../navbar/Navbar";
+// import Navbar from "../navbar/Navbar";
 
 export default function Header() {
   return (
@@ -11,7 +11,7 @@ export default function Header() {
       <Link to="/">
         <Banner />
       </Link>
-      <Navbar />
+      {/* <Navbar /> */}
     </header>
   );
 }

@@ -30,8 +30,8 @@
   color: var(--primary-accent);
 
   margin: auto;
-  max-width: 700px;
-  min-width: 694px;
+  /* max-width: 700px;
+  min-width: 694px; */
 
   border: 1px solid var(--primary-text);
   border-radius: 24px;
@@ -172,3 +172,31 @@
 .about-author :not(p:first-child) {
   text-indent: 30px;
 }
+
+/* -------------------- PC Styles ---------------- */
+/* @media only screen and (min-width: 900px) {
+  .card {
+    max-width: 400px;
+    min-width: 694px;
+  }
+} */
+
+/* -------------------- Tablet Styles ---------------- */
+@media only screen and (min-width: 510px) and (max-width: 700px) {
+  .card {
+    max-width: 700px;
+    min-width: 510px;
+    border: 2px solid rgb(255, 0, 115);
+  }
+  /* header a {
+    width: 100%;
+    max-width: 700px;
+    min-width: 510px;
+  } */
+}
+/* ------------------- Mobile Styles ----------------- */
+/* @media only screen and (max-width: 405px) {
+  .card-content-box {
+    width: 400px;
+  }
+} */

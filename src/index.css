@@ -184,13 +184,21 @@ a:hover {
 
 /*--------------------Mobile----------------------*/
 /* desktop */
-@media only screen and (max-width: 900px) {
-}
+/* @media only screen and (max-width: 900px) {
+} */
 
-/* Tablet Styles */
-@media only screen and (min-width: 401px) and (max-width: 899px) {
+/* -------------------- Tablet Styles ---------------- */
+@media only screen and (min-width: 510px) and (max-width: 700px) {
+  body {
+    max-width: 700px;
+    min-width: 510px;
+    border: 2px solid rgb(34, 0, 255);
+  }
 }
 
 /* Mobile Styles */
-@media only screen and (max-width: 400px) {
-}
+/* @media only screen and (max-width: 405px) {
+  * {
+    max-width: 400px;
+  }
+} */
