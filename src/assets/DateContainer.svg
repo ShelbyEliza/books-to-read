@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80%" height="80%" version="1.1" viewBox="0 0 43.052 20.209" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(-69.558 -82.606)">
+  <g transform="translate(-61.897 32.823)" stroke="#000" stroke-width=".13229">
+   <path d="m140.66 64.461v-4.3758h-6.8059v-5.992h11.138v-4.2433h22.425v4.2433h7.0261v5.992h-9.6423v4.3758h8.0978v5.4662h-41.375v-5.4662z" fill="#b27e43"/>
+   <g fill="none">
+    <path d="m144.99 54.093h11.38"/>
+    <path d="m167.41 54.093h-3.7712"/>
+    <path d="m148.69 64.328h16.105"/>
+    <path d="m140.66 64.461h2.0677"/>
+    <path d="m138.66 60.085h13.397"/>
+    <path d="m160.24 60.085h14.205"/>
+   </g>
+  </g>
+ </g>
+</svg>
+
+<!-- // styles:
+import styles from "./css/Card.module.css";
+
+export default function ExampleDates({ start, finish }) {
+  return (
+    <svg
+      width="162.72"
+      height="76.382"
+      version="1.1"
+      viewBox="0 0 43.052 20.209"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g transform="translate(-69.558 -82.606)">
+        <path
+          d="m78.763 97.284v-4.3758h-6.8059v-5.992h11.138v-4.2433h22.425v4.2433h7.0261v5.992h-9.6423v4.3758h8.0978v5.4662h-41.375v-5.4662z"
+          fill="#b27e43"
+          stroke="#000"
+          strokeWidth=".13229"
+        />
+        {/* <rect
+          // x="71.957"
+          // y="86.916"
+          // width="40.589"
+          // height="5.992"
+          fill="#b27e43"
+          stopColor="#000000"
+          paintOrder="markers fill stroke"
+        /> */}
+        <text
+        // className={styles.textStart}
+        // x="77.87117"
+        // y="90.81472"
+        // fontFamily="sans-serif"
+        // fontSize="14.111px"
+        // strokeWidth=".26458"
+        // line-height="1"
+        // xml-space="preserve"
+        >
+          <tspan
+            className={styles.tspanStart}
+            x="77.87117"
+            y="90.81472"
+            fontFamily="monospace"
+            fontSize="3.7041px"
+            fontWeight="bold"
+            strokeWidth=".26458"
+          >
+            {start}
+          </tspan>
+        </text>
+
+        {/* <rect
+          x="71.957"
+          y="86.916"
+          width="40.589"
+          height="5.992"
+          fill="#b27e43"
+          stopColor="#000000"
+          paintOrder="markers fill stroke"
+        />
+        <text
+          x="77.87117"
+          y="90.81472"
+          fontFamily="sans-serif"
+          fontSize="14.111px"
+          strokeWidth=".26458"
+          line-height="1"
+          xml-space="preserve"
+        >
+          <tspan
+            x="77.87117"
+            y="90.81472"
+            fontFamily="monospace"
+            fontSize="3.7041px"
+            fontWeight="bold"
+            strokeWidth=".26458"
+          >
+            {start}
+          </tspan>
+        </text> */}
+        <rect
+          x="83.102"
+          y="82.673"
+          width="22.418"
+          height="4.2431"
+          fill="#b27e43"
+          stopColor="#000000"
+          paintOrder="markers fill stroke"
+        />
+        <text
+          x="89.090523"
+          y="85.899529"
+          fontFamily="sans-serif"
+          fontSize="14.111px"
+          strokeWidth=".26458"
+          line-height="1"
+          xml-space="preserve"
+        >
+          <tspan
+            x="89.090523"
+            y="85.899529"
+            fontFamily="monospace"
+            fontSize="3.7041px"
+            strokeWidth=".26458"
+          >
+            Read:
+          </tspan>
+        </text>
+        <rect
+          x="78.763"
+          y="92.908"
+          width="24.141"
+          height="4.3758"
+          fill="#b27e43"
+          stopColor="#000000"
+          paintOrder="markers fill stroke"
+        />
+        <text
+          x="83.008377"
+          y="95.88195"
+          fontFamily="sans-serif"
+          fontSize="14.111px"
+          strokeWidth=".26458"
+          line-height="1"
+          xml-space="preserve"
+        >
+          <tspan
+            x="83.008377"
+            y="95.88195"
+            fontFamily="monospace"
+            fontSize="3.7041px"
+            strokeWidth=".26458"
+          >
+            through
+          </tspan>
+        </text>
+
+        <rect
+          x="69.627"
+          y="97.284"
+          width="41.375"
+          height="5.4662"
+          fill="#b27e43"
+          stopColor="#000000"
+        />
+        <text
+          x="72.599495"
+          y="100.83008"
+          text-align="center"
+          textAnchor="start"
+          fontFamily="monospace"
+          fontSize="14.111px"
+          strokeWidth=".26458"
+          line-height="1"
+          xml-space="preserve"
+        >
+          <tspan
+            text-align="center"
+            // textAnchor="end"
+            // x="72.599495"
+            y="100.83008"
+            fill="#ffffff"
+            fontFamily="monospace"
+            fontSize="3.7041px"
+            fontWeight="bold"
+            strokeWidth=".26458"
+          >
+            {finish === null ? "Currently Reading" : finish}
+          </tspan>
+        </text>
+
+        <g fill="none" stroke="#000" strokeWidth=".13229">
+          <path d="m83.093 86.916h11.38" />
+          <path d="m105.51 86.916h-3.7712" />
+          <path d="m86.799 97.284h16.105" />
+          <path d="m78.763 97.284h2.0677" />
+          <path d="m78.763 92.908 11.397-2e-4" />
+          <path d="m98.343 92.908 4.5609 2e-4" />
+          <path d="m78.763 97.284v-4.3758h-6.8059v-5.992h11.138v-4.2433h22.425v4.2433h7.0261v5.992h-9.6423v4.3758h8.0978v5.4662h-41.375v-5.4662z" />
+        </g>
+      </g>
+    </svg>
+  );
+} 
+              {blog.dateStarted && (
+                <div className={styles["date-container"]}>
+                  <ExampleDates
+                    start={blog.formatStart}
+                    finish={blog.formatFinish}
+                  />
+                  {/* <DateContainer start={blog.formatStart} /> */}
+                  {/* <div className={styles["relative-parent"]}>
+                    <p className={`${styles["date-value"]} ${styles.start}`}>
+                      {blog.formatStart}
+                    </p>
+
+                    {blog.dateFinished === "" && (
+                      <p className={`${styles["date-value"]} ${styles.finish}`}>
+                        Currently Reading
+                      </p>
+                    )}
+
+                    <p className={`${styles["date-value"]} ${styles.finish}`}>
+                      {blog.formatFinish}
+                    </p>
+                  </div> */}
+                </div>
+              )}
+-->
+

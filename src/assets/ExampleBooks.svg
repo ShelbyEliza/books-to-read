@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg width="162.72" height="76.382" version="1.1" viewBox="0 0 43.052 20.209" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(-69.558 -82.606)">
+  <path d="m78.763 97.284v-4.3758h-6.8059v-5.992h11.138v-4.2433h22.425v4.2433h7.0261v5.992h-9.6423v4.3758h8.0978v5.4662h-41.375v-5.4662z" fill="#b27e43" stroke="#000" stroke-width=".13229"/>
+  <rect x="71.957" y="86.916" width="40.589" height="5.992" fill="#b27e43" stop-color="#000000" style="paint-order:markers fill stroke"/>
+  <text x="77.87117" y="90.81472" font-family="sans-serif" font-size="14.111px" stroke-width=".26458" style="line-height:1" xml:space="preserve"><tspan x="77.87117" y="90.81472" font-family="monospace" font-size="3.7041px" font-weight="bold" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">June 22, 2022</tspan></text>
+  <rect x="83.102" y="82.673" width="22.418" height="4.2431" fill="#b27e43" stop-color="#000000" style="paint-order:markers fill stroke"/>
+  <text x="89.090523" y="85.899529" font-family="sans-serif" font-size="14.111px" stroke-width=".26458" style="line-height:1" xml:space="preserve"><tspan x="89.090523" y="85.899529" font-family="monospace" font-size="3.7041px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">Read:</tspan></text>
+  <rect x="78.763" y="92.908" width="24.141" height="4.3758" fill="#b27e43" stop-color="#000000" style="paint-order:markers fill stroke"/>
+  <text x="83.008377" y="95.88195" font-family="sans-serif" font-size="14.111px" stroke-width=".26458" style="line-height:1" xml:space="preserve"><tspan x="83.008377" y="95.88195" font-family="monospace" font-size="3.7041px" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">through</tspan></text>
+  <rect x="69.627" y="97.284" width="41.375" height="5.4662" fill="#b27e43" stop-color="#000000" style="paint-order:markers fill stroke"/>
+  <text x="72.599495" y="100.83008" font-family="sans-serif" font-size="14.111px" stroke-width=".26458" style="line-height:1" xml:space="preserve"><tspan x="72.599495" y="100.83008" font-family="monospace" font-size="3.7041px" font-weight="bold" stroke-width=".26458" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">January 22, 2022</tspan></text>
+  <g fill="none" stroke="#000" stroke-width=".13229">
+   <path d="m83.093 86.916h11.38"/>
+   <path d="m105.51 86.916h-3.7712"/>
+   <path d="m86.799 97.284h16.105"/>
+   <path d="m78.763 97.284h2.0677"/>
+   <path d="m78.763 92.908 11.397-2e-4"/>
+   <path d="m98.343 92.908 4.5609 2e-4"/>
+   <path d="m78.763 97.284v-4.3758h-6.8059v-5.992h11.138v-4.2433h22.425v4.2433h7.0261v5.992h-9.6423v4.3758h8.0978v5.4662h-41.375v-5.4662z"/>
+  </g>
+ </g>
+</svg>

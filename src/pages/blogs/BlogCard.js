@@ -1,6 +1,9 @@
 // styles:
 import styles from "../../components/css/Card.module.css";
 
+// import { ReactComponent as DateContainer } from "../../assets/DateContainer.svg";
+// import DateContainer from "../../assets/DateContainer";
+
 import EditButton from "../../assets/EditButton";
 import BoltIcon from "../../assets/BoltIcon.png";
 
@@ -45,76 +48,84 @@ export default function BlogCard({ blog, isSingleBlog }) {
         <div className={styles["top-container"]}>
           <div className={`${styles["card-col"]} ${styles["card-col-1"]}`}>
             <div className={`${styles["card-line"]} ${styles["title-line"]}`}>
-              <div className={styles["title-edit"]}>
-                <h1>
-                  <Link className={styles.title} to={`/blogDetails/${blog.id}`}>
-                    {blog.title}
+              <div>
+                <div className={styles["title-edit"]}>
+                  <h1>
+                    <Link
+                      className={styles.title}
+                      to={`/blogDetails/${blog.id}`}
+                    >
+                      {blog.title}
+                    </Link>
+                  </h1>
+                  <Link to={`/editBlog/${blog.id}`}>
+                    <EditButton className={styles.edit} />
                   </Link>
-                </h1>
-                <Link to={`/editBlog/${blog.id}`}>
-                  <EditButton className={styles.edit} />
-                </Link>
+                </div>
+
+                {blog.author && (
+                  <div className={styles["author-line"]}>
+                    <p className={styles.author}>by</p>
+                    <Link
+                      className={styles["author-link"]}
+                      to={`/authorDetails/${blog.authorID}`}
+                    >
+                      {blog.author}
+                    </Link>
+                  </div>
+                )}
               </div>
 
-              {blog.rating && (
-                <div className={styles.rating}>
-                  {ratingArray.map((rating) => (
-                    <div key={rating}>
-                      <img
-                        className={styles["rating-icon"]}
-                        alt="A number of lightening bolts indicating the rating."
-                        src={BoltIcon}
-                      />
+              {blog.dateStarted && (
+                <div
+                  className={`${styles["card-line"]} ${styles["date-container"]}`}
+                >
+                  <div className={styles["date-started"]}>
+                    {/* <p className={styles["date-label"]}>Started:</p> */}
+                    {blog.formatStart ? (
+                      <p className={styles["date-value"]}>{blog.formatStart}</p>
+                    ) : (
+                      <p className={styles["date-value"]}>{blog.dateStarted}</p>
+                    )}
+                  </div>
+                  <div> - </div>
+
+                  <div className={styles["date-finished"]}>
+                    {/* <p className={styles["date-label"]}>Finished:</p> */}
+                    <div>
+                      {blog.dateFinished === "" && (
+                        <p className={styles["currently-reading"]}>
+                          Currently Reading
+                        </p>
+                      )}
+                      {blog.formatFinish ? (
+                        <p className={styles["date-value"]}>
+                          {blog.formatFinish}
+                        </p>
+                      ) : (
+                        <p className={styles["date-value"]}>
+                          {blog.dateFinished}
+                        </p>
+                      )}
                     </div>
-                  ))}
+                  </div>
                 </div>
               )}
             </div>
 
-            {blog.author && (
-              <div
-                className={`${styles["card-line"]} ${styles["author-line"]}`}
-              >
-                <p className={styles.author}>by</p>
-                <Link
-                  className={styles["author-link"]}
-                  to={`/authorDetails/${blog.authorID}`}
-                >
-                  {blog.author}
-                </Link>
-              </div>
-            )}
-
-            {blog.dateStarted && (
-              <div
-                className={`${styles["card-line"]} ${styles["date-container"]}`}
-              >
-                <div className={styles["date-started"]}>
-                  <p className={styles["date-label"]}>Started:</p>
-                  {blog.formatStart ? (
-                    <p className={styles["date-value"]}>{blog.formatStart}</p>
-                  ) : (
-                    <p className={styles["date-value"]}>{blog.dateStarted}</p>
-                  )}
-                </div>
-
-                <div className={styles["date-finished"]}>
-                  <p className={styles["date-label"]}>Finished:</p>
-                  <div>
-                    {blog.dateFinished === "" && <p>Currently Reading</p>}
-                    {blog.formatFinish ? (
-                      <p className={styles["date-value"]}>
-                        {blog.formatFinish}
-                      </p>
-                    ) : (
-                      <p className={styles["date-value"]}>
-                        {blog.dateFinished}
-                      </p>
-                    )}
+            {/* {blog.rating && (
+              <div className={styles.rating}>
+                {ratingArray.map((rating) => (
+                  <div key={rating}>
+                    <img
+                      className={styles["rating-icon"]}
+                      alt="A number of lightening bolts indicating the rating."
+                      src={BoltIcon}
+                    />
                   </div>
-                </div>
+                ))}
               </div>
-            )}
+            )} */}
 
             {blog.tags && (
               <div className={`${styles["card-line"]} ${styles.tags}`}>
@@ -138,6 +149,20 @@ export default function BlogCard({ blog, isSingleBlog }) {
             )}
           </div>
         </div>
+
+        {blog.rating && (
+          <div className={styles.rating}>
+            {ratingArray.map((rating) => (
+              <div key={rating}>
+                <img
+                  className={styles["rating-icon"]}
+                  alt="A number of lightening bolts indicating the rating."
+                  src={BoltIcon}
+                />
+              </div>
+            ))}
+          </div>
+        )}
         {blog.content && (
           <div className={`${styles["card-line-full"]} ${styles["content"]}`}>
             {blogSnips.map((snip) => (
@@ -147,6 +172,8 @@ export default function BlogCard({ blog, isSingleBlog }) {
             ))}
           </div>
         )}
+
+        {/* ------------------------------------------------------------- */}
         {showDelete === true ? (
           <>
             <p className="delete delete-message">
@@ -166,7 +193,7 @@ export default function BlogCard({ blog, isSingleBlog }) {
           </>
         ) : (
           <button className="delete" onClick={() => setShowDelete(true)}>
-            DELETE?
+            DELETE POST?
           </button>
         )}
       </div>

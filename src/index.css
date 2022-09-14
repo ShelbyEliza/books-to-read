@@ -159,6 +159,7 @@ a:hover {
 }
 .delete-message {
   border-radius: 0px;
+  justify-content: center;
 }
 
 .cancel,

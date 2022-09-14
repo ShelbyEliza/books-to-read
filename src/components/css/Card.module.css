@@ -15,15 +15,6 @@
 .author-line a {
   color: var(--primary-accent);
 }
-.rating {
-  display: flex;
-  flex-direction: row;
-}
-.rating-icon {
-  background: var(--primary-accent);
-  border-radius: 24px;
-  margin-right: 0.2em;
-}
 
 .content-box {
   background: var(--secondary-bg);
@@ -64,11 +55,7 @@
 }
 .title-line {
   justify-content: space-between;
-}
-
-.title-line,
-.author-line {
-  align-items: end;
+  align-items: center;
 }
 
 .title {
@@ -119,17 +106,66 @@
   max-height: 20px;
   margin: 0px 10px;
 }
-.rating-icon {
-  max-width: 28px;
+
+/* ---------------------- Dates --------------- */
+/* .book-stack,
+.relative-parent {
+  display: flex;
+  justify-content: center;
 }
+.book-stack {
+  border: 1px solid rgb(46, 117, 139);
+}
+.testing-element,
+.books {
+  border: 20px solid rgb(82, 139, 46);
+}
+.relative-parent {
+  border: 1px solid seagreen;
+  position: relative;
+  height: auto;
+  width: auto;
+} 
+
+.date-value {
+  align-self: center; 
+  padding: 0px 0px 2px 16px;
+  position: absolute;
+  z-index: 2;
+  color: black;
+}
+#start-date {
+  border: 100px solid cornflowerblue;
+  color: aqua;
+  bottom: 84px;
+  left: 80px;
+}
+.finish {
+  bottom: 52px;
+  left: 60px;
+}
+.start {
+  border: 10px solid cornflowerblue;
+  bottom: 84px;
+  left: 80px;
+}
+*/
 
 .date-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  /* border: 1px solid rgb(206, 156, 239); */
+  padding: 8px;
 }
-.date-value {
-  padding: 0px 0px 2px 16px;
+.date-container div {
+  display: flex;
+  justify-content: center;
 }
+.currently-reading {
+  color: var(--lightest-primary-bg);
+}
+
+/* ---------------------- Tags --------------- */
 
 .tags {
   align-items: center;
@@ -149,10 +185,10 @@
   background: var(--light-primary-bg);
   color: var(--lightest-primary-bg);
 
-  border-top: 3px solid var(--primary-accent);
-  border-bottom: 3px solid var(--primary-accent);
+  /* border-top: 3px solid var(--primary-accent); */
+  /* border-bottom: 3px solid var(--primary-accent);
   border-right: 3px solid var(--primary-bg);
-  border-left: 3px solid var(--primary-bg);
+  border-left: 3px solid var(--primary-bg); */
 
   padding: 0.8em 1.2em;
 
@@ -172,6 +208,37 @@
 .about-author :not(p:first-child) {
   text-indent: 30px;
 }
+
+/* -------------------- Bottom Bar ---------------- */
+
+.rating {
+  display: flex;
+  flex-direction: row;
+  /* justify-content: center; */
+
+  justify-content: space-around;
+  background: var(--primary-accent);
+}
+
+.rating > div {
+  display: flex;
+  /* background: var(--light-primary-bg); */
+  align-items: center;
+}
+.rating-icon {
+  border-radius: 24px;
+  margin-right: 1em;
+  max-width: 28px;
+
+  /* border: 2px solid var(--secondary-bg);
+  border-left: none; */
+}
+/* .rating-icon {
+  background: var(--primary-accent);
+  border-radius: 24px;
+  margin-right: 0.2em;
+  max-width: 28px;
+} */
 
 /* -------------------- PC Styles ---------------- */
 /* @media only screen and (min-width: 900px) {

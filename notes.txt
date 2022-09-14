@@ -1161,3 +1161,411 @@ export default function Navbar() {
     </nav>
   );
 }
+
+/////////////////////
+
+// styles:
+import styles from "../../components/css/Card.module.css";
+
+import { ReactComponent as DateContainer } from "../../assets/DateContainer.svg";
+import EditButton from "../../assets/EditButton";
+import BoltIcon from "../../assets/BoltIcon.png";
+
+import { Link, useNavigate } from "react-router-dom";
+
+import { useFirestore } from "../../hooks/useFirestore";
+import { useEffect, useState } from "react";
+
+export default function BlogCard({ blog, isSingleBlog }) {
+  const { deleteBlog, response, error } = useFirestore();
+  const [ratingArray, setRatingArray] = useState([]);
+  const [blogSnips, setBlogSnips] = useState([]);
+  const [showDelete, setShowDelete] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (blog) {
+      let ratings = [];
+      for (let i = 1; i < 6; i++) {
+        ratings.push(i);
+      }
+      setRatingArray(ratings);
+      const reg = /\n/;
+      setBlogSnips(blog.content.split(reg));
+    }
+  }, [blog]);
+
+  const handleDelete = async (blog) => {
+    if (isSingleBlog) {
+      await deleteBlog(blog);
+      if (!response.error) {
+        navigate("/");
+      }
+    } else {
+      await deleteBlog(blog);
+    }
+  };
+
+  return (
+    <div className={styles.card}>
+      <div className={styles["content-box"]}>
+        <div className={styles["top-container"]}>
+          <div className={`${styles["card-col"]} ${styles["card-col-1"]}`}>
+            <div className={`${styles["card-line"]} ${styles["title-line"]}`}>
+              <div className={styles["title-edit"]}>
+                <h1>
+                  <Link className={styles.title} to={`/blogDetails/${blog.id}`}>
+                    {blog.title}
+                  </Link>
+                </h1>
+                <Link to={`/editBlog/${blog.id}`}>
+                  <EditButton className={styles.edit} />
+                </Link>
+              </div>
+
+              {blog.dateStarted && (
+                <div
+                  className={`${styles["card-line"]} ${styles["date-container"]}`}
+                >
+                  <DateContainer />
+                  {/* <div className={styles["date-started"]}>
+                    <p className={styles["date-label"]}>Started:</p>
+                    {blog.formatStart ? (
+                      <p className={styles["date-value"]}>{blog.formatStart}</p>
+                    ) : (
+                      <p className={styles["date-value"]}>{blog.dateStarted}</p>
+                    )}
+                  </div> */}
+                </div>
+              )}
+
+              {/* {blog.rating && (
+                <div className={styles.rating}>
+                  {ratingArray.map((rating) => (
+                    <div key={rating}>
+                      <img
+                        className={styles["rating-icon"]}
+                        alt="A number of lightening bolts indicating the rating."
+                        src={BoltIcon}
+                      />
+                    </div>
+                  ))}
+                </div>
+              )} */}
+            </div>
+
+            {blog.author && (
+              <div
+                className={`${styles["card-line"]} ${styles["author-line"]}`}
+              >
+                <p className={styles.author}>by</p>
+                <Link
+                  className={styles["author-link"]}
+                  to={`/authorDetails/${blog.authorID}`}
+                >
+                  {blog.author}
+                </Link>
+              </div>
+            )}
+
+            {blog.dateStarted && (
+              <div
+                className={`${styles["card-line"]} ${styles["date-container"]}`}
+              >
+                <div className={styles["date-started"]}>
+                  <p className={styles["date-label"]}>Started:</p>
+                  {blog.formatStart ? (
+                    <p className={styles["date-value"]}>{blog.formatStart}</p>
+                  ) : (
+                    <p className={styles["date-value"]}>{blog.dateStarted}</p>
+                  )}
+                </div>
+
+                <div className={styles["date-finished"]}>
+                  <p className={styles["date-label"]}>Finished:</p>
+                  <div>
+                    {blog.dateFinished === "" && <p>Currently Reading</p>}
+                    {blog.formatFinish ? (
+                      <p className={styles["date-value"]}>
+                        {blog.formatFinish}
+                      </p>
+                    ) : (
+                      <p className={styles["date-value"]}>
+                        {blog.dateFinished}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {blog.tags && (
+              <div className={`${styles["card-line"]} ${styles.tags}`}>
+                {blog.tags.length === 0 ? (
+                  <p className={styles["tags-value"]}>No Tags.</p>
+                ) : (
+                  blog.tags.map((tag) => (
+                    <p key={tag} className={styles["tags-value"]}>
+                      <Link
+                        key={tag}
+                        className={styles.tag}
+                        state={{ from: tag }}
+                        to={`/browse`}
+                      >
+                        {tag}
+                      </Link>
+                    </p>
+                  ))
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+        {blog.content && (
+          <div className={`${styles["card-line-full"]} ${styles["content"]}`}>
+            {blogSnips.map((snip) => (
+              <p className={styles.snippet} key={Math.random() * 300}>
+                {snip}
+              </p>
+            ))}
+          </div>
+        )}
+        {showDelete === true ? (
+          <>
+            <p className="delete delete-message">
+              Are you sure you would like to delete this blog permanently?
+            </p>
+            <div className="confirm-del-container">
+              <button
+                className="delete-confirmed"
+                onClick={() => handleDelete(blog)}
+              >
+                Yes, delete this blog
+              </button>
+              <button className="cancel" onClick={() => setShowDelete(false)}>
+                Cancel
+              </button>
+            </div>
+          </>
+        ) : (
+          <button className="delete" onClick={() => setShowDelete(true)}>
+            DELETE?
+          </button>
+        )}
+      </div>
+      {/* make sure this error works! */}
+      {error && <p className="error">{error}</p>}
+    </div>
+  );
+}
+
+
+//////////////////
+
+.card {
+  display: flex;
+  flex-direction: column;
+
+  color: var(--extra-text);
+
+  padding: 16px 0px 8px 0px;
+
+  margin: auto;
+
+  max-width: 900px;
+}
+
+.title-line a,
+.author-line a {
+  color: var(--primary-accent);
+}
+.rating {
+  display: flex;
+  flex-direction: row;
+}
+.rating-icon {
+  background: var(--primary-accent);
+  border-radius: 24px;
+  margin-right: 0.2em;
+}
+
+.content-box {
+  background: var(--secondary-bg);
+  color: var(--primary-accent);
+
+  margin: auto;
+  /* max-width: 700px;
+  min-width: 694px; */
+
+  border: 1px solid var(--primary-text);
+  border-radius: 24px;
+}
+
+.content-box:first-of-type {
+  margin-top: 2px;
+}
+
+.top-container {
+  display: flex;
+  padding: 20px 20px 10px 20px;
+}
+
+.card-col-1 {
+  flex: 2;
+}
+
+.card-col-2 {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.card-line {
+  display: flex;
+  flex-flow: row wrap;
+  flex-basis: 50%;
+  margin-bottom: 8px;
+}
+.title-line {
+  justify-content: space-between;
+  align-items: top;
+}
+
+.title-line,
+.author-line {
+  /* align-items: end; */
+}
+
+.title {
+  font-size: 60px;
+  font-family: "Estonia", cursive;
+  letter-spacing: 0.01em;
+  margin-right: 0.2em;
+}
+
+.title-edit {
+  display: flex;
+  flex-direction: row;
+}
+
+.author {
+  padding-left: 16px;
+  padding-right: 8px;
+  font-size: 30px;
+}
+
+.author-link {
+  font-size: 30px;
+  margin-right: 0.4em;
+}
+.blog-link {
+  color: rgb(214, 149, 84);
+  font-size: 40px;
+  word-spacing: -0.08em;
+  font-family: "Estonia", cursive;
+}
+.books-written-container {
+  display: flex;
+  /* flex-direction: column; */
+}
+.blog-container {
+  display: flex;
+  /* flex-basis: 50%; */
+  justify-content: space-between;
+}
+.list-item {
+  margin: 2px;
+  list-style-type: none;
+  padding-right: 12px;
+}
+
+.edit {
+  max-width: 0.2em;
+  max-height: 20px;
+  margin: 0px 10px;
+}
+.rating-icon {
+  max-width: 28px;
+}
+
+.date-container {
+  display: flex;
+  justify-content: space-between;
+}
+.date-value {
+  padding: 0px 0px 2px 16px;
+}
+.date-started {
+  z-index: 2;
+  color: black;
+}
+
+.tags {
+  align-items: center;
+  justify-content: space-between;
+}
+.tags-value {
+  padding: 0.6em 0.8em;
+  /* border: 1px solid var(--primary-accent); */
+  border-radius: 24px;
+  background: var(--primary-bg);
+}
+.tag {
+  color: var(--primary-text);
+}
+
+.content {
+  background: var(--light-primary-bg);
+  color: var(--lightest-primary-bg);
+
+  border-top: 3px solid var(--primary-accent);
+  border-bottom: 3px solid var(--primary-accent);
+  border-right: 3px solid var(--primary-bg);
+  border-left: 3px solid var(--primary-bg);
+
+  padding: 0.8em 1.2em;
+
+  font-family: "Dosis", sans-serif;
+  font-size: 1.3em;
+
+  text-align: left;
+  line-height: 1.2em;
+  letter-spacing: 0.05em;
+}
+
+.snippet {
+  text-indent: 24px;
+  padding-bottom: 2px;
+}
+
+.about-author :not(p:first-child) {
+  text-indent: 30px;
+}
+
+/* -------------------- PC Styles ---------------- */
+/* @media only screen and (min-width: 900px) {
+  .card {
+    max-width: 400px;
+    min-width: 694px;
+  }
+} */
+
+/* -------------------- Tablet Styles ---------------- */
+@media only screen and (min-width: 510px) and (max-width: 700px) {
+  .card {
+    max-width: 700px;
+    min-width: 510px;
+    border: 2px solid rgb(255, 0, 115);
+  }
+  /* header a {
+    width: 100%;
+    max-width: 700px;
+    min-width: 510px;
+  } */
+}
+/* ------------------- Mobile Styles ----------------- */
+/* @media only screen and (max-width: 405px) {
+  .card-content-box {
+    width: 400px;
+  }
+} */
