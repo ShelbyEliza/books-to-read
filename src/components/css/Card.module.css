@@ -24,7 +24,7 @@
   /* max-width: 700px;
   min-width: 694px; */
 
-  border: 1px solid var(--primary-text);
+  border: 1px solid var(--primary-accent);
   border-radius: 24px;
 }
 
@@ -60,7 +60,7 @@
 
 .title {
   font-size: 60px;
-  font-family: "Estonia", cursive;
+  font-family: "Charm", cursive;
   letter-spacing: 0.01em;
   margin-right: 0.2em;
 }
@@ -84,7 +84,6 @@
   color: rgb(214, 149, 84);
   font-size: 40px;
   word-spacing: -0.08em;
-  font-family: "Estonia", cursive;
 }
 .books-written-container {
   display: flex;

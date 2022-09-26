@@ -10,13 +10,13 @@
   padding-top: 32px;
 }
 .list-item {
-  padding: 16px;
+  padding: 24px;
   list-style-type: none;
 }
 .link {
   color: rgb(214, 149, 84);
-  font-size: 60px;
-  font-family: "Estonia", cursive;
+  font-size: 40px;
+  font-family: "Charm", cursive;
 }
 
 /* -------------------- Tablet Styles ---------------- */

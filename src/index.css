@@ -1,31 +1,31 @@
-@import url("https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Estonia&family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Bilbo&family=Calligraffitti&family=Dosis:wght@300;400;500;700&family=Josefin+Slab:ital,wght@0,300;0,600;1,400&family=Lato:ital,wght@0,300;0,700;1,400&family=Rajdhani:wght@300;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Charm:wght@400;700&family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Dosis:wght@300;400;500;700&family=Josefin+Slab:ital,wght@0,300;0,600;1,400&family=Rajdhani:wght@300;500;600&display=swap");
 
 /* 
-font-family: 'Bilbo', cursive;
-font-family: 'Calligraffitti', cursive;
 font-family: 'Charm', cursive;
-font-family: 'Estonia', cursive;
 
 font-family: 'Dosis', sans-serif;
-font-family: 'Lato', sans-serif;
 font-family: 'Rajdhani', sans-serif; 
 
-
 font-family: 'Josefin Slab', serif;
-font-family: 'Cinzel', serif;
 font-family: 'Lora', serif; 
 */
 
 :root {
   /*Background*/
-  --primary-bg: #663c3f;
+  --secondary-bg: #18181bff;
+  --primary-bg: #446544;
+  /* --primary-accent: #b5b566; */
+  --background-tester: #323732;
+
+  /*--------------------------------------------*/
+  /* --primary-bg: #663c3f; */
+  /* --secondary-bg: #421422; */
+  --primary-accent: #d69554;
   --lightest-primary-bg: #edd2d4;
   --light-primary-bg: #7b4e51;
   --dark-primary-bg: #513738;
-  --primary-accent: #d69554;
   --light-primary-accent: #ffcf9e;
-  --secondary-bg: #421422;
+  --foilage: #90b788ff;
 
   /* Text */
   --primary-text: #eab4b4;
@@ -54,18 +54,18 @@ body {
   background: var(--primary-bg);
 }
 nav a {
-  background: linear-gradient(var(--primary-bg), var(--light-primary-bg));
+  background: var(--light-primary-bg);
 
-  border: 1px solid var(--light-primary-accent);
+  border: 1px solid var(--background-tester);
 }
 
 .active:hover {
   text-decoration: none;
 }
 .active {
-  color: var(--light-primary-accent);
-  background: linear-gradient(var(--primary-bg), var(--dark-primary-bg));
-  border: 1px solid var(--light-primary-accent);
+  color: var(--primary-bg);
+  background: var(--primary-accent);
+  /* border: 1px solid var(--light-primary-accent); */
   border-top: none;
 }
 
@@ -79,6 +79,19 @@ nav a {
 .date-value,
 .tags-value {
   font-family: "Dosis", sans-serif;
+}
+
+/* ------------ Design -----------*/
+.design-button {
+  display: flex;
+  justify-content: center;
+}
+
+h1 {
+  font-family: "Space Mono", monospace;
+}
+
+h2 {
 }
 
 h1,

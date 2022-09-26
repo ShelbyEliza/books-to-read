@@ -5,7 +5,7 @@ import { useLogout } from "../../hooks/useLogout";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+// import { useState } from "react";
 import MobileNavMenu from "./MobileNavMenu";
 
 export default function Navbar() {

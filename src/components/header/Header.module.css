@@ -2,7 +2,7 @@ header {
   display: flex;
   justify-content: center;
 
-  background: rgb(178, 126, 67);
+  background: #d69554;
 }
 header a {
   width: 100%;

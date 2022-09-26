@@ -4,18 +4,16 @@ nav {
   display: flex;
   justify-content: center;
 
-  /* border-top: 3px double var(--light-primary-accent); */
-
   text-align: center;
   font-family: "Dosis", sans-serif;
   font-size: 16px;
   font-weight: 700;
-  color: var(--light-primary-accent);
+  /* color: var(--light-primary-accent); */
 }
 
 nav a {
   font-size: 1.2em;
-  color: var(--light-primary-accent);
+  color: var(--secondary-bg);
 }
 
 nav ul {
@@ -44,12 +42,10 @@ nav ul {
 
   padding: 0.4em 1.4em;
 
-  /* border: 1px double var(--primary-accent); */
-  border-top: none;
-
+  border-top: 2px solid var(--secondary-bg);
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
-  border-bottom: 2px solid var(--light-primary-accent);
+  border-bottom: 2px solid var(--secondary-bg);
 
   text-align: center;
   align-items: center;
@@ -73,10 +69,10 @@ nav button {
 
   padding: 0.4em 1.4em;
 
-  background: var(--light-primary-bg);
-  border: 1px solid var(--light-primary-accent);
+  background: var(--secondary-bg);
+  border: 2px solid var(--primary-accent);
   border-top: none;
-  border-bottom: 2px solid var(--light-primary-accent);
+  border-bottom: 3px solid var(--primary-accent);
 
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
@@ -100,8 +96,8 @@ nav a:hover,
 .nav-tab:hover,
 .create-tab:hover,
 .logout:hover {
-  background: var(--light-primary-accent);
-  color: var(--light-primary-bg);
+  background: var(--primary-accent);
+  color: var(--background-tester);
 }
 
 .nav-tab:hover a {
