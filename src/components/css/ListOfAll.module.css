@@ -6,17 +6,46 @@
   text-align: center;
 }
 .heading {
-  padding-bottom: 16px;
-  padding-top: 32px;
+  margin-top: 32px;
+  padding: 24px;
+
+  color: var(--secondary-bg);
+  background: var(--primary-accent);
+
+  border: 4px double var(--secondary-bg);
+  border-radius: 12px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+.list {
+  padding: 24px;
+
+  background: var(--foilage);
+
+  border-radius: 12px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+
+  border: 4px double var(--secondary-bg);
+  border-top: none;
 }
 .list-item {
-  padding: 24px;
+  /* padding: 16px; */
   list-style-type: none;
 }
 .link {
-  color: rgb(214, 149, 84);
-  font-size: 40px;
-  font-family: "Charm", cursive;
+  color: var(--secondary-bg);
+  font-size: 24px;
+  font-family: "Inknut Antiqua", serif;
+}
+.link:hover {
+  padding-left: 24px;
+  padding-right: 24px;
+
+  border-radius: 12px;
+
+  background: var(--primary-accent);
+  border: 4px double var(--secondary-bg);
 }
 
 /* -------------------- Tablet Styles ---------------- */

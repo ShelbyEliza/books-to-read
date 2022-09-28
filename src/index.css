@@ -1,13 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Charm:wght@400;700&family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Dosis:wght@300;400;500;700&family=Josefin+Slab:ital,wght@0,300;0,600;1,400&family=Rajdhani:wght@300;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Dosis:wght@300;400;500;700&family=Josefin+Slab:ital,wght@0,300;0,600;1,400&family=Rajdhani:wght@300;500;600&family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&display=swap");
 
 /* 
-font-family: 'Charm', cursive;
-
 font-family: 'Dosis', sans-serif;
 font-family: 'Rajdhani', sans-serif; 
 
 font-family: 'Josefin Slab', serif;
 font-family: 'Lora', serif; 
+font-family: 'Inknut Antiqua', serif;
 */
 
 :root {
@@ -63,7 +62,7 @@ nav a {
   text-decoration: none;
 }
 .active {
-  color: var(--primary-bg);
+  color: var(--secondary-bg);
   background: var(--primary-accent);
   /* border: 1px solid var(--light-primary-accent); */
   border-top: none;
@@ -88,11 +87,12 @@ nav a {
 }
 
 h1 {
-  font-family: "Space Mono", monospace;
+  font-family: "Inknut Antiqua", serif;
+  /* font-weight: 400; */
 }
 
-h2 {
-}
+/* h2 {
+} */
 
 h1,
 h2,
@@ -105,7 +105,7 @@ a:visited {
   text-decoration: none;
 }
 a:hover {
-  text-decoration: underline;
+  /* text-decoration: underline; */
   cursor: pointer;
 }
 

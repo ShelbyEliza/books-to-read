@@ -5,10 +5,9 @@ nav {
   justify-content: center;
 
   text-align: center;
-  font-family: "Dosis", sans-serif;
+  font-family: "Josefin Slab", serif;
   font-size: 16px;
   font-weight: 700;
-  /* color: var(--light-primary-accent); */
 }
 
 nav a {
@@ -53,7 +52,8 @@ nav ul {
 
 nav button {
   display: flex;
-  color: var(--light-primary-accent);
+  color: var(--secondary-bg);
+  font-weight: 600;
   background: none;
   border: none;
   margin: 0;
@@ -69,20 +69,17 @@ nav button {
 
   padding: 0.4em 1.4em;
 
-  background: var(--secondary-bg);
-  border: 2px solid var(--primary-accent);
-  border-top: none;
-  border-bottom: 3px solid var(--primary-accent);
+  background: var(--foilage);
 
+  border-top: 2px solid var(--secondary-bg);
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
+  border-bottom: 2px solid var(--secondary-bg);
 }
 .logout button {
   display: flex;
   flex-direction: column;
-  font-family: "Dosis", sans-serif;
-  font-weight: 700;
-  /* justify-content: center; */
+  font-family: "Josefin Slab", serif;
 }
 
 /* hover */

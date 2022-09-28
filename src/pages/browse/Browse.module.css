@@ -4,117 +4,148 @@
   margin: auto;
 
   text-align: center;
-
-  color: var(--lightest-primary-bg);
 }
 .heading {
-  padding: 32px 0;
+  margin-top: 32px;
+  padding: 24px;
+
+  color: var(--secondary-bg);
+  background: var(--primary-accent);
+
+  border: 4px double var(--secondary-bg);
+  border-radius: 12px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-bottom: 2px solid var(--secondary-bg);
 }
 .content {
   display: grid;
-
   grid-template-columns: 1fr 0.1fr 1fr;
+
+  background: var(--foilage);
+
+  border: 4px double var(--secondary-bg);
+  border-top: none;
+  border-bottom: none;
 }
 .gap {
   padding: 7px 12px;
 }
-
-/* ul */
-.first-section ul {
-  border-right: 1px solid var(--light-primary-accent);
+.open-section {
+  background: var(--foilage);
+  border: 4px double var(--secondary-bg);
+  border-top: none;
+  border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
 }
-.second-section ul {
-  border-left: 1px solid var(--light-primary-accent);
-  border-bottom-left-radius: 12px;
-}
+/* ul */
+.tags ul {
+  border-right: 1px solid var(--secondary-bg);
 
-/* minor-heading */
-.minor-heading {
+  border-bottom-right-radius: 12px;
+}
+/* Tabs */
+.tag-tab,
+.rating-tab {
+  margin-bottom: 12px;
   padding: 6px 12px;
 
   background: var(--light-primary-bg);
-  color: var(--lightest-primary-bg);
+  color: var(--secondary-bg);
 
-  border: 1px solid var(--light-primary-accent);
-  border-top: 2px solid var(--light-primary-accent);
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
+  border-bottom: 2px solid var(--secondary-bg);
+
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+
+  font-family: "Josefin Slab", serif;
 
   cursor: pointer;
 }
-.first-section .minor-heading {
-  margin-left: 240px;
+.open-tab {
+  background: var(--primary-accent);
 }
-.second-section .minor-heading {
-  margin-right: 240px;
+.tag-tab {
+  margin-left: 140px;
+}
+.rating-tab {
+  margin-right: 140px;
 }
 
 /* list-item */
 .list-item {
   padding: 8px;
 
-  background: var(--light-primary-bg);
+  background: var(--foilage);
 
-  border: 1px solid var(--light-primary-accent);
-  box-shadow: 3px 3px 5px rgba(50, 50, 50, 0.1);
+  border: 1px solid var(--secondary-bg);
 
   font-size: 1.2em;
 
   list-style-type: none;
+  font-family: "Josefin Slab", serif;
+  font-size: 24px;
+  font-weight: 600;
 }
-.first-section .list-item:last-of-type {
-  border-bottom-right-radius: 12px;
+.tags .list-item:last-of-type {
+  margin-bottom: 16px;
 }
-.second-section .list-item:last-of-type {
-  border-bottom-left-radius: 12px;
+.ratings .list-item:last-of-type {
+  margin-bottom: 16px;
 }
-.first-section .list-item {
-  margin-left: 20px;
+.tags .list-item {
+  margin-left: 60px;
+  margin-right: 60px;
 
-  border-right: none;
-
-  border-top-left-radius: 10px;
+  border-radius: 10px;
   border-bottom-left-radius: 10px;
 }
-.second-section .list-item {
-  margin-right: 20px;
+.ratings .list-item {
+  margin-right: 60px;
+  margin-left: 60px;
 
-  border-left: none;
-
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-radius: 10px;
 }
 
 /* li:hover */
-.section li:hover {
-  background: var(--secondary);
-  color: var(--lightest-primary-bg);
+.open-section li:hover {
+  background: var(--primary-accent);
 
   cursor: pointer;
 }
-.first-section li:hover {
-  margin-left: 2px;
-  border-right: none;
+.tags li:hover {
+  margin-right: 12px;
+  margin-left: 12px;
 }
-.second-section li:hover {
-  margin-right: 2px;
-  border-left: none;
+.ratings li:hover {
+  margin-right: 12px;
+  margin-left: 12px;
 }
 
 /* li:hover a */
-.section li:hover a {
+/* .section li:hover a {
   text-decoration: none;
 }
 .section li a {
   color: var(--lightest-primary-bg);
-}
+} */
 
 .msg-select-category {
   padding: 20px;
 
-  background: var(--light-primary-bg);
+  background: var(--foilage);
 
-  border: 1px solid var(--light-primary-accent);
-  border-radius: 12px;
+  /* border: 4px double var(--secondary-bg); */
+  border-top: none;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.link {
+  color: var(--secondary-bg);
+}
+.minor-heading {
+  font-family: "Inknut Antiqua", serif;
+  font-size: 24px;
+  margin-bottom: 16px;
 }

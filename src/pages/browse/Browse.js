@@ -64,70 +64,79 @@ export default function Browse() {
     <div className={styles.container}>
       <h1 className={styles.heading}>Browse by... </h1>
       <div className={styles.content}>
-        <div className={`${styles["first-section"]} ${styles.section}`}>
-          <h3
-            onClick={() => openMenu("Tags")}
-            className={styles["minor-heading"]}
-          >
+        <div
+          className={
+            headingIsOpen === "Tags"
+              ? `${styles["open-tab"]} ${styles["tag-tab"]}`
+              : styles["tag-tab"]
+          }
+        >
+          <h3 className={styles.tags} onClick={() => openMenu("Tags")}>
             Tags
           </h3>
-          {headingIsOpen === "Tags" && (
-            <ul>
-              {tagList.map((tag) => (
-                <li
-                  onClick={() => openDetails(tag, "Tags")}
-                  className={styles["list-item"]}
-                  key={tag}
-                >
-                  {tag}
-                </li>
-              ))}
-            </ul>
-          )}
         </div>
 
         <div className={`${styles.section} ${styles.middle}`}>
-          <h3 className={styles.gap}>or</h3>
+          <div className={styles.gap}> </div>
         </div>
 
-        <div className={`${styles["second-section"]} ${styles.section}`}>
-          <h3
-            onClick={() => openMenu("Ratings")}
-            className={styles["minor-heading"]}
-          >
+        <div
+          className={
+            headingIsOpen === "Ratings"
+              ? `${styles["open-tab"]} ${styles["rating-tab"]}`
+              : styles["rating-tab"]
+          }
+        >
+          <h3 onClick={() => openMenu("Ratings")} className={styles["ratings"]}>
             Ratings
           </h3>
-          {headingIsOpen === "Ratings" && (
-            <ul>
-              {ratingList.map((rating) => {
-                return (
-                  <li
-                    onClick={() => openDetails(rating, "rating")}
-                    className={styles["list-item"]}
-                    key={rating}
-                  >
-                    {rating}
-                  </li>
-                );
-              })}
-            </ul>
-          )}
         </div>
       </div>
-      {headingIsOpen === "standby" &&
-        (detailsType.length > 0 ? (
-          <div>
-            {detailsType === "rating" && (
-              <RatingDetails rating={detailsAreOpen} />
-            )}
+      <div className={styles["open-section"]}>
+        {headingIsOpen === "Tags" && (
+          <ul className={styles.tags}>
+            {tagList.map((tag) => (
+              <li
+                onClick={() => openDetails(tag, "Tags")}
+                className={styles["list-item"]}
+                key={tag}
+              >
+                {tag}
+              </li>
+            ))}
+          </ul>
+        )}
+        {headingIsOpen === "Ratings" && (
+          <ul className={styles.ratings}>
+            {ratingList.map((rating) => {
+              return (
+                <li
+                  onClick={() => openDetails(rating, "rating")}
+                  className={styles["list-item"]}
+                  key={rating}
+                >
+                  {rating}
+                </li>
+              );
+            })}
+          </ul>
+        )}
+        {headingIsOpen === "standby" &&
+          (detailsType.length > 0 ? (
+            <div>
+              {detailsType === "rating" && (
+                <RatingDetails rating={detailsAreOpen} />
+              )}
 
-            {detailsType === "Tags" && <TagDetails tag={detailsAreOpen} />}
-          </div>
-        ) : (
-          <div className={styles["msg-select-category"]}>
-            <p>Please choose a category above to browse from.</p>
-          </div>
-        ))}
+              {detailsType === "Tags" && <TagDetails tag={detailsAreOpen} />}
+            </div>
+          ) : (
+            <div className={styles["msg-select-category"]}>
+              <div>No Category Selected.</div>
+              <p>Please choose a category above to browse from.</p>
+            </div>
+          ))}
+      </div>
     </div>
   );
 }

@@ -12,14 +12,12 @@ export default function AllBlogs() {
     <div className={styles.content}>
       <h1 className={styles.heading}>All Blogs</h1>
       {blogs && (
-        <ul>
+        <ul className={styles["list"]}>
           {blogs.map((blog) => (
             <li className={styles["list-item"]} key={blog.id}>
-              <h1>
-                <Link className={styles.link} to={`/blogDetails/${blog.id}`}>
-                  {blog.title}
-                </Link>
-              </h1>
+              <Link className={styles.link} to={`/blogDetails/${blog.id}`}>
+                {blog.title}
+              </Link>
             </li>
           ))}
         </ul>

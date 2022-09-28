@@ -1,5 +1,5 @@
 // styles:
-import styles from "../../components/css/BrowseDetails.module.css";
+import styles from "../browse/Browse.module.css";
 
 import { Link } from "react-router-dom";
 
@@ -13,12 +13,12 @@ export default function TagDetails({ tag }) {
   ]);
   return (
     <div className={styles["open-list-container"]}>
-      <h1 className={styles["minor-heading"]}>{tag} Blogs</h1>
-      <ul className={styles["open-list-content"]}>
+      <h4 className={styles["minor-heading"]}>{tag} Blogs</h4>
+      <ul className={styles.tags}>
         {blogsWithTag &&
           (blogsWithTag.length > 0 ? (
             blogsWithTag.map((blog) => (
-              <li key={blog.id} className={styles.option}>
+              <li key={blog.id} className={styles["list-item"]}>
                 <Link className={styles.link} to={`/blogDetails/${blog.id}`}>
                   {blog.title}
                 </Link>

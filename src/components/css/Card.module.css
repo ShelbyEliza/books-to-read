@@ -8,7 +8,7 @@
 
   margin: auto;
 
-  max-width: 900px;
+  max-width: 800px;
 }
 
 .title-line a,
@@ -17,14 +17,15 @@
 }
 
 .content-box {
-  background: var(--secondary-bg);
+  background: var(--dark-primary-bg);
   color: var(--primary-accent);
 
   margin: auto;
   /* max-width: 700px;
   min-width: 694px; */
 
-  border: 1px solid var(--primary-accent);
+  border-top: 4px double var(--primary-accent);
+  border-bottom: 4px double var(--primary-accent);
   border-radius: 24px;
 }
 
@@ -59,8 +60,8 @@
 }
 
 .title {
-  font-size: 60px;
-  font-family: "Charm", cursive;
+  font-size: 40px;
+  font-family: "Inknut Antiqua", serif;
   letter-spacing: 0.01em;
   margin-right: 0.2em;
 }
@@ -174,10 +175,15 @@
   padding: 0.6em 0.8em;
   /* border: 1px solid var(--primary-accent); */
   border-radius: 24px;
-  background: var(--primary-bg);
+  background: var(--light-primary-bg);
+  font-family: "Josefin Slab", serif;
+  font-weight: 600;
+
+  border-top: 2px solid var(--primary-accent);
+  border-bottom: 2px solid var(--primary-accent);
 }
 .tag {
-  color: var(--primary-text);
+  color: var(--lightest-primary-bg);
 }
 
 .content {
@@ -189,14 +195,14 @@
   border-right: 3px solid var(--primary-bg);
   border-left: 3px solid var(--primary-bg); */
 
-  padding: 0.8em 1.2em;
+  padding: 1.2em 4em;
 
-  font-family: "Dosis", sans-serif;
+  font-family: "Josefin Slab", serif;
   font-size: 1.3em;
+  font-weight: 600;
 
   text-align: left;
-  line-height: 1.2em;
-  letter-spacing: 0.05em;
+  line-height: 1.4em;
 }
 
 .snippet {

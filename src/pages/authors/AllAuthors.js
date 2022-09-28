@@ -10,17 +10,12 @@ export default function AllAuthors() {
     <div className={styles.content}>
       <h1 className={styles.heading}>All Authors</h1>
       {authors && (
-        <ul>
+        <ul className={styles["list"]}>
           {authors.map((author) => (
             <li className={styles["list-item"]} key={author.id}>
-              <h1>
-                <Link
-                  className={styles.link}
-                  to={`/authorDetails/${author.id}`}
-                >
-                  {author.name}
-                </Link>
-              </h1>
+              <Link className={styles.link} to={`/authorDetails/${author.id}`}>
+                {author.name}
+              </Link>
             </li>
           ))}
         </ul>

@@ -1,5 +1,5 @@
 // styles:
-import styles from "../../components/css/BrowseDetails.module.css";
+import styles from "./Browse.module.css";
 
 import { Link } from "react-router-dom";
 
@@ -15,14 +15,14 @@ export default function RatingDetails({ rating }) {
   return (
     <div className={styles["open-list-container"]}>
       {rating > 1 ? (
-        <h2 className={styles["minor-heading"]}>{rating} Stars Blogs</h2>
+        <h4 className={styles["minor-heading"]}>{rating} Stars Blogs</h4>
       ) : (
-        <h2 className={styles["minor-heading"]}>{rating} Star Blogs</h2>
+        <h4 className={styles["minor-heading"]}>{rating} Star Blogs</h4>
       )}
-      <ul className={styles["open-list-content"]}>
+      <ul className={styles.ratings}>
         {blogsWithRating && blogsWithRating.length > 0 ? (
           blogsWithRating.map((blog) => (
-            <li key={blog.id} className={styles.option}>
+            <li key={blog.id} className={styles["list-item"]}>
               <Link
                 className={styles.link}
                 key={blog.id}

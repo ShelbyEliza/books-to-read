@@ -13,12 +13,11 @@ const colorList = [
 ];
 
 const fontList = [
-  { "font-family": "'Charm', cursive" },
-  { "font-family": "'Dosis', sans-serif" },
-  { "font-family": "'Rajdhani', sans-serif" },
+  { "font-family": "'Inknut Antiqua', serif" },
   { "font-family": "'Josefin Slab', serif" },
+  { "font-family": "'Dosis', sans-serif" },
+  { "font-family": "'Rajdhani' sans-serif" },
   { "font-family": "'Lora', serif" },
-  { "font-family": "'Space Mono', monospace" },
 ];
 
 export default function Design() {
@@ -27,6 +26,14 @@ export default function Design() {
       <h1 className={styles.title}>Design Guide</h1>
 
       <div className={styles.content}>
+        <div className={styles.section}>
+          <h2 className={styles["section-title"]}>Page Structure</h2>
+          <h3>Heading H1</h3>
+          <p>top-margin 32px</p>
+          <p>font-size: 2em</p>
+          <p>padding: 24px</p>
+          <p>font-family: "Inknut Antiqua", serif</p>
+        </div>
         <div className={styles.section}>
           <h2 className={styles["section-title"]}>Colors</h2>
           {colorList.map((color) => {
@@ -58,15 +65,28 @@ export default function Design() {
             {fontList.map((font) => {
               let fontID = Object.values(font);
               return (
-                <p
+                <div
                   key={fontID}
                   className={styles["font-name"]}
                   style={{
                     fontFamily: fontID,
                   }}
                 >
-                  {fontID}{" "}
-                </p>
+                  <h1
+                    style={{
+                      fontFamily: fontID,
+                    }}
+                  >
+                    {fontID}
+                  </h1>
+                  <p className={styles["font-paragraph"]}>
+                    He did not move. He was still as the rocks themselves.
+                    Stillness spread out from him, like rings from a stone
+                    dropped in the water. His silence became not absence of
+                    speech, but a thing in itself, like the silence of the
+                    desert.
+                  </p>
+                </div>
               );
             })}
           </div>
@@ -84,9 +104,6 @@ export default function Design() {
             <li className={styles["li-1"]}>Error</li>
             <li className={styles["li-1"]}>Navbar</li>
           </ul> */}
-        </div>
-        <div className={styles.section}>
-          <h2 className={styles["section-title"]}>Spacing</h2>
         </div>
       </div>
     </div>
