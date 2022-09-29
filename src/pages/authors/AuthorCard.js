@@ -18,57 +18,48 @@ export default function AuthorCard({ author, keyInfo }) {
   return (
     <div className={styles.card}>
       {author && (
-        <div className={styles["content-box"]}>
-          <div className={styles["top-container"]}>
-            <div className={`${styles["card-col"]} ${styles["card-col-1"]}`}>
-              <div className={`${styles["card-line"]} ${styles["title-line"]}`}>
-                <h1 className={styles.title}>{author.name}</h1>
+        <div className={styles["all-card-content"]}>
+          <div className={styles["title-edit-content"]}>
+            <h1 className={styles.title}>{author.name}</h1>
 
-                <Link to={`/editAuthor/${author.id}`}>
-                  <EditButton className={styles.edit} />
-                </Link>
-              </div>
-              {keyInfo &&
-                (keyInfo.booksWithIDs.length === 0 ? (
-                  <div className={styles["card-line"]}>
-                    <label>Books Written:</label>
-                    <p>No Books Written.</p>
-                  </div>
-                ) : (
-                  <div
-                    className={`${styles["card-line"]} ${styles["books-written-container"]}`}
-                  >
-                    <label>Books Written:</label>
-                    <ul className={styles["blog-container"]}>
-                      {keyInfo.booksWithIDs.map((book) => (
-                        <li
-                          className={styles["list-item"]}
-                          key={Object.values(book)}
-                        >
-                          <Link
-                            className={styles["blog-link"]}
-                            to={`/blogDetails/${Object.values(book)}`}
-                          >
-                            <p>{Object.keys(book)}</p>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              {author.aboutAuthor && (
-                <div
-                  className={`${styles["card-line-full"]} ${styles["content"]}`}
-                >
-                  {aboutSnips.map((snip) => (
-                    <p className={styles.snippet} key={Math.random() * 300}>
-                      {snip}
-                    </p>
-                  ))}
-                </div>
-              )}
-            </div>
+            <Link to={`/editAuthor/${author.id}`}>
+              <EditButton className={styles.edit} />
+            </Link>
           </div>
+          {keyInfo &&
+            (keyInfo.booksWithIDs.length === 0 ? (
+              <div className={styles["books-content"]}>
+                <label>Books Written:</label>
+                <p className={styles["books"]}>No Books Written.</p>
+              </div>
+            ) : (
+              <div className={styles["books-content"]}>
+                <label>Books Written:</label>
+                <div className={styles.books}>
+                  <div className={styles["books"]}>
+                    {keyInfo.booksWithIDs.map((book) => (
+                      <Link
+                        key={Object.values(book)}
+                        className={styles["book"]}
+                        to={`/blogDetails/${Object.values(book)}`}
+                      >
+                        <p>{Object.keys(book)}</p>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          {author.aboutAuthor && (
+            <div className={styles["description-content"]}>
+              {aboutSnips.map((snip) => (
+                <p className={styles.snippet} key={Math.random() * 300}>
+                  {snip}
+                </p>
+              ))}
+            </div>
+          )}
+          <div className={styles.filler}></div>
         </div>
       )}
     </div>

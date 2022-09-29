@@ -149,6 +149,7 @@ export default function Create() {
             value={dateFinished}
           />
         </div>
+
         <Tags handleTags={handleTags} prevTags={tags} />
         <Rating handleRating={handleRating} />
         <div className={styles["form-row-full"]}>
@@ -162,15 +163,17 @@ export default function Create() {
           value={content}
         ></textarea>
       </form>
-      {response.isPending ? (
-        <button className={styles["post-btn"]} disabled>
-          Posting Blog...
-        </button>
-      ) : (
-        <button form="create-form" className={styles["post-btn"]}>
-          Post!
-        </button>
-      )}
+      <div className={styles.submit}>
+        {response.isPending ? (
+          <button className={styles["post-btn"]} disabled>
+            Posting Blog...
+          </button>
+        ) : (
+          <button form="create-form" className={styles["post-btn"]}>
+            Post Blog
+          </button>
+        )}
+      </div>
       {error && <p className="error">{error}</p>}
     </div>
   );

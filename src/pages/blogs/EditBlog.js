@@ -146,15 +146,17 @@ export default function EditBlog() {
               value={blog.content}
             ></textarea>
           </form>
-          {response.isPending ? (
-            <button className={styles["post-btn"]} disabled>
-              Updating Blog...
-            </button>
-          ) : (
-            <button form="edit-form" className={styles["post-btn"]}>
-              Update!
-            </button>
-          )}
+          <div className={styles.submit}>
+            {response.isPending ? (
+              <button className={styles["post-btn"]} disabled>
+                Updating Blog...
+              </button>
+            ) : (
+              <button form="edit-form" className={styles["post-btn"]}>
+                Update!
+              </button>
+            )}
+          </div>
           {error && <p className="error">{error}</p>}
         </div>
       )}

@@ -2,198 +2,142 @@
   display: flex;
   flex-direction: column;
 
-  color: var(--extra-text);
-
+  margin: auto;
   padding: 16px 0px 8px 0px;
 
+  max-width: 800px;
+
+  color: var(--extra-text);
+}
+
+.all-card-content {
+  min-width: 800px;
   margin: auto;
 
-  max-width: 800px;
-}
-
-.title-line a,
-.author-line a {
-  color: var(--primary-accent);
-}
-
-.content-box {
   background: var(--dark-primary-bg);
   color: var(--primary-accent);
-
-  margin: auto;
-  /* max-width: 700px;
-  min-width: 694px; */
 
   border-top: 4px double var(--primary-accent);
   border-bottom: 4px double var(--primary-accent);
   border-radius: 24px;
 }
 
-.content-box:first-of-type {
+.all-card-content:first-of-type {
   margin-top: 2px;
 }
 
-.top-container {
-  display: flex;
-  padding: 20px 20px 10px 20px;
+.title-edit-content a:hover,
+.author a:hover {
+  color: var(--light-primary-accent);
 }
 
-.card-col-1 {
-  flex: 2;
-}
-
-.card-col-2 {
-  flex: 1;
+.title-edit-content {
   display: flex;
-  justify-content: flex-end;
-}
-
-.card-line {
-  display: flex;
-  flex-flow: row wrap;
-  flex-basis: 50%;
-  margin-bottom: 8px;
-}
-.title-line {
-  justify-content: space-between;
+  justify-content: center;
+  margin-top: 32px;
+  margin-bottom: 18px;
   align-items: center;
 }
-
 .title {
+  margin-right: 0.4em;
+
   font-size: 40px;
   font-family: "Inknut Antiqua", serif;
   letter-spacing: 0.01em;
-  margin-right: 0.2em;
-}
 
-.title-edit {
-  display: flex;
-  flex-direction: row;
+  color: var(--primary-accent);
 }
-
-.author {
-  padding-left: 16px;
-  padding-right: 8px;
-  font-size: 30px;
-}
-
-.author-link {
-  font-size: 30px;
-  margin-right: 0.4em;
-}
-.blog-link {
-  color: rgb(214, 149, 84);
-  font-size: 40px;
-  word-spacing: -0.08em;
-}
-.books-written-container {
-  display: flex;
-  /* flex-direction: column; */
-}
-.blog-container {
-  display: flex;
-  /* flex-basis: 50%; */
-  justify-content: space-between;
-}
-.list-item {
-  margin: 2px;
-  list-style-type: none;
-  padding-right: 12px;
-}
-
 .edit {
   max-width: 0.2em;
   max-height: 20px;
   margin: 0px 10px;
 }
 
-/* ---------------------- Dates --------------- */
-/* .book-stack,
-.relative-parent {
+.author-date-content {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  align-items: center;
 }
-.book-stack {
-  border: 1px solid rgb(46, 117, 139);
-}
-.testing-element,
-.books {
-  border: 20px solid rgb(82, 139, 46);
-}
-.relative-parent {
-  border: 1px solid seagreen;
-  position: relative;
-  height: auto;
-  width: auto;
-} 
+.author {
+  margin: 8px;
 
-.date-value {
-  align-self: center; 
-  padding: 0px 0px 2px 16px;
-  position: absolute;
-  z-index: 2;
-  color: black;
+  font-size: 30px;
 }
-#start-date {
-  border: 100px solid cornflowerblue;
-  color: aqua;
-  bottom: 84px;
-  left: 80px;
-}
-.finish {
-  bottom: 52px;
-  left: 60px;
-}
-.start {
-  border: 10px solid cornflowerblue;
-  bottom: 84px;
-  left: 80px;
-}
-*/
 
-.date-container {
+.author a {
+  color: var(--primary-accent);
+}
+
+.date-content {
   display: flex;
-  flex-direction: column;
-  /* border: 1px solid rgb(206, 156, 239); */
+  flex-direction: row;
+  flex-basis: 50%;
+  justify-content: flex-end;
+
   padding: 8px;
 }
-.date-container div {
-  display: flex;
-  justify-content: center;
+.date-content div {
+  padding: 6px;
 }
+
 .currently-reading {
   color: var(--lightest-primary-bg);
 }
 
 /* ---------------------- Tags --------------- */
 
-.tags {
+.tags-content {
+  display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
+
+  margin: 12px;
 }
-.tags-value {
+.tag {
   padding: 0.6em 0.8em;
-  /* border: 1px solid var(--primary-accent); */
-  border-radius: 24px;
+
   background: var(--light-primary-bg);
+  color: var(--lightest-primary-bg);
+
   font-family: "Josefin Slab", serif;
   font-weight: 600;
 
+  border-radius: 4px;
   border-top: 2px solid var(--primary-accent);
   border-bottom: 2px solid var(--primary-accent);
 }
-.tag {
-  color: var(--lightest-primary-bg);
+.tags-content a:hover {
+  background: var(--primary-accent);
+  color: var(--secondary-bg);
 }
 
-.content {
+/* -------------------- Rating ---------------- */
+
+.rating-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  background: var(--primary-accent);
+}
+
+.rating-content > div {
+  display: flex;
+  margin: 4px;
+  align-items: center;
+}
+.rating-icon {
+  border-radius: 24px;
+  max-width: 28px;
+}
+
+/* ------------------ Description -------------*/
+.description-content {
   background: var(--light-primary-bg);
   color: var(--lightest-primary-bg);
 
-  /* border-top: 3px solid var(--primary-accent); */
-  /* border-bottom: 3px solid var(--primary-accent);
-  border-right: 3px solid var(--primary-bg);
-  border-left: 3px solid var(--primary-bg); */
+  border-right: 1px solid var(--primary-accent);
+  border-left: 1px solid var(--primary-accent);
 
   padding: 1.2em 4em;
 
@@ -206,7 +150,7 @@
 }
 
 .snippet {
-  text-indent: 24px;
+  text-indent: 8%;
   padding-bottom: 2px;
 }
 
@@ -214,37 +158,53 @@
   text-indent: 30px;
 }
 
-/* -------------------- Bottom Bar ---------------- */
-
-.rating {
-  display: flex;
-  flex-direction: row;
-  /* justify-content: center; */
-
-  justify-content: space-around;
-  background: var(--primary-accent);
-}
-
-.rating > div {
-  display: flex;
-  /* background: var(--light-primary-bg); */
+/*----------------- Author Card -------------*/
+.books-content {
+  display: grid;
+  grid-template-columns: 0.4fr 1fr;
   align-items: center;
 }
-.rating-icon {
-  border-radius: 24px;
-  margin-right: 1em;
-  max-width: 28px;
+.books-content label {
+  display: flex;
+  flex-basis: 20%;
+  justify-content: center;
 
-  /* border: 2px solid var(--secondary-bg);
-  border-left: none; */
+  font-family: "Josefin Slab", serif;
+  font-size: 1.4em;
+  font-weight: 600;
 }
-/* .rating-icon {
-  background: var(--primary-accent);
-  border-radius: 24px;
-  margin-right: 0.2em;
-  max-width: 28px;
-} */
+.books {
+  display: flex;
+  justify-content: center;
+}
+.book {
+  display: flex;
+  flex-basis: 50%;
 
+  margin: 8px 12px;
+  padding: 0.6em 0.8em;
+  align-items: center;
+
+  color: var(--lightest-primary-bg);
+  background: var(--light-primary-bg);
+
+  font-family: "Inknut Antiqua", serif;
+  font-size: 16px;
+  text-align: center;
+  line-height: 1.4em;
+
+  border-radius: 4px;
+  border-top: 2px solid var(--primary-accent);
+  border-bottom: 2px solid var(--primary-accent);
+}
+.book:hover {
+  background: var(--primary-accent);
+  color: var(--secondary-bg);
+}
+
+.filler {
+  margin: 50px;
+}
 /* -------------------- PC Styles ---------------- */
 /* @media only screen and (min-width: 900px) {
   .card {
@@ -268,7 +228,7 @@
 }
 /* ------------------- Mobile Styles ----------------- */
 /* @media only screen and (max-width: 405px) {
-  .card-content-box {
+  .card-all-card-content {
     width: 400px;
   }
 } */

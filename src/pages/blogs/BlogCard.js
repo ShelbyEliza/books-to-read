@@ -21,12 +21,16 @@ export default function BlogCard({ blog, isSingleBlog }) {
 
   useEffect(() => {
     if (blog) {
+      // setting up specific ratings:
       let ratings = [];
-      for (let i = 1; i < 6; i++) {
+      for (let i = 1; i < blog.rating; i++) {
         ratings.push(i);
       }
       setRatingArray(ratings);
+
+      // creating paragraphs:
       const reg = /\n/;
+      console.log(blog);
       setBlogSnips(blog.content.split(reg));
     }
   }, [blog]);
@@ -44,114 +48,76 @@ export default function BlogCard({ blog, isSingleBlog }) {
 
   return (
     <div className={styles.card}>
-      <div className={styles["content-box"]}>
-        <div className={styles["top-container"]}>
-          <div className={`${styles["card-col"]} ${styles["card-col-1"]}`}>
-            <div className={`${styles["card-line"]} ${styles["title-line"]}`}>
-              <div>
-                <div className={styles["title-edit"]}>
-                  <h1>
-                    <Link
-                      className={styles.title}
-                      to={`/blogDetails/${blog.id}`}
-                    >
-                      {blog.title}
-                    </Link>
-                  </h1>
-                  <Link to={`/editBlog/${blog.id}`}>
-                    <EditButton className={styles.edit} />
-                  </Link>
-                </div>
-
-                {blog.author && (
-                  <div className={styles["author-line"]}>
-                    <p className={styles.author}>by</p>
-                    <Link
-                      className={styles["author-link"]}
-                      to={`/authorDetails/${blog.authorID}`}
-                    >
-                      {blog.author}
-                    </Link>
-                  </div>
-                )}
+      <div className={styles["all-card-content"]}>
+        <div className={styles["before-ratings"]}>
+          <div className={styles["title-edit-content"]}>
+            <h1>
+              <Link className={styles.title} to={`/blogDetails/${blog.id}`}>
+                {blog.title}
+              </Link>
+            </h1>
+            <Link to={`/editBlog/${blog.id}`}>
+              <EditButton className={styles.edit} />
+            </Link>
+          </div>
+          <div className={styles["author-date-content"]}>
+            {blog.author && (
+              <div className={styles["author"]}>
+                <Link to={`/authorDetails/${blog.authorID}`}>
+                  {blog.author}
+                </Link>
               </div>
+            )}
 
-              {blog.dateStarted && (
-                <div
-                  className={`${styles["card-line"]} ${styles["date-container"]}`}
-                >
-                  <div className={styles["date-started"]}>
-                    {/* <p className={styles["date-label"]}>Started:</p> */}
-                    {blog.formatStart ? (
-                      <p className={styles["date-value"]}>{blog.formatStart}</p>
-                    ) : (
-                      <p className={styles["date-value"]}>{blog.dateStarted}</p>
-                    )}
-                  </div>
-                  <div> - </div>
-
-                  <div className={styles["date-finished"]}>
-                    {/* <p className={styles["date-label"]}>Finished:</p> */}
-                    <div>
-                      {blog.dateFinished === "" && (
-                        <p className={styles["currently-reading"]}>
-                          Currently Reading
-                        </p>
-                      )}
-                      {blog.formatFinish ? (
-                        <p className={styles["date-value"]}>
-                          {blog.formatFinish}
-                        </p>
-                      ) : (
-                        <p className={styles["date-value"]}>
-                          {blog.dateFinished}
-                        </p>
-                      )}
-                    </div>
-                  </div>
+            {blog.dateStarted && (
+              <div className={styles["date-content"]}>
+                <div className={styles["date-started"]}>
+                  {blog.formatStart ? (
+                    <p className={styles["date-value"]}>{blog.formatStart}</p>
+                  ) : (
+                    <p className={styles["date-value"]}>{blog.dateStarted}</p>
+                  )}
                 </div>
-              )}
-            </div>
+                <div>-</div>
 
-            {/* {blog.rating && (
-              <div className={styles.rating}>
-                {ratingArray.map((rating) => (
-                  <div key={rating}>
-                    <img
-                      className={styles["rating-icon"]}
-                      alt="A number of lightening bolts indicating the rating."
-                      src={BoltIcon}
-                    />
-                  </div>
-                ))}
-              </div>
-            )} */}
-
-            {blog.tags && (
-              <div className={`${styles["card-line"]} ${styles.tags}`}>
-                {blog.tags.length === 0 ? (
-                  <p className={styles["tags-value"]}>No Tags.</p>
-                ) : (
-                  blog.tags.map((tag) => (
-                    <p key={tag} className={styles["tags-value"]}>
-                      <Link
-                        key={tag}
-                        className={styles.tag}
-                        state={{ from: tag }}
-                        to={`/browse`}
-                      >
-                        {tag}
-                      </Link>
+                <div className={styles["date-finished"]}>
+                  {blog.dateFinished === "" && (
+                    <p className={styles["currently-reading"]}>
+                      Currently Reading
                     </p>
-                  ))
-                )}
+                  )}
+                  {blog.formatFinish ? (
+                    <p className={styles["date-value"]}>{blog.formatFinish}</p>
+                  ) : (
+                    <p className={styles["date-value"]}>{blog.dateFinished}</p>
+                  )}
+                </div>
               </div>
             )}
           </div>
+
+          {blog.tags && (
+            <div className={styles["tags-content"]}>
+              {blog.tags.length === 0 ? (
+                <p className={styles["tags-value"]}>No Tags.</p>
+              ) : (
+                blog.tags.map((tag) => (
+                  <Link
+                    key={tag}
+                    className={styles["tag"]}
+                    state={{ from: tag }}
+                    to={`/browse`}
+                  >
+                    {tag}
+                  </Link>
+                ))
+              )}
+            </div>
+          )}
         </div>
 
         {blog.rating && (
-          <div className={styles.rating}>
+          <div className={styles["rating-content"]}>
             {ratingArray.map((rating) => (
               <div key={rating}>
                 <img
@@ -164,7 +130,7 @@ export default function BlogCard({ blog, isSingleBlog }) {
           </div>
         )}
         {blog.content && (
-          <div className={`${styles["card-line-full"]} ${styles["content"]}`}>
+          <div className={styles["description-content"]}>
             {blogSnips.map((snip) => (
               <p className={styles.snippet} key={Math.random() * 300}>
                 {snip}
@@ -173,9 +139,9 @@ export default function BlogCard({ blog, isSingleBlog }) {
           </div>
         )}
 
-        {/* ------------------------------------------------------------- */}
+        {/* ------------------------ Delete ------------------ */}
         {showDelete === true ? (
-          <>
+          <div className="delete-container">
             <p className="delete delete-message">
               Are you sure you would like to delete this blog permanently?
             </p>
@@ -184,17 +150,19 @@ export default function BlogCard({ blog, isSingleBlog }) {
                 className="delete-confirmed"
                 onClick={() => handleDelete(blog)}
               >
-                Yes, delete this blog
+                Delete
               </button>
               <button className="cancel" onClick={() => setShowDelete(false)}>
                 Cancel
               </button>
             </div>
-          </>
+          </div>
         ) : (
-          <button className="delete" onClick={() => setShowDelete(true)}>
-            DELETE POST?
-          </button>
+          <div className="delete-container">
+            <button className="delete" onClick={() => setShowDelete(true)}>
+              DELETE POST
+            </button>
+          </div>
         )}
       </div>
       {/* make sure this error works! */}

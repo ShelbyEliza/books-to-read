@@ -12,7 +12,9 @@ font-family: 'Inknut Antiqua', serif;
 :root {
   /*Background*/
   --secondary-bg: #18181bff;
-  --primary-bg: #446544;
+  /* --primary-bg: #466c46; */
+  /* --primary-bg: #372525; */
+  --primary-bg: #37303d;
   /* --primary-accent: #b5b566; */
   --background-tester: #323732;
 
@@ -144,10 +146,18 @@ a:hover {
   background: none;
 }
 
-.delete {
-  display: flex;
+.delete-container {
+  /* margin: 24px; */
   margin: auto;
-
+  background: var(--primary-accent);
+  display: flex;
+  justify-content: center;
+  /* border: 1px solid aliceblue; */
+  border-bottom-left-radius: 22px;
+  border-bottom-right-radius: 22px;
+  align-items: center;
+}
+.delete {
   cursor: pointer;
 
   padding: 8px 96px;
@@ -160,40 +170,59 @@ a:hover {
 
   border: 1px solid var(--primary-accent);
   border-top: none;
-
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 22px;
+  border-bottom-right-radius: 22px;
 }
 
 .confirm-del-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  /* display: flex; */
+  margin: 0px 22px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* gap: 8%; */
+
+  border-bottom-left-radius: 22px;
+  border-bottom-right-radius: 22px;
 }
 .delete-message {
-  border-radius: 0px;
-  justify-content: center;
+  text-align: center;
 }
 
 .cancel,
 .delete-confirmed {
-  padding: 16px 24px;
+  text-align: center;
+  padding: 12px 18px;
+  border-radius: 12px;
+
+  /* padding: 16px 24px; */
 
   font-weight: 700;
   font-size: 16px;
-  border: 4px solid var(--primary-accent);
+  border: none;
   border-top: none;
   border-bottom: none;
+  /* border-bottom-left-radius: 22px;
+  border-bottom-right-radius: 22px; */
 
   cursor: pointer;
-  color: var(--primary-text);
-  background: var(--primary-bg);
+  color: var(--secondary-bg);
+  background: var(--light-primary-bg);
 }
 
+.cancel {
+  border: 1px solid var(--dark-primary-bg);
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+.delete-confirmed {
+  border: 1px solid var(--dark-primary-bg);
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
 .cancel:hover,
 .delete-confirmed:hover {
-  color: var(--primary-bg);
-  background: var(--primary-text);
+  color: var(--lightest-primary-bg);
+  background: var(--dark-primary-bg);
 }
 
 /*--------------------Mobile----------------------*/

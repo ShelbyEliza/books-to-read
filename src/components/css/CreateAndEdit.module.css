@@ -1,25 +1,43 @@
 .content {
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
+  max-width: 700px;
+  min-width: 694px;
+  margin: auto;
 
   align-items: center;
-  font-family: "Dosis", sans-serif;
+
+  font-family: "Josefin Slab", serif;
   font-size: 24px;
+  color: var(--light-primary-accent);
+}
+.title:hover,
+.author-link:hover {
   color: var(--light-primary-accent);
 }
 
 .heading {
-  padding-top: 16px;
-  padding-bottom: 32px;
-  font-weight: 600;
-  font-size: 40px;
+  margin-top: 32px;
+  padding: 24px;
+
+  color: var(--secondary-bg);
+  background: var(--primary-accent);
+
+  border: 4px double var(--dark-primary-bg);
+  border-radius: 12px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+
+  font-size: 36px;
   text-align: center;
 }
 
 .content label,
 .content legend {
   font-weight: 600;
-  font-size: 1.2em;
+  font-size: 0.9em;
+  font-family: "Josefin Slab", serif;
+  font-weight: 600;
 }
 
 .content fieldset {
@@ -27,11 +45,14 @@
 }
 
 .content form {
-  max-width: 900px;
   display: flex;
   flex-flow: row wrap;
 
-  border-radius: 12px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+
+  border: 4px double var(--dark-primary-bg);
+  border-top: none;
 
   background: var(--light-primary-bg);
   color: var(--extra-text);
@@ -72,14 +93,10 @@
   width: 100%;
 }
 
-.title label {
-  padding: 8px 20px 0px 0px;
-  margin-bottom: 8px;
-}
-
 .content input {
   margin: 4px 0px 0px 0px;
   max-height: 24px;
+  max-width: 180px;
 }
 
 .form-row:nth-of-type(odd) input {
@@ -92,11 +109,11 @@
 
 .form-row input {
   margin: 0 16px;
-  padding: 16px 8px;
+  padding: 12px 8px;
 
   text-align: left;
   font-family: "Dosis", sans-serif;
-  font-size: 20px;
+  font-size: 16px;
 }
 .content input,
 .content select,
@@ -136,21 +153,21 @@
 
   outline: none !important;
 }
-
+.submit {
+  display: flex;
+  justify-content: center;
+}
 .post-btn {
-  /* content-box padding + form margin */
-  margin-left: 50px;
-  margin-bottom: 30px;
-  padding: 10px 20px;
+  padding: 8px 60px;
 
-  border: 1px solid rgb(75, 53, 53);
+  border: none;
   border-radius: 4px;
   box-shadow: 2px 2px 8px rgba(48, 33, 33, 0.466);
 
-  background: var(--dark-primary-bg);
-  color: var(--lightest-primary-bg);
+  background: var(--light-primary-bg);
+  color: var(--secondary-bg);
 
-  font-family: "Dosis", sans-serif;
+  font-family: "Inknut Antiqua", serif;
   font-weight: 600;
   font-size: 0.8em;
 
@@ -158,11 +175,19 @@
 }
 
 .post-btn:hover {
-  background: var(--lightest-primary-bg);
-  color: var(--dark-primary-bg);
+  background: var(--primary-accent);
+  color: var(--secondary-bg);
 }
 
 /* --------------- Tags -------------------- */
+.tag-holder label {
+  flex: 1;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
 .tags-container fieldset {
   display: flex;
   margin-left: 60px;
@@ -172,14 +197,10 @@
   margin-left: -60px;
   margin-top: 12px;
 }
-
-.tags-container label {
-  font-weight: 400;
-}
 .tag-holder {
   display: flex;
   flex: 1 20%;
-  justify-content: center;
+  justify-content: space-evenly;
 
   margin: 4px;
 }
@@ -212,6 +233,14 @@
 }
 
 /* -------------------- Rating --------------------- */
+
+/* .rating-holder label {
+  flex: 1;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  white-space: nowrap;
+} */
 .rating-container {
   display: flex;
   margin-top: -20px;
@@ -257,6 +286,7 @@
 }
 .selected {
   background: var(--dark-primary-bg);
+  border: 1px solid var(--dark-primary-bg);
 }
 
 /* -------------------- Tablet Styles ---------------- */

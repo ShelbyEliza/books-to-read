@@ -1569,3 +1569,476 @@ export default function BlogCard({ blog, isSingleBlog }) {
     width: 400px;
   }
 } */
+
+----------------------------------------------------------------
+
+// styles:
+import styles from "../../components/css/Card.module.css";
+
+// import { ReactComponent as DateContainer } from "../../assets/DateContainer.svg";
+// import DateContainer from "../../assets/DateContainer";
+
+import EditButton from "../../assets/EditButton";
+import BoltIcon from "../../assets/BoltIcon.png";
+
+import { Link, useNavigate } from "react-router-dom";
+
+import { useFirestore } from "../../hooks/useFirestore";
+import { useEffect, useState } from "react";
+
+export default function BlogCard({ blog, isSingleBlog }) {
+  const { deleteBlog, response, error } = useFirestore();
+  const [ratingArray, setRatingArray] = useState([]);
+  const [blogSnips, setBlogSnips] = useState([]);
+  const [showDelete, setShowDelete] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (blog) {
+      // setting up specific ratings:
+      let ratings = [];
+      for (let i = 1; i < blog.rating; i++) {
+        ratings.push(i);
+      }
+      setRatingArray(ratings);
+
+      // creating paragraphs:
+      const reg = /\n/;
+      console.log(blog);
+      setBlogSnips(blog.content.split(reg));
+    }
+  }, [blog]);
+
+  const handleDelete = async (blog) => {
+    if (isSingleBlog) {
+      await deleteBlog(blog);
+      if (!response.error) {
+        navigate("/");
+      }
+    } else {
+      await deleteBlog(blog);
+    }
+  };
+
+  return (
+    <div className={styles.card}>
+      <div className={styles["all-card-content"]}>
+        <div className={styles["before-ratings"]}>
+          <div className={`${styles["card-col"]} ${styles["card-col-1"]}`}>
+            <div className={styles["before-tags"]}>
+              <div>
+                <div className={styles["title-edit"]}>
+                  <h1>
+                    <Link
+                      className={styles.title}
+                      to={`/blogDetails/${blog.id}`}
+                    >
+                      {blog.title}
+                    </Link>
+                  </h1>
+                  <Link to={`/editBlog/${blog.id}`}>
+                    <EditButton className={styles.edit} />
+                  </Link>
+                </div>
+
+                {blog.author && (
+                  <div className={styles["author-line"]}>
+                    <Link
+                      className={styles["author-link"]}
+                      to={`/authorDetails/${blog.authorID}`}
+                    >
+                      {blog.author}
+                    </Link>
+                  </div>
+                )}
+              </div>
+
+              {blog.dateStarted && (
+                <div className={styles["date-container"]}>
+                  <div className={styles["date-started"]}>
+                    {/* <p className={styles["date-label"]}>Started:</p> */}
+                    {blog.formatStart ? (
+                      <p className={styles["date-value"]}>{blog.formatStart}</p>
+                    ) : (
+                      <p className={styles["date-value"]}>{blog.dateStarted}</p>
+                    )}
+                  </div>
+                  <div> - </div>
+
+                  <div className={styles["date-finished"]}>
+                    {/* <p className={styles["date-label"]}>Finished:</p> */}
+                    <div>
+                      {blog.dateFinished === "" && (
+                        <p className={styles["currently-reading"]}>
+                          Currently Reading
+                        </p>
+                      )}
+                      {blog.formatFinish ? (
+                        <p className={styles["date-value"]}>
+                          {blog.formatFinish}
+                        </p>
+                      ) : (
+                        <p className={styles["date-value"]}>
+                          {blog.dateFinished}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+            {blog.tags && (
+              <div className={styles.tags}>
+                {blog.tags.length === 0 ? (
+                  <p className={styles["tags-value"]}>No Tags.</p>
+                ) : (
+                  blog.tags.map((tag) => (
+                    <p key={tag} className={styles["tags-value"]}>
+                      <Link
+                        key={tag}
+                        className={styles.tag}
+                        state={{ from: tag }}
+                        to={`/browse`}
+                      >
+                        {tag}
+                      </Link>
+                    </p>
+                  ))
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {blog.rating && (
+          <div className={styles.rating}>
+            {}
+            {ratingArray.map((rating) => (
+              <div key={rating}>
+                <img
+                  className={styles["rating-icon"]}
+                  alt="A number of lightening bolts indicating the rating."
+                  src={BoltIcon}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+        {blog.content && (
+          <div className={`${styles["card-line-full"]} ${styles["content"]}`}>
+            {blogSnips.map((snip) => (
+              <p className={styles.snippet} key={Math.random() * 300}>
+                {snip}
+              </p>
+            ))}
+          </div>
+        )}
+
+        {/* ------------------------------------------------------------- */}
+        {showDelete === true ? (
+          <div className="delete-container">
+            <p className="delete delete-message">
+              Are you sure you would like to delete this blog permanently?
+            </p>
+            <div className="confirm-del-container">
+              <button
+                className="delete-confirmed"
+                onClick={() => handleDelete(blog)}
+              >
+                Delete
+              </button>
+              <button className="cancel" onClick={() => setShowDelete(false)}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="delete-container">
+            <button className="delete" onClick={() => setShowDelete(true)}>
+              DELETE POST
+            </button>
+          </div>
+        )}
+      </div>
+      {/* make sure this error works! */}
+      {error && <p className="error">{error}</p>}
+    </div>
+  );
+}
+
+==========================================
+.card {
+  display: flex;
+  flex-direction: column;
+
+  color: var(--extra-text);
+
+  padding: 16px 0px 8px 0px;
+
+  margin: auto;
+
+  max-width: 800px;
+}
+
+.all-card-content {
+  min-width: 800px;
+  background: var(--dark-primary-bg);
+  color: var(--primary-accent);
+
+  margin: auto;
+  /* max-width: 700px;
+  min-width: 694px; */
+
+  border-top: 4px double var(--primary-accent);
+  border-bottom: 4px double var(--primary-accent);
+  border-radius: 24px;
+}
+
+.all-card-content:first-of-type {
+  margin-top: 2px;
+}
+
+.before-ratings {
+  display: flex;
+  /* flex-flow: row wrap; */
+  padding: 20px 20px 10px 20px;
+}
+
+.card-col-1 {
+  flex: 2;
+}
+
+.before-tags,
+.date-container,
+.tags {
+  display: flex;
+  flex-flow: row wrap;
+  flex-basis: 50%;
+  margin-bottom: 8px;
+}
+.before-tags {
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid lightskyblue;
+}
+
+.before-tags a {
+  color: var(--primary-accent);
+}
+.before-tags a:hover {
+  color: var(--light-primary-accent);
+}
+.title {
+  font-size: 40px;
+  font-family: "Inknut Antiqua", serif;
+  letter-spacing: 0.01em;
+  margin-right: 0.2em;
+  border: 1px solid rgb(250, 250, 135);
+}
+
+.title-edit {
+  display: flex;
+  flex-direction: row;
+  margin: 12px 24px;
+}
+
+.author-line {
+  margin: 12px 32px;
+  border: 1px solid rgb(135, 250, 206);
+}
+
+.author-link {
+  font-size: 30px;
+  margin-top: 100px;
+}
+.blog-link {
+  color: rgb(214, 149, 84);
+  font-size: 40px;
+  word-spacing: -0.08em;
+}
+.books-written-container {
+  display: flex;
+  /* flex-direction: column; */
+}
+.blog-container {
+  display: flex;
+  /* flex-basis: 50%; */
+  justify-content: space-between;
+}
+.list-item {
+  margin: 2px;
+  list-style-type: none;
+  padding-right: 12px;
+}
+
+.edit {
+  max-width: 0.2em;
+  max-height: 20px;
+  margin: 0px 10px;
+}
+
+/* ---------------------- Dates --------------- */
+/* .book-stack,
+.relative-parent {
+  display: flex;
+  justify-content: center;
+}
+.book-stack {
+  border: 1px solid rgb(46, 117, 139);
+}
+.testing-element,
+.books {
+  border: 20px solid rgb(82, 139, 46);
+}
+.relative-parent {
+  border: 1px solid seagreen;
+  position: relative;
+  height: auto;
+  width: auto;
+} 
+
+.date-value {
+  align-self: center; 
+  padding: 0px 0px 2px 16px;
+  position: absolute;
+  z-index: 2;
+  color: black;
+}
+#start-date {
+  border: 100px solid cornflowerblue;
+  color: aqua;
+  bottom: 84px;
+  left: 80px;
+}
+.finish {
+  bottom: 52px;
+  left: 60px;
+}
+.start {
+  border: 10px solid cornflowerblue;
+  bottom: 84px;
+  left: 80px;
+}
+*/
+
+.date-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgb(206, 156, 239);
+  padding: 8px;
+}
+.date-container div {
+  display: flex;
+  justify-content: center;
+}
+.currently-reading {
+  color: var(--lightest-primary-bg);
+}
+
+/* ---------------------- Tags --------------- */
+
+.tags {
+  align-items: center;
+  justify-content: space-between;
+}
+.tags-value {
+  padding: 0.6em 0.8em;
+  /* border: 1px solid var(--primary-accent); */
+  border-radius: 24px;
+  background: var(--light-primary-bg);
+  font-family: "Josefin Slab", serif;
+  font-weight: 600;
+
+  border-top: 2px solid var(--primary-accent);
+  border-bottom: 2px solid var(--primary-accent);
+}
+.tag {
+  color: var(--lightest-primary-bg);
+}
+
+.content {
+  background: var(--light-primary-bg);
+  color: var(--lightest-primary-bg);
+
+  /* border-top: 3px solid var(--primary-accent); */
+  /* border-bottom: 3px solid var(--primary-accent);
+  border-right: 3px solid var(--primary-bg);
+  border-left: 3px solid var(--primary-bg); */
+
+  padding: 1.2em 4em;
+
+  font-family: "Josefin Slab", serif;
+  font-size: 1.3em;
+  font-weight: 600;
+
+  text-align: left;
+  line-height: 1.4em;
+}
+
+.snippet {
+  text-indent: 24px;
+  padding-bottom: 2px;
+}
+
+.about-author :not(p:first-child) {
+  text-indent: 30px;
+}
+
+/* -------------------- Bottom Bar ---------------- */
+
+.rating {
+  display: flex;
+  flex-direction: row;
+  /* justify-content: center; */
+
+  justify-content: space-around;
+  background: var(--primary-accent);
+}
+
+.rating > div {
+  display: flex;
+  /* background: var(--light-primary-bg); */
+  align-items: center;
+}
+.rating-icon {
+  border-radius: 24px;
+  margin-right: 1em;
+  max-width: 28px;
+
+  /* border: 2px solid var(--secondary-bg);
+  border-left: none; */
+}
+/* .rating-icon {
+  background: var(--primary-accent);
+  border-radius: 24px;
+  margin-right: 0.2em;
+  max-width: 28px;
+} */
+
+/* -------------------- PC Styles ---------------- */
+/* @media only screen and (min-width: 900px) {
+  .card {
+    max-width: 400px;
+    min-width: 694px;
+  }
+} */
+
+/* -------------------- Tablet Styles ---------------- */
+@media only screen and (min-width: 510px) and (max-width: 700px) {
+  .card {
+    max-width: 700px;
+    min-width: 510px;
+    border: 2px solid rgb(255, 0, 115);
+  }
+  /* header a {
+    width: 100%;
+    max-width: 700px;
+    min-width: 510px;
+  } */
+}
+/* ------------------- Mobile Styles ----------------- */
+/* @media only screen and (max-width: 405px) {
+  .card-all-card-content {
+    width: 400px;
+  }
+} */
