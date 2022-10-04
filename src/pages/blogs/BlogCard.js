@@ -30,7 +30,6 @@ export default function BlogCard({ blog, isSingleBlog }) {
 
       // creating paragraphs:
       const reg = /\n/;
-      console.log(blog);
       setBlogSnips(blog.content.split(reg));
     }
   }, [blog]);

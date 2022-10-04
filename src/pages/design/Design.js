@@ -2,14 +2,14 @@
 import styles from "./Design.module.css";
 
 const colorList = [
-  { "primary-accent": "#d69554" },
-  { "lightest-primary-bg": "#edd2d4" },
-  { "light-primary-bg": "#7b4e51" },
-  { "dark-primary-bg": "#513738" },
-  { "light-primary-accent": "#ffcf9e" },
+  { honey: "#d69554" },
+  { "peach-beach": "#ffcf9e" },
+  { "pale-mauve": "#7b4e51" },
+  { "dark-mauve": "#513738" },
+  { "milk-and-cookies": "#edd2d4" },
   { foilage: "#90b788ff" },
   { "primary-bg": "#663c3f" },
-  { "secondary-bg": "#421422" },
+  { sinister: "#421422" },
 ];
 
 const fontList = [

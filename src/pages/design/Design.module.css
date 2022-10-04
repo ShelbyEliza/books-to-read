@@ -1,7 +1,7 @@
 .container {
   margin: 32px 80px;
 
-  border: 2px solid var(--secondary-bg);
+  border: 2px solid var(--sinister);
   background: #adcfad;
 }
 .title {
@@ -16,7 +16,7 @@
 }
 .section-title {
   margin-bottom: 2px;
-  border-bottom: 2px solid var(--secondary-bg);
+  border-bottom: 2px solid var(--sinister);
 }
 .li-1,
 .li-2 {
@@ -37,7 +37,7 @@
 }
 .color-details {
   flex-basis: 50%;
-  border-bottom: 1px solid var(--secondary-bg);
+  border-bottom: 1px solid var(--sinister);
 }
 .color-name {
   margin-left: 32px;
@@ -61,7 +61,7 @@
   margin-bottom: 2px;
   padding: 4px 12px;
 
-  border-bottom: 1px solid var(--secondary-bg);
+  border-bottom: 1px solid var(--sinister);
 }
 .font-name h1 {
   text-align: center;

@@ -9,10 +9,10 @@
   margin-top: 32px;
   padding: 24px;
 
-  color: var(--secondary-bg);
-  background: var(--primary-accent);
+  color: var(--sinister);
+  background: var(--honey);
 
-  border: 4px double var(--secondary-bg);
+  border: 4px double var(--sinister);
   border-radius: 12px;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
@@ -26,7 +26,7 @@
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
 
-  border: 4px double var(--secondary-bg);
+  border: 4px double var(--sinister);
   border-top: none;
 }
 .list-item {
@@ -34,7 +34,7 @@
   list-style-type: none;
 }
 .link {
-  color: var(--secondary-bg);
+  color: var(--sinister);
   font-size: 24px;
   font-family: "Inknut Antiqua", serif;
 }
@@ -44,8 +44,8 @@
 
   border-radius: 12px;
 
-  background: var(--primary-accent);
-  border: 4px double var(--secondary-bg);
+  background: var(--honey);
+  border: 4px double var(--sinister);
 }
 
 /* -------------------- Tablet Styles ---------------- */

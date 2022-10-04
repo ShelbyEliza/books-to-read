@@ -7,18 +7,18 @@
 
   max-width: 800px;
 
-  color: var(--extra-text);
+  color: var(--sinister);
 }
 
 .all-card-content {
   min-width: 800px;
   margin: auto;
 
-  background: var(--dark-primary-bg);
-  color: var(--primary-accent);
+  background: var(--dark-mauve);
+  color: var(--honey);
 
-  border-top: 4px double var(--primary-accent);
-  border-bottom: 4px double var(--primary-accent);
+  border-top: 4px double var(--honey);
+  border-bottom: 4px double var(--honey);
   border-radius: 24px;
 }
 
@@ -28,7 +28,7 @@
 
 .title-edit-content a:hover,
 .author a:hover {
-  color: var(--light-primary-accent);
+  color: var(--peach-beach);
 }
 
 .title-edit-content {
@@ -45,7 +45,7 @@
   font-family: "Inknut Antiqua", serif;
   letter-spacing: 0.01em;
 
-  color: var(--primary-accent);
+  color: var(--milk-and-cookies);
 }
 .edit {
   max-width: 0.2em;
@@ -65,7 +65,7 @@
 }
 
 .author a {
-  color: var(--primary-accent);
+  color: var(--honey);
 }
 
 .date-content {
@@ -81,7 +81,7 @@
 }
 
 .currently-reading {
-  color: var(--lightest-primary-bg);
+  color: var(--milk-and-cookies);
 }
 
 /* ---------------------- Tags --------------- */
@@ -96,19 +96,19 @@
 .tag {
   padding: 0.6em 0.8em;
 
-  background: var(--light-primary-bg);
-  color: var(--lightest-primary-bg);
+  background: var(--pale-mauve);
+  color: var(--milk-and-cookies);
 
   font-family: "Josefin Slab", serif;
   font-weight: 600;
 
   border-radius: 4px;
-  border-top: 2px solid var(--primary-accent);
-  border-bottom: 2px solid var(--primary-accent);
+  border-top: 2px solid var(--honey);
+  border-bottom: 2px solid var(--honey);
 }
 .tags-content a:hover {
-  background: var(--primary-accent);
-  color: var(--secondary-bg);
+  background: var(--honey);
+  color: var(--sinister);
 }
 
 /* -------------------- Rating ---------------- */
@@ -118,7 +118,7 @@
   flex-direction: row;
   justify-content: space-around;
 
-  background: var(--primary-accent);
+  background: var(--honey);
 }
 
 .rating-content > div {
@@ -133,11 +133,11 @@
 
 /* ------------------ Description -------------*/
 .description-content {
-  background: var(--light-primary-bg);
-  color: var(--lightest-primary-bg);
+  background: var(--pale-mauve);
+  color: var(--milk-and-cookies);
 
-  border-right: 1px solid var(--primary-accent);
-  border-left: 1px solid var(--primary-accent);
+  border-right: 1px solid var(--honey);
+  border-left: 1px solid var(--honey);
 
   padding: 1.2em 4em;
 
@@ -185,8 +185,8 @@
   padding: 0.6em 0.8em;
   align-items: center;
 
-  color: var(--lightest-primary-bg);
-  background: var(--light-primary-bg);
+  color: var(--milk-and-cookies);
+  background: var(--pale-mauve);
 
   font-family: "Inknut Antiqua", serif;
   font-size: 16px;
@@ -194,12 +194,12 @@
   line-height: 1.4em;
 
   border-radius: 4px;
-  border-top: 2px solid var(--primary-accent);
-  border-bottom: 2px solid var(--primary-accent);
+  border-top: 2px solid var(--honey);
+  border-bottom: 2px solid var(--honey);
 }
 .book:hover {
-  background: var(--primary-accent);
-  color: var(--secondary-bg);
+  background: var(--honey);
+  color: var(--sinister);
 }
 
 .filler {

@@ -2,11 +2,11 @@
   width: fit-content;
   margin: auto;
   margin-top: 60px;
-  /* border: 1px solid var(--light-primary-accent); */
+  /* border: 1px solid var(--peach-beach); */
   border-radius: 12px;
-  background: var(--light-primary-bg);
+  background: var(--pale-mauve);
   padding: 40px 80px;
-  color: var(--lightest-primary-bg);
+  color: var(--milk-and-cookies);
 }
 .message-header,
 .link {
@@ -24,14 +24,14 @@
   border-radius: 4px;
   box-shadow: 2px 2px 8px rgba(48, 33, 33, 0.466);
 
-  background: var(--dark-primary-bg);
-  color: var(--lightest-primary-bg);
+  background: var(--dark-mauve);
+  color: var(--milk-and-cookies);
 
   cursor: pointer;
 }
 
 .link:hover {
-  background: var(--lightest-primary-bg);
-  color: var(--dark-primary-bg);
+  background: var(--milk-and-cookies);
+  color: var(--dark-mauve);
   text-decoration: none;
 }

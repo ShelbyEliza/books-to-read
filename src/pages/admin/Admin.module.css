@@ -9,9 +9,9 @@
 
   font-family: "dosis", sans-serif;
   font-size: 24px;
-  color: var(--extra-text);
+  color: var(--sinister);
 
-  background: var(--light-primary-bg);
+  background: var(--pale-mauve);
 }
 .content-container {
   display: flex;
@@ -57,8 +57,8 @@
   border-radius: 4px;
   box-shadow: 2px 2px 8px rgba(48, 33, 33, 0.466);
 
-  background: var(--dark-primary-bg);
-  color: var(--lightest-primary-bg);
+  background: var(--dark-mauve);
+  color: var(--milk-and-cookies);
 
   font-family: "Dosis", sans-serif;
   font-weight: 600;
@@ -68,6 +68,6 @@
 }
 
 .login-signup-btn:hover {
-  background: var(--lightest-primary-bg);
-  color: var(--dark-primary-bg);
+  background: var(--milk-and-cookies);
+  color: var(--dark-mauve);
 }

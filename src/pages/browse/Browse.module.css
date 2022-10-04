@@ -9,14 +9,14 @@
   margin-top: 32px;
   padding: 24px;
 
-  color: var(--secondary-bg);
-  background: var(--primary-accent);
+  color: var(--sinister);
+  background: var(--honey);
 
-  border: 4px double var(--secondary-bg);
+  border: 4px double var(--sinister);
   border-radius: 12px;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
-  border-bottom: 2px solid var(--secondary-bg);
+  border-bottom: 2px solid var(--sinister);
 }
 .content {
   display: grid;
@@ -24,7 +24,7 @@
 
   background: var(--foilage);
 
-  border: 4px double var(--secondary-bg);
+  border: 4px double var(--sinister);
   border-top: none;
   border-bottom: none;
 }
@@ -33,14 +33,14 @@
 }
 .open-section {
   background: var(--foilage);
-  border: 4px double var(--secondary-bg);
+  border: 4px double var(--sinister);
   border-top: none;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
 }
 /* ul */
 .tags ul {
-  border-right: 1px solid var(--secondary-bg);
+  border-right: 1px solid var(--sinister);
 
   border-bottom-right-radius: 12px;
 }
@@ -50,10 +50,10 @@
   margin-bottom: 12px;
   padding: 6px 12px;
 
-  background: var(--light-primary-bg);
-  color: var(--secondary-bg);
+  background: var(--pale-mauve);
+  color: var(--milk-and-cookies);
 
-  border-bottom: 2px solid var(--secondary-bg);
+  border-bottom: 2px solid var(--sinister);
 
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
@@ -63,7 +63,7 @@
   cursor: pointer;
 }
 .open-tab {
-  background: var(--primary-accent);
+  background: var(--honey);
 }
 .tag-tab {
   margin-left: 140px;
@@ -78,7 +78,7 @@
 
   background: var(--foilage);
 
-  border: 1px solid var(--secondary-bg);
+  border: 1px solid var(--sinister);
 
   font-size: 1.2em;
 
@@ -109,7 +109,7 @@
 
 /* li:hover */
 .open-section li:hover {
-  background: var(--primary-accent);
+  background: var(--honey);
 
   cursor: pointer;
 }
@@ -127,7 +127,7 @@
   text-decoration: none;
 }
 .section li a {
-  color: var(--lightest-primary-bg);
+  color: var(--milk-and-cookies);
 } */
 
 .msg-select-category {
@@ -135,14 +135,14 @@
 
   background: var(--foilage);
 
-  /* border: 4px double var(--secondary-bg); */
+  /* border: 4px double var(--sinister); */
   border-top: none;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
 }
 
 .link {
-  color: var(--secondary-bg);
+  color: var(--sinister);
 }
 .minor-heading {
   font-family: "Inknut Antiqua", serif;

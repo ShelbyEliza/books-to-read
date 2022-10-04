@@ -8,11 +8,12 @@ nav {
   font-family: "Josefin Slab", serif;
   font-size: 16px;
   font-weight: 700;
+  border-top: 4px double var(--honey);
 }
 
 nav a {
   font-size: 1.2em;
-  color: var(--secondary-bg);
+  color: var(--milk-and-cookies);
 }
 
 nav ul {
@@ -34,17 +35,22 @@ nav ul {
 .middle {
   display: flex;
 }
+.middle li:nth-child(even) a {
+  border-left: 1px solid var(--honey);
+  border-right: 1px solid var(--honey);
+}
 
 .nav-tab,
 .create-tab {
   display: flex;
 
   padding: 0.4em 1.4em;
+  /* border: none; */
 
-  border-top: 2px solid var(--secondary-bg);
+  /* border-top: 1px solid var(--honey); */
+  border-bottom: 2px solid var(--honey);
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
-  border-bottom: 2px solid var(--secondary-bg);
 
   text-align: center;
   align-items: center;
@@ -52,7 +58,7 @@ nav ul {
 
 nav button {
   display: flex;
-  color: var(--secondary-bg);
+  color: var(--sinister);
   font-weight: 600;
   background: none;
   border: none;
@@ -69,31 +75,32 @@ nav button {
 
   padding: 0.4em 1.4em;
 
-  background: var(--foilage);
+  background: var(--dark-mauve);
 
-  border-top: 2px solid var(--secondary-bg);
+  /* border-top: 2px solid var(--honey); */
+  border-bottom: 2px solid var(--honey);
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
-  border-bottom: 2px solid var(--secondary-bg);
 }
 .logout button {
   display: flex;
   flex-direction: column;
   font-family: "Josefin Slab", serif;
+  color: var(--milk-and-cookies);
 }
 
 /* hover */
 nav a:hover,
 .create-tab:hover a {
   text-decoration: none;
-  color: var(--light-primary-bg);
+  color: var(--background-tester);
 }
 
 .admin-tab:hover,
 .nav-tab:hover,
 .create-tab:hover,
 .logout:hover {
-  background: var(--primary-accent);
+  background: var(--honey);
   color: var(--background-tester);
 }
 
@@ -102,7 +109,7 @@ nav a:hover,
 }
 
 .logout:hover button {
-  color: var(--light-primary-bg);
+  color: var(--pale-mauve);
   cursor: pointer;
 }
 
@@ -122,7 +129,7 @@ nav a:hover,
   margin: 0px 12px;
 
   border-top: none;
-  border-bottom: 2px solid var(--light-primary-accent);
+  border-bottom: 2px solid var(--peach-beach);
 
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;

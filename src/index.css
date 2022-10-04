@@ -10,27 +10,22 @@ font-family: 'Inknut Antiqua', serif;
 */
 
 :root {
-  /*Background*/
-  --secondary-bg: #18181bff;
-  /* --primary-bg: #466c46; */
-  /* --primary-bg: #372525; */
-  --primary-bg: #37303d;
-  /* --primary-accent: #b5b566; */
+  /* --primary-bg: #37303d; */
+  --banner-bg: #303030;
+  --primary-bg: #303030;
   --background-tester: #323732;
 
   /*--------------------------------------------*/
-  /* --primary-bg: #663c3f; */
-  /* --secondary-bg: #421422; */
-  --primary-accent: #d69554;
-  --lightest-primary-bg: #edd2d4;
-  --light-primary-bg: #7b4e51;
-  --dark-primary-bg: #513738;
-  --light-primary-accent: #ffcf9e;
+  --honey: #d69554;
+  --peach-beach: #ffcf9e;
+  --dark-mauve: #513738;
+  --pale-mauve: #7b4e51;
+  --milk-and-cookies: #ecdfdf;
+  --sinister: #16110d;
+
   --foilage: #90b788ff;
 
   /* Text */
-  --primary-text: #eab4b4;
-  --extra-text: #2e2525ff;
 
   /* Error */
   --error-bg: #edd9d9;
@@ -55,18 +50,15 @@ body {
   background: var(--primary-bg);
 }
 nav a {
-  background: var(--light-primary-bg);
-
-  border: 1px solid var(--background-tester);
+  background: var(--pale-mauve);
 }
 
 .active:hover {
   text-decoration: none;
 }
 .active {
-  color: var(--secondary-bg);
-  background: var(--primary-accent);
-  /* border: 1px solid var(--light-primary-accent); */
+  color: var(--sinister);
+  background: var(--honey);
   border-top: none;
 }
 
@@ -136,23 +128,21 @@ a:hover {
   padding: 8px 12px;
   text-align: center;
 
-  border: 1px solid var(--primary-accent);
+  border: 1px solid var(--honey);
   border-radius: 2px;
 
   font-size: 18px;
   font-weight: 600;
 
-  color: var(--primary-accent);
+  color: var(--honey);
   background: none;
 }
 
 .delete-container {
-  /* margin: 24px; */
   margin: auto;
-  background: var(--primary-accent);
+  background: var(--honey);
   display: flex;
   justify-content: center;
-  /* border: 1px solid aliceblue; */
   border-bottom-left-radius: 22px;
   border-bottom-right-radius: 22px;
   align-items: center;
@@ -162,13 +152,13 @@ a:hover {
 
   padding: 8px 96px;
 
-  background: var(--primary-accent);
-  color: var(--secondary-bg);
+  background: var(--honey);
+  color: var(--sinister);
 
   font-weight: 700;
   font-size: 16px;
 
-  border: 1px solid var(--primary-accent);
+  border: 1px solid var(--honey);
   border-top: none;
   border-bottom-left-radius: 22px;
   border-bottom-right-radius: 22px;
@@ -205,24 +195,24 @@ a:hover {
   border-bottom-right-radius: 22px; */
 
   cursor: pointer;
-  color: var(--secondary-bg);
-  background: var(--light-primary-bg);
+  color: var(--sinister);
+  background: var(--pale-mauve);
 }
 
 .cancel {
-  border: 1px solid var(--dark-primary-bg);
+  border: 1px solid var(--dark-mauve);
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
 }
 .delete-confirmed {
-  border: 1px solid var(--dark-primary-bg);
+  border: 1px solid var(--dark-mauve);
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
 }
 .cancel:hover,
 .delete-confirmed:hover {
-  color: var(--lightest-primary-bg);
-  background: var(--dark-primary-bg);
+  color: var(--milk-and-cookies);
+  background: var(--dark-mauve);
 }
 
 /*--------------------Mobile----------------------*/
