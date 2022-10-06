@@ -2,7 +2,7 @@
   width: fit-content;
   margin: auto;
   margin-top: 60px;
-  /* border: 1px solid var(--peach-beach); */
+
   border-radius: 12px;
   background: var(--pale-mauve);
   padding: 40px 80px;
@@ -20,9 +20,7 @@
   margin-top: 12px;
   padding: 12px 40px;
 
-  border: 1px solid rgb(75, 53, 53);
   border-radius: 4px;
-  box-shadow: 2px 2px 8px rgba(48, 33, 33, 0.466);
 
   background: var(--dark-mauve);
   color: var(--milk-and-cookies);
@@ -31,7 +29,7 @@
 }
 
 .link:hover {
-  background: var(--milk-and-cookies);
+  background: var(--honey);
   color: var(--dark-mauve);
   text-decoration: none;
 }

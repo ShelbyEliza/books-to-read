@@ -7,17 +7,17 @@ const colorList = [
   { "pale-mauve": "#7b4e51" },
   { "dark-mauve": "#513738" },
   { "milk-and-cookies": "#edd2d4" },
-  { foilage: "#90b788ff" },
-  { "primary-bg": "#663c3f" },
+  { "cafe-creme": "#90b788ff" },
+  { "moonless-night": "#663c3f" },
   { sinister: "#421422" },
+  { "hyper-light-drifter": "#edd9d9" },
+  { "bento-box": "#ce3b3b" },
 ];
 
 const fontList = [
   { "font-family": "'Inknut Antiqua', serif" },
   { "font-family": "'Josefin Slab', serif" },
   { "font-family": "'Dosis', sans-serif" },
-  { "font-family": "'Rajdhani' sans-serif" },
-  { "font-family": "'Lora', serif" },
 ];
 
 export default function Design() {
@@ -26,14 +26,6 @@ export default function Design() {
       <h1 className={styles.title}>Design Guide</h1>
 
       <div className={styles.content}>
-        <div className={styles.section}>
-          <h2 className={styles["section-title"]}>Page Structure</h2>
-          <h3>Heading H1</h3>
-          <p>top-margin 32px</p>
-          <p>font-size: 2em</p>
-          <p>padding: 24px</p>
-          <p>font-family: "Inknut Antiqua", serif</p>
-        </div>
         <div className={styles.section}>
           <h2 className={styles["section-title"]}>Colors</h2>
           {colorList.map((color) => {
@@ -104,6 +96,16 @@ export default function Design() {
             <li className={styles["li-1"]}>Error</li>
             <li className={styles["li-1"]}>Navbar</li>
           </ul> */}
+        </div>
+        <div className={styles.section}>
+          <h2 className={styles["section-title"]}>Page Structure</h2>
+          <div className={styles["structure-info"]}>
+            <h3 className={styles.h1}>Heading H1</h3>
+            <p>top-margin 32px</p>
+            <p>font-size: 2em</p>
+            <p>padding: 24px</p>
+            <p>font-family: "Inknut Antiqua", serif</p>
+          </div>
         </div>
       </div>
     </div>

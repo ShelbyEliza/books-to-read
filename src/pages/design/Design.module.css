@@ -69,3 +69,9 @@
 .font-name p {
   text-indent: 10%;
 }
+.h1 {
+  margin-top: 12px;
+}
+.structure-info p {
+  margin: 6px 16px;
+}

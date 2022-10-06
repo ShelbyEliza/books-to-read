@@ -2,7 +2,7 @@ header {
   display: flex;
   justify-content: center;
 
-  background: var(--banner-bg);
+  background: var(--moonless-night);
 }
 header a {
   width: 100%;

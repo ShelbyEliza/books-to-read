@@ -7,7 +7,7 @@
 
   font-family: "Josefin Slab", serif;
   font-size: 24px;
-  color: var(--peach-beach);
+  color: var(--milk-and-cookies);
 }
 
 .heading {
@@ -32,6 +32,7 @@
   font-size: 0.9em;
   font-family: "Josefin Slab", serif;
   font-weight: 600;
+  color: var(--milk-and-cookies);
 }
 
 .content fieldset {
@@ -55,21 +56,12 @@
   padding: 20px 40px;
 }
 
-.form-row,
-.form-row-full {
-  display: flex;
-  justify-content: space-between;
-  /* border: 1px solid var(--sinister); */
-}
-
 .form-row {
   flex-basis: 50%;
   align-items: center;
 
   margin-bottom: 20px;
   padding: 2px;
-
-  /* border: 1px solid var(--sinister); */
 }
 
 .form-row-full {
@@ -114,7 +106,7 @@
 .content textarea {
   background: var(--milk-and-cookies);
 
-  border: 1px solid var(--primary-bg);
+  border: 1px solid var(--moonless-night);
   border-radius: 4px;
 }
 .content input[type="date"] {
@@ -158,7 +150,7 @@
   border-radius: 4px;
   box-shadow: 2px 2px 8px rgba(48, 33, 33, 0.466);
 
-  background: var(--pale-mauve);
+  background: var(--cafe-creme);
   color: var(--sinister);
 
   font-family: "Inknut Antiqua", serif;
@@ -227,14 +219,6 @@
 }
 
 /* -------------------- Rating --------------------- */
-
-/* .rating-holder label {
-  flex: 1;
-  width: 100%;
-  text-align: center;
-  justify-content: center;
-  white-space: nowrap;
-} */
 .rating-container {
   display: flex;
   margin-top: -20px;
@@ -281,6 +265,30 @@
 .selected {
   background: var(--dark-mauve);
   border: 1px solid var(--dark-mauve);
+}
+
+/* ----------------- Edit Author ----------------------*/
+
+.author-name {
+  padding: 24px 16px;
+  padding-bottom: 4px;
+
+  background: var(--pale-mauve);
+  border-left: 4px double var(--dark-mauve);
+  border-right: 4px double var(--dark-mauve);
+}
+
+.books-written {
+  /* display: flex;
+  flex-basis: 80%;
+  justify-content: space-between; */
+  border: 4px double var(--dark-mauve);
+}
+.books {
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
+  border: 4px double var(--dark-mauve);
 }
 
 /* -------------------- Tablet Styles ---------------- */

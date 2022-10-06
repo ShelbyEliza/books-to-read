@@ -22,7 +22,7 @@
   display: grid;
   grid-template-columns: 1fr 0.1fr 1fr;
 
-  background: var(--foilage);
+  background: var(--cafe-creme);
 
   border: 4px double var(--sinister);
   border-top: none;
@@ -32,11 +32,12 @@
   padding: 7px 12px;
 }
 .open-section {
-  background: var(--foilage);
+  background: var(--cafe-creme);
   border: 4px double var(--sinister);
   border-top: none;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
+  padding: 32px 20px;
 }
 /* ul */
 .tags ul {
@@ -47,8 +48,7 @@
 /* Tabs */
 .tag-tab,
 .rating-tab {
-  margin-bottom: 12px;
-  padding: 6px 12px;
+  padding: 12px;
 
   background: var(--pale-mauve);
   color: var(--milk-and-cookies);
@@ -64,6 +64,7 @@
 }
 .open-tab {
   background: var(--honey);
+  color: var(--sinister);
 }
 .tag-tab {
   margin-left: 140px;
@@ -76,7 +77,8 @@
 .list-item {
   padding: 8px;
 
-  background: var(--foilage);
+  background: var(--pale-mauve);
+  color: var(--milk-and-cookies);
 
   border: 1px solid var(--sinister);
 
@@ -133,7 +135,7 @@
 .msg-select-category {
   padding: 20px;
 
-  background: var(--foilage);
+  background: var(--cafe-creme);
 
   /* border: 4px double var(--sinister); */
   border-top: none;

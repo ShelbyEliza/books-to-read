@@ -9,7 +9,7 @@
 
   font-family: "dosis", sans-serif;
   font-size: 24px;
-  color: var(--sinister);
+  color: var(--milk-and-cookies);
 
   background: var(--pale-mauve);
 }
@@ -50,8 +50,8 @@
 .login-signup-btn {
   margin: auto;
   margin-bottom: 32px;
-  margin-top: 12px;
-  padding: 10px 20px;
+  margin-top: 32px;
+  padding: 8px 32px;
 
   border: 1px solid rgb(75, 53, 53);
   border-radius: 4px;

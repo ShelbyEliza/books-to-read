@@ -45,9 +45,7 @@ nav ul {
   display: flex;
 
   padding: 0.4em 1.4em;
-  /* border: none; */
 
-  /* border-top: 1px solid var(--honey); */
   border-bottom: 2px solid var(--honey);
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
@@ -75,9 +73,8 @@ nav button {
 
   padding: 0.4em 1.4em;
 
-  background: var(--dark-mauve);
+  background: var(--cafe-creme);
 
-  /* border-top: 2px solid var(--honey); */
   border-bottom: 2px solid var(--honey);
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
@@ -86,30 +83,24 @@ nav button {
   display: flex;
   flex-direction: column;
   font-family: "Josefin Slab", serif;
-  color: var(--milk-and-cookies);
+  color: var(--sinister);
 }
 
 /* hover */
-nav a:hover,
-.create-tab:hover a {
-  text-decoration: none;
-  color: var(--background-tester);
-}
-
 .admin-tab:hover,
 .nav-tab:hover,
 .create-tab:hover,
 .logout:hover {
   background: var(--honey);
-  color: var(--background-tester);
+  color: var(--sinister);
 }
 
 .nav-tab:hover a {
-  color: var(--primary-bg);
+  color: var(--moonless-night);
 }
 
 .logout:hover button {
-  color: var(--pale-mauve);
+  color: var(--sinister);
   cursor: pointer;
 }
 
@@ -129,7 +120,7 @@ nav a:hover,
   margin: 0px 12px;
 
   border-top: none;
-  border-bottom: 2px solid var(--peach-beach);
+  border-bottom: 2px solid var(--honey);
 
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
@@ -151,8 +142,8 @@ nav a:hover,
   nav {
     font-size: 8px;
   }
-  .create-tab {
-  }
+  /* .create-tab {
+  } */
 }
 @media only screen and (max-width: 360px) {
   nav {

@@ -28,9 +28,7 @@ function App() {
         <BrowserRouter>
           <Header />
           <Navbar />
-          <Link to="/design" className="design-button">
-            Design
-          </Link>
+
           <Routes>
             <Route
               path="/"
@@ -91,6 +89,9 @@ function App() {
             <Route path="/design" element={user ? <Design /> : <Login />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
+          <Link to="/design" className="design-button">
+            Site Design
+          </Link>
         </BrowserRouter>
       )}
     </div>

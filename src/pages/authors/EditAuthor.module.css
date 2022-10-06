@@ -1,0 +1,152 @@
+.content {
+  max-width: 700px;
+  min-width: 694px;
+  margin: auto;
+
+  align-items: center;
+
+  font-family: "Josefin Slab", serif;
+  font-size: 24px;
+  color: var(--milk-and-cookies);
+}
+
+.heading {
+  margin-top: 32px;
+  padding: 24px;
+
+  color: var(--sinister);
+  background: var(--honey);
+
+  border: 4px double var(--dark-mauve);
+  border-radius: 12px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+
+  font-size: 36px;
+  text-align: center;
+}
+
+.author-name {
+  padding: 24px 16px;
+  padding-bottom: 4px;
+
+  background: var(--pale-mauve);
+  border-left: 4px double var(--dark-mauve);
+  border-right: 4px double var(--dark-mauve);
+}
+
+.content label {
+  font-weight: 600;
+  font-size: 0.9em;
+  font-family: "Josefin Slab", serif;
+  font-weight: 600;
+  color: var(--milk-and-cookies);
+}
+
+.content form {
+  display: flex;
+  flex-flow: row wrap;
+
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+
+  border: 4px double var(--dark-mauve);
+  border-top: none;
+
+  background: var(--pale-mauve);
+  color: var(--sinister);
+
+  margin: 0px 0px 20px 0px;
+  padding: 20px 40px;
+}
+
+.content input {
+  margin: 4px 0px 0px 0px;
+  max-height: 24px;
+  max-width: 180px;
+}
+
+.books-written {
+  display: flex;
+  flex-basis: 100%;
+  flex-direction: column;
+
+  justify-content: space-between;
+}
+
+.books {
+  display: flex;
+  justify-content: space-between;
+
+  margin: 12px 0px;
+}
+.book {
+  flex-basis: 30%;
+
+  padding: 12px;
+
+  color: var(--milk-and-cookies);
+  background: var(--dark-mauve);
+
+  font-size: 22px;
+  text-align: center;
+
+  border-radius: 12px;
+}
+
+.about-author {
+  display: flex;
+  flex-basis: 100%;
+  flex-direction: column;
+}
+
+.content textarea {
+  flex: 1;
+
+  width: 100%;
+  min-height: 200px;
+
+  margin-top: 1em;
+  padding: 1em;
+
+  text-indent: 30px;
+  text-align: left;
+  font-size: 16px;
+
+  background: var(--milk-and-cookies);
+
+  border-radius: 12px;
+  border: 1px solid var(--moonless-night);
+}
+
+.content textarea:focus {
+  border: 1px solid var(--sinister);
+  border-radius: 12px;
+
+  outline: none !important;
+}
+.submit {
+  display: flex;
+  justify-content: center;
+}
+.post-btn {
+  padding: 8px 60px;
+
+  border: none;
+  border-radius: 4px;
+  box-shadow: 2px 2px 8px rgba(48, 33, 33, 0.466);
+
+  background: var(--cafe-creme);
+  color: var(--sinister);
+
+  font-family: "Inknut Antiqua", serif;
+  font-weight: 600;
+  font-size: 0.8em;
+
+  cursor: pointer;
+}
+
+.post-btn:hover {
+  background: var(--honey);
+  color: var(--sinister);
+}

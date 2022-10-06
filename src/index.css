@@ -1,41 +1,24 @@
-@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Dosis:wght@300;400;500;700&family=Josefin+Slab:ital,wght@0,300;0,600;1,400&family=Rajdhani:wght@300;500;600&family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@300;400;500;700&family=Josefin+Slab:ital,wght@0,300;0,600;1,400&family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&display=swap");
 
 /* 
-font-family: 'Dosis', sans-serif;
-font-family: 'Rajdhani', sans-serif; 
-
-font-family: 'Josefin Slab', serif;
-font-family: 'Lora', serif; 
 font-family: 'Inknut Antiqua', serif;
+font-family: 'Josefin Slab', serif;
+font-family: 'Dosis', sans-serif;
 */
 
 :root {
-  /* --primary-bg: #37303d; */
-  --banner-bg: #303030;
-  --primary-bg: #303030;
-  --background-tester: #323732;
-
-  /*--------------------------------------------*/
   --honey: #d69554;
   --peach-beach: #ffcf9e;
-  --dark-mauve: #513738;
   --pale-mauve: #7b4e51;
+  --dark-mauve: #513738;
   --milk-and-cookies: #ecdfdf;
+  --cafe-creme: #c4967f;
+  --moonless-night: #303030;
   --sinister: #16110d;
 
-  --foilage: #90b788ff;
-
-  /* Text */
-
   /* Error */
-  --error-bg: #edd9d9;
-  --error-accent: #cc3d3d;
-
-  /* Pre-made options:
-    seagreen
-    darkcyan
-    rebeccapurple
-  */
+  --hyper-light-drifter: #edd9d9;
+  --bento-box: #ce3b3b;
 }
 
 * {
@@ -47,7 +30,7 @@ font-family: 'Inknut Antiqua', serif;
 body {
   font-size: 18px;
   font-family: "dosis", sans-serif;
-  background: var(--primary-bg);
+  background: var(--moonless-night);
 }
 nav a {
   background: var(--pale-mauve);
@@ -78,6 +61,22 @@ nav a {
 .design-button {
   display: flex;
   justify-content: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  border: 1px solid var(--milk-and-cookies);
+  padding: 8px;
+  color: var(--milk-and-cookies);
+  background: var(--dark-mauve);
+
+  font-family: "Inknut Antiqua", serif;
+}
+.design-button:hover {
+  background: var(--honey);
+  color: var(--sinister);
+  border-color: var(--honey);
 }
 
 h1 {
@@ -113,11 +112,11 @@ a:hover {
   max-width: 600px;
   padding: 24px 96px;
 
-  border: 2px solid var(--error-accent);
+  border: 2px solid var(--bento-box);
   border-radius: 4px;
 
-  background: var(--error-bg);
-  color: var(--error-accent);
+  background: var(--hyper-light-drifter);
+  color: var(--bento-box);
 
   text-align: center;
   line-height: 1.6;
