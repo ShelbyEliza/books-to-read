@@ -5,6 +5,9 @@ header {
   background: var(--moonless-night);
 }
 header a {
+  display: flex;
+  justify-content: center;
+
   width: 100%;
   max-width: 900px;
   z-index: 9999;

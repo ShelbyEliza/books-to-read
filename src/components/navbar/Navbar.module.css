@@ -6,13 +6,13 @@ nav {
 
   text-align: center;
   font-family: "Josefin Slab", serif;
-  font-size: 16px;
+
   font-weight: 700;
   border-top: 4px double var(--honey);
 }
 
 nav a {
-  font-size: 1.2em;
+  font-size: 1.2rem;
   color: var(--milk-and-cookies);
 }
 
@@ -127,7 +127,7 @@ nav button {
 }
 
 /* -------------------- Tablet Styles ---------------- */
-@media only screen and (min-width: 510px) and (max-width: 700px) {
+/* @media only screen and (min-width: 510px) and (max-width: 700px) {
   nav {
     font-size: 12px;
     border: 2px solid rgb(255, 208, 0);
@@ -135,18 +135,16 @@ nav button {
   .logout {
     padding: 0.2em 1em;
   }
-}
+} */
 
 /* -------------------- Mobile Styles -------------------- */
-@media only screen and (max-width: 509px) {
+/* @media only screen and (max-width: 509px) {
   nav {
     font-size: 8px;
   }
-  /* .create-tab {
-  } */
 }
 @media only screen and (max-width: 360px) {
   nav {
     font-size: 6px;
   }
-}
+} */

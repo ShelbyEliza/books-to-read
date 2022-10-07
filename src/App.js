@@ -23,7 +23,7 @@ function App() {
   const { user, authIsReady } = useAuthContext();
 
   return (
-    <div className="App">
+    <div className="app">
       {authIsReady && (
         <BrowserRouter>
           <Header />

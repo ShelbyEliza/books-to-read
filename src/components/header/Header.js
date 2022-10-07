@@ -3,7 +3,6 @@ import { ReactComponent as Banner } from "../../assets/Banner.svg";
 import "./Header.module.css";
 
 import { Link } from "react-router-dom";
-// import Navbar from "../navbar/Navbar";
 
 export default function Header() {
   return (
@@ -11,7 +10,6 @@ export default function Header() {
       <Link to="/">
         <Banner />
       </Link>
-      {/* <Navbar /> */}
     </header>
   );
 }

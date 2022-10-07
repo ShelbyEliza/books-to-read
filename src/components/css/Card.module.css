@@ -1,6 +1,7 @@
 .card {
   display: flex;
   flex-direction: column;
+  /* justify-content: center; */
 
   margin: auto;
   padding: 16px 0px 8px 0px;
@@ -8,10 +9,12 @@
   max-width: 800px;
 
   color: var(--sinister);
+  border: 1px dotted seagreen;
 }
 
 .all-card-content {
   min-width: 800px;
+  justify-content: center;
   margin: auto;
 
   background: var(--dark-mauve);
@@ -214,18 +217,18 @@
 } */
 
 /* -------------------- Tablet Styles ---------------- */
-@media only screen and (min-width: 510px) and (max-width: 700px) {
+/* @media only screen and (min-width: 510px) and (max-width: 700px) {
   .card {
     max-width: 700px;
     min-width: 510px;
     border: 2px solid rgb(255, 0, 115);
   }
-  /* header a {
+  header a {
     width: 100%;
     max-width: 700px;
     min-width: 510px;
-  } */
-}
+  }
+} */
 /* ------------------- Mobile Styles ----------------- */
 /* @media only screen and (max-width: 405px) {
   .card-all-card-content {

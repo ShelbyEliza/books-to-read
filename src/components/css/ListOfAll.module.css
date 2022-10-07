@@ -49,10 +49,10 @@
 }
 
 /* -------------------- Tablet Styles ---------------- */
-@media only screen and (min-width: 510px) and (max-width: 700px) {
+/* @media only screen and (min-width: 510px) and (max-width: 700px) {
   .content {
     max-width: 700px;
     min-width: 510px;
     border: 2px solid rgb(0, 255, 153);
   }
-}
+} */

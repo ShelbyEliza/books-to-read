@@ -28,6 +28,9 @@ font-family: 'Dosis', sans-serif;
 }
 
 body {
+  width: fit-content;
+  margin: auto;
+
   font-size: 18px;
   font-family: "dosis", sans-serif;
   background: var(--moonless-night);
@@ -81,11 +84,7 @@ nav a {
 
 h1 {
   font-family: "Inknut Antiqua", serif;
-  /* font-weight: 400; */
 }
-
-/* h2 {
-} */
 
 h1,
 h2,
@@ -98,7 +97,6 @@ a:visited {
   text-decoration: none;
 }
 a:hover {
-  /* text-decoration: underline; */
   cursor: pointer;
 }
 
@@ -123,14 +121,12 @@ a:hover {
 }
 
 .btn {
-  /* margin: 24px 120px; */
   padding: 8px 12px;
   text-align: center;
 
   border: 1px solid var(--honey);
   border-radius: 2px;
 
-  font-size: 18px;
   font-weight: 600;
 
   color: var(--honey);
@@ -183,15 +179,11 @@ a:hover {
   padding: 12px 18px;
   border-radius: 12px;
 
-  /* padding: 16px 24px; */
-
   font-weight: 700;
   font-size: 16px;
   border: none;
   border-top: none;
   border-bottom: none;
-  /* border-bottom-left-radius: 22px;
-  border-bottom-right-radius: 22px; */
 
   cursor: pointer;
   color: var(--sinister);
@@ -214,23 +206,39 @@ a:hover {
   background: var(--dark-mauve);
 }
 
-/*--------------------Mobile----------------------*/
-/* desktop */
-/* @media only screen and (max-width: 900px) {
-} */
-
-/* -------------------- Tablet Styles ---------------- */
-@media only screen and (min-width: 510px) and (max-width: 700px) {
+/*-------------------- Responsive Design ----------------------*/
+/* ------- desktop ------- */
+@media only screen and (min-width: 900px) {
   body {
-    max-width: 700px;
-    min-width: 510px;
-    border: 2px solid rgb(34, 0, 255);
+    font-size: 18px;
   }
 }
 
+/* ------- tablet -------- */
+@media only screen and (min-width: 401px) and (max-width: 899px) {
+}
+/* ------- mobile -------- */
+@media only screen and (max-width: 400px) {
+}
+
 /* Mobile Styles */
-/* @media only screen and (max-width: 405px) {
-  * {
-    max-width: 400px;
+/* @media only screen and (max-width: 400px) {
+  body {
+    background: var(--honey);
+  }
+} */
+
+/* Tablet Styles */
+/* @media only screen and (min-width: 401px) and (max-width: 960px) {
+  body {
+    background: var(--milk-and-cookies);
+    width: 50%;
+  }
+} */
+
+/* Desktop Styles */
+/* @media only screen and (min-width: 961px) {
+  body {
+    background: var(--moonless-night);
   }
 } */
