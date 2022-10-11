@@ -1,6 +1,5 @@
 .container {
-  max-width: 700px;
-  min-width: 694px;
+  width: 80%;
   margin: auto;
 
   text-align: center;
@@ -150,4 +149,24 @@
   font-family: "Inknut Antiqua", serif;
   font-size: 24px;
   margin-bottom: 16px;
+}
+
+/*-------------------- Responsive Design ----------------------*/
+/* ------- desktop ------- */
+@media only screen and (min-width: 900px) {
+}
+
+/* ------- tablet -------- */
+@media only screen and (min-width: 401px) and (max-width: 899px) {
+  .container {
+    width: 100%;
+    margin-bottom: 80px;
+  }
+}
+/* ------- mobile -------- */
+@media only screen and (max-width: 400px) {
+  .container {
+    width: 100%;
+    margin-bottom: 80px;
+  }
 }

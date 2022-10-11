@@ -1,35 +1,28 @@
 header {
   display: flex;
   justify-content: center;
+  width: 100vw;
+  margin: auto;
 
   background: var(--moonless-night);
 }
+
 header a {
   display: flex;
   justify-content: center;
 
   width: 100%;
-  max-width: 900px;
   z-index: 9999;
 }
 
-/* -------------------- PC Styles ---------------- */
-/* @media only screen and (min-width: 900px) {
-  .banner {
-    max-width: 900px;
-  }
-} */
+/*-------------------- Responsive Design ----------------------*/
+/* ------- desktop ------- */
+@media only screen and (min-width: 900px) {
+}
 
-/* -------------------- Tablet Styles ---------------- */
-/* @media only screen and (min-width: 510px) and (max-width: 700px) {
-
-} */
-
-/* ------------------- Mobile Styles ----------------- */
-/* @media only screen and (max-width: 400px) {
-  header {
-    width: 100%;
-    border: 4px solid lightseagreen;
-  }
-} */
-/* max-width: 600px; */
+/* ------- tablet -------- */
+@media only screen and (min-width: 401px) and (max-width: 899px) {
+}
+/* ------- mobile -------- */
+@media only screen and (max-width: 400px) {
+}

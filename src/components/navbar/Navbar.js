@@ -12,7 +12,7 @@ export default function Navbar() {
 
   return (
     <nav>
-      <ul>
+      <ul className={styles.list}>
         {!user && (
           <div className={styles["admin-tabs"]}>
             <li>

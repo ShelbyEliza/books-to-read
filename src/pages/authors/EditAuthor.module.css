@@ -1,6 +1,5 @@
 .content {
-  max-width: 700px;
-  min-width: 694px;
+  width: 80%;
   margin: auto;
 
   align-items: center;
@@ -79,9 +78,12 @@
   justify-content: space-between;
 
   margin: 12px 0px;
+  text-align: center;
+  /* TODO: text not centered... */
 }
 .book {
   flex-basis: 30%;
+  height: 100%;
 
   padding: 12px;
 
@@ -149,4 +151,30 @@
 .post-btn:hover {
   background: var(--honey);
   color: var(--sinister);
+}
+
+/*-------------------- Responsive Design ----------------------*/
+/* ------- desktop ------- */
+@media only screen and (min-width: 900px) {
+}
+
+/* ------- tablet -------- */
+@media only screen and (min-width: 401px) and (max-width: 899px) {
+  .content {
+    width: 100%;
+    margin-bottom: 80px;
+  }
+  .content form {
+    padding: 2rem 0.8rem;
+  }
+}
+/* ------- mobile -------- */
+@media only screen and (max-width: 400px) {
+  .content {
+    width: 100%;
+    margin-bottom: 80px;
+  }
+  .content form {
+    padding: 2rem 0.8rem;
+  }
 }

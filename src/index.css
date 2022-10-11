@@ -28,13 +28,21 @@ font-family: 'Dosis', sans-serif;
 }
 
 body {
-  width: fit-content;
-  margin: auto;
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+  overflow-x: hidden;
 
   font-size: 18px;
   font-family: "dosis", sans-serif;
+
   background: var(--moonless-night);
 }
+.site-content {
+  margin: auto;
+}
+
 nav a {
   background: var(--pale-mauve);
 }
@@ -46,18 +54,6 @@ nav a {
   color: var(--sinister);
   background: var(--honey);
   border-top: none;
-}
-
-.content {
-  margin: auto;
-  margin-top: 32px;
-}
-
-.heading-title,
-.author-link,
-.date-value,
-.tags-value {
-  font-family: "Dosis", sans-serif;
 }
 
 /* ------------ Design -----------*/
@@ -120,19 +116,6 @@ a:hover {
   line-height: 1.6;
 }
 
-.btn {
-  padding: 8px 12px;
-  text-align: center;
-
-  border: 1px solid var(--honey);
-  border-radius: 2px;
-
-  font-weight: 600;
-
-  color: var(--honey);
-  background: none;
-}
-
 .delete-container {
   margin: auto;
   background: var(--honey);
@@ -160,11 +143,9 @@ a:hover {
 }
 
 .confirm-del-container {
-  /* display: flex; */
   margin: 0px 22px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  /* gap: 8%; */
 
   border-bottom-left-radius: 22px;
   border-bottom-right-radius: 22px;
@@ -212,33 +193,26 @@ a:hover {
   body {
     font-size: 18px;
   }
+  .site-content {
+    /* background: seagreen; */
+    width: 900px;
+  }
 }
 
 /* ------- tablet -------- */
 @media only screen and (min-width: 401px) and (max-width: 899px) {
+  .site-content {
+    /* background: mediumpurple; */
+    max-width: 899px;
+    min-width: 401px;
+  }
 }
 /* ------- mobile -------- */
 @media only screen and (max-width: 400px) {
+  .site-content {
+    width: 100%;
+  }
+  body {
+    /* font-size: 40px; */
+  }
 }
-
-/* Mobile Styles */
-/* @media only screen and (max-width: 400px) {
-  body {
-    background: var(--honey);
-  }
-} */
-
-/* Tablet Styles */
-/* @media only screen and (min-width: 401px) and (max-width: 960px) {
-  body {
-    background: var(--milk-and-cookies);
-    width: 50%;
-  }
-} */
-
-/* Desktop Styles */
-/* @media only screen and (min-width: 961px) {
-  body {
-    background: var(--moonless-night);
-  }
-} */

@@ -2,6 +2,8 @@ nav {
   margin: auto;
 
   display: flex;
+  width: 96%;
+
   justify-content: center;
 
   text-align: center;
@@ -12,19 +14,17 @@ nav {
 }
 
 nav a {
-  font-size: 1.2rem;
+  /* font-size: 1.2rem; */
   color: var(--milk-and-cookies);
 }
 
 nav ul {
   display: flex;
+  justify-content: space-between;
+  width: 92%;
 
-  max-width: 900px;
   list-style-type: none;
-}
-
-.section {
-  margin: 0px 20px;
+  border: 1px solid wheat;
 }
 
 .create-tab {
@@ -44,11 +44,11 @@ nav ul {
 .create-tab {
   display: flex;
 
-  padding: 0.4em 1.4em;
+  padding: 0.4em 1.2em;
 
   border-bottom: 2px solid var(--honey);
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 24%;
+  border-bottom-right-radius: 24%;
 
   text-align: center;
   align-items: center;
@@ -71,13 +71,13 @@ nav button {
   flex-direction: column;
   text-align: center;
 
-  padding: 0.4em 1.4em;
+  padding: 0.8rem;
 
   background: var(--cafe-creme);
 
   border-bottom: 2px solid var(--honey);
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 24%;
+  border-bottom-right-radius: 24%;
 }
 .logout button {
   display: flex;
@@ -104,8 +104,6 @@ nav button {
   cursor: pointer;
 }
 
-/* -------------------- Mobile Menu ----------------------- */
-
 /* -------------------- Admin ----------------------- */
 
 .admin-tabs {
@@ -117,34 +115,37 @@ nav button {
   display: flex;
 
   padding: 0.4em 1.4em;
-  margin: 0px 12px;
+  margin: 0px 2rem;
 
   border-top: none;
   border-bottom: 2px solid var(--honey);
 
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 24%;
+  border-bottom-right-radius: 24%;
 }
 
-/* -------------------- Tablet Styles ---------------- */
-/* @media only screen and (min-width: 510px) and (max-width: 700px) {
-  nav {
-    font-size: 12px;
-    border: 2px solid rgb(255, 208, 0);
-  }
-  .logout {
-    padding: 0.2em 1em;
-  }
-} */
-
-/* -------------------- Mobile Styles -------------------- */
-/* @media only screen and (max-width: 509px) {
-  nav {
-    font-size: 8px;
+/*-------------------- Responsive Design ----------------------*/
+/* ------- desktop ------- */
+@media only screen and (min-width: 900px) {
+  nav ul {
+    /* width: 6%; */
   }
 }
-@media only screen and (max-width: 360px) {
-  nav {
-    font-size: 6px;
+
+/* ------- tablet -------- */
+@media only screen and (min-width: 401px) and (max-width: 899px) {
+  .list {
+    background: cornflowerblue;
+    /* margin: auto; */
+    /* width: 80%; */
   }
-} */
+  nav ul {
+    width: 100%;
+  }
+}
+/* ------- mobile -------- */
+@media only screen and (max-width: 400px) {
+  nav ul {
+    margin: auto;
+  }
+}

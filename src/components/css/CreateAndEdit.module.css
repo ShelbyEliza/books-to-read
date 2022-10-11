@@ -1,6 +1,5 @@
 .content {
-  max-width: 700px;
-  min-width: 694px;
+  width: 80%;
   margin: auto;
 
   align-items: center;
@@ -291,16 +290,26 @@
   border: 4px double var(--dark-mauve);
 }
 
-/* -------------------- Tablet Styles ---------------- */
-/* @media only screen and (min-width: 510px) and (max-width: 700px) {
+/*-------------------- Responsive Design ----------------------*/
+/* ------- desktop ------- */
+@media only screen and (min-width: 900px) {
   .content {
-    font-size: 12px;
+    /* width: 6%; */
   }
-} */
+}
 
-/* ------------------- Mobile Styles ----------------- */
-/* @media only screen and (max-width: 509px) {
+/* ------- tablet -------- */
+@media only screen and (min-width: 401px) and (max-width: 899px) {
   .content {
-    font-size: 10px;
+    width: 100%;
   }
-} */
+  .content form {
+    padding: 2rem 0.8rem;
+  }
+}
+/* ------- mobile -------- */
+@media only screen and (max-width: 400px) {
+  /* nav ul {
+    margin: auto;
+  } */
+}
