@@ -49,14 +49,16 @@ export default function BlogCard({ blog, isSingleBlog }) {
     <div className={styles["all-card-content"]}>
       <div className={styles["before-ratings"]}>
         <div className={styles["title-edit-content"]}>
+          <div className={styles["edit-container"]}>
+            <Link to={`/editBlog/${blog.id}`}>
+              <EditButton className={styles.edit} />
+            </Link>
+          </div>
           <h1>
             <Link className={styles.title} to={`/blogDetails/${blog.id}`}>
               {blog.title}
             </Link>
           </h1>
-          <Link to={`/editBlog/${blog.id}`}>
-            <EditButton className={styles.edit} />
-          </Link>
         </div>
         <div className={styles["author-date-content"]}>
           {blog.author && (
@@ -92,6 +94,19 @@ export default function BlogCard({ blog, isSingleBlog }) {
           )}
         </div>
 
+        <div className={styles["rating-content"]}>
+          {blog.rating &&
+            ratingArray.map((rating) => (
+              <div key={rating}>
+                <img
+                  className={styles["rating-icon"]}
+                  alt="A number of lightening bolts indicating the rating."
+                  src={BoltIcon}
+                />
+              </div>
+            ))}
+        </div>
+
         {blog.tags && (
           <div className={styles["tags-content"]}>
             {blog.tags.length === 0 ? (
@@ -111,20 +126,6 @@ export default function BlogCard({ blog, isSingleBlog }) {
           </div>
         )}
       </div>
-
-      {blog.rating && (
-        <div className={styles["rating-content"]}>
-          {ratingArray.map((rating) => (
-            <div key={rating}>
-              <img
-                className={styles["rating-icon"]}
-                alt="A number of lightening bolts indicating the rating."
-                src={BoltIcon}
-              />
-            </div>
-          ))}
-        </div>
-      )}
       {blog.content && (
         <div className={styles["description-content"]}>
           {blogSnips.map((snip) => (

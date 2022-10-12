@@ -3,7 +3,7 @@
   margin-top: 32px;
   width: 80%;
 
-  background: var(--dark-mauve);
+  background: var(--pale-mauve);
   color: var(--honey);
 
   border-top: 4px double var(--honey);
@@ -18,56 +18,69 @@
 
 .title-edit-content {
   display: flex;
-  justify-content: center;
-  margin-top: 32px;
-  margin-bottom: 18px;
+  flex-direction: column;
+
+  margin-top: 2%;
+  margin-bottom: 3%;
 
   align-items: center;
 }
-.title {
-  margin-right: 0.4em;
+.edit-container {
+  align-self: flex-end;
+  margin-right: 4%;
+}
 
+.edit {
+  max-width: 0.2em;
+  max-height: 20px;
+}
+.title-edit-content h1 {
+  text-align: center;
+}
+.title {
   font-size: 40px;
   font-family: "Inknut Antiqua", serif;
   letter-spacing: 0.01em;
 
   color: var(--milk-and-cookies);
 }
-.edit {
-  max-width: 0.2em;
-  max-height: 20px;
-  margin: 0px 10px;
-}
 
 .author-date-content {
   display: flex;
-  justify-content: space-around;
   align-items: center;
+  padding: 2%;
+  background: var(--dark-mauve);
+
+  color: var(--milk-and-cookies);
 }
 .author {
+  display: flex;
+  flex-basis: 50%;
+  justify-content: center;
+
   margin: 8px;
+  align-self: center;
 
   font-size: 30px;
 }
 
 .author a {
-  color: var(--honey);
+  color: var(--milk-and-cookies);
+  font-family: "Josefin Slab", serif;
+  font-weight: 600;
 }
 
 .date-content {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-basis: 50%;
-  justify-content: flex-end;
-
-  padding: 8px;
+  justify-content: center;
 }
 .date-content div {
-  padding: 6px;
-}
+  text-align: center;
 
-.currently-reading {
-  color: var(--milk-and-cookies);
+  font-size: 16px;
+  font-weight: 500;
 }
 
 /* ---------------------- Tags --------------- */
@@ -77,7 +90,9 @@
   align-items: center;
   justify-content: space-around;
 
-  margin: 12px;
+  padding: 2%;
+
+  background: var(--dark-mauve);
 }
 .tag {
   padding: 0.6em 0.8em;
@@ -105,6 +120,7 @@
   justify-content: space-around;
 
   background: var(--honey);
+  height: 42px;
 }
 
 .rating-content > div {
@@ -119,14 +135,11 @@
 
 /* ------------------ Description -------------*/
 .description-content {
-  background: var(--pale-mauve);
+  background: var(--dark-mauve);
   color: var(--milk-and-cookies);
 
-  border-right: 1px solid var(--honey);
-  border-left: 1px solid var(--honey);
-
-  /* padding: 1.2em 4em; */
-  padding: 2% 6%;
+  padding: 6%;
+  padding-top: 1%;
 
   font-family: "Josefin Slab", serif;
   font-size: 1.3em;
@@ -147,26 +160,33 @@
 
 /*----------------- Author Card -------------*/
 .books-content {
-  display: grid;
-  grid-template-columns: 0.4fr 1fr;
+  display: flex;
+  flex-direction: column;
+  padding-top: 4%;
+  padding-bottom: 4%;
+  /* grid-template-columns: 0.4fr 1fr; */
   align-items: center;
+  background: var(--dark-mauve);
 }
 .books-content label {
   display: flex;
-  flex-basis: 20%;
+
   justify-content: center;
+  padding-bottom: 1%;
 
   font-family: "Josefin Slab", serif;
   font-size: 1.4em;
   font-weight: 600;
+
+  color: var(--milk-and-cookies);
 }
 .books {
   display: flex;
   justify-content: center;
+  flex-basis: 50%;
 }
 .book {
   display: flex;
-  flex-basis: 50%;
 
   margin: 8px 12px;
   padding: 0.6em 0.8em;
@@ -196,17 +216,16 @@
 /*-------------------- Responsive Design ----------------------*/
 /* ------- desktop ------- */
 @media only screen and (min-width: 900px) {
-  /* .all-card-content {
-    width: 80%;
-  } */
 }
 
-/* ------- tablet -------- */
-@media only screen and (min-width: 401px) and (max-width: 899px) {
+/* ------- tablet & mobile -------- */
+@media only screen and (max-width: 899px) {
   .all-card-content {
     width: 100%;
+    margin-bottom: 120px;
   }
-}
-/* ------- mobile -------- */
-@media only screen and (max-width: 400px) {
+  .author-date-content {
+    padding: 6% 6%;
+    padding-bottom: 4%;
+  }
 }

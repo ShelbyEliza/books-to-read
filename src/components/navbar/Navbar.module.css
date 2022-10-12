@@ -14,7 +14,7 @@ nav {
 }
 
 nav a {
-  /* font-size: 1.2rem; */
+  font-size: 1.4rem;
   color: var(--milk-and-cookies);
 }
 
@@ -24,7 +24,6 @@ nav ul {
   width: 92%;
 
   list-style-type: none;
-  border: 1px solid wheat;
 }
 
 .create-tab {
@@ -127,25 +126,14 @@ nav button {
 /*-------------------- Responsive Design ----------------------*/
 /* ------- desktop ------- */
 @media only screen and (min-width: 900px) {
-  nav ul {
-    /* width: 6%; */
-  }
 }
 
-/* ------- tablet -------- */
-@media only screen and (min-width: 401px) and (max-width: 899px) {
-  .list {
-    background: cornflowerblue;
-    /* margin: auto; */
-    /* width: 80%; */
-  }
+/* ------- tablet & mobile  -------- */
+@media only screen and (max-width: 899px) {
   nav ul {
     width: 100%;
   }
-}
-/* ------- mobile -------- */
-@media only screen and (max-width: 400px) {
-  nav ul {
-    margin: auto;
+  nav a {
+    font-size: 1rem;
   }
 }

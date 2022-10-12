@@ -1,6 +1,7 @@
 .content {
   width: 80%;
   margin: auto;
+  margin-bottom: 20%;
 
   align-items: center;
 
@@ -278,38 +279,23 @@
 }
 
 .books-written {
-  /* display: flex;
-  flex-basis: 80%;
-  justify-content: space-between; */
   border: 4px double var(--dark-mauve);
 }
 .books {
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
   border: 4px double var(--dark-mauve);
 }
 
 /*-------------------- Responsive Design ----------------------*/
 /* ------- desktop ------- */
 @media only screen and (min-width: 900px) {
-  .content {
-    /* width: 6%; */
-  }
 }
 
-/* ------- tablet -------- */
-@media only screen and (min-width: 401px) and (max-width: 899px) {
+/* ------- tablet & mobile -------- */
+@media only screen and (max-width: 899px) {
   .content {
     width: 100%;
   }
   .content form {
     padding: 2rem 0.8rem;
   }
-}
-/* ------- mobile -------- */
-@media only screen and (max-width: 400px) {
-  /* nav ul {
-    margin: auto;
-  } */
 }

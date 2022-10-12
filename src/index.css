@@ -194,7 +194,6 @@ a:hover {
     font-size: 18px;
   }
   .site-content {
-    /* background: seagreen; */
     width: 900px;
   }
 }
@@ -202,7 +201,6 @@ a:hover {
 /* ------- tablet -------- */
 @media only screen and (min-width: 401px) and (max-width: 899px) {
   .site-content {
-    /* background: mediumpurple; */
     max-width: 899px;
     min-width: 401px;
   }
@@ -211,8 +209,5 @@ a:hover {
 @media only screen and (max-width: 400px) {
   .site-content {
     width: 100%;
-  }
-  body {
-    /* font-size: 40px; */
   }
 }

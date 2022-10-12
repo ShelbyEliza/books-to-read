@@ -19,11 +19,12 @@ export default function AuthorCard({ author, keyInfo }) {
     author && (
       <div className={styles["all-card-content"]}>
         <div className={styles["title-edit-content"]}>
+          <div className={styles["edit-container"]}>
+            <Link to={`/editAuthor/${author.id}`}>
+              <EditButton className={styles.edit} />
+            </Link>
+          </div>
           <h1 className={styles.title}>{author.name}</h1>
-
-          <Link to={`/editAuthor/${author.id}`}>
-            <EditButton className={styles.edit} />
-          </Link>
         </div>
         {keyInfo &&
           (keyInfo.booksWithIDs.length === 0 ? (
@@ -35,17 +36,15 @@ export default function AuthorCard({ author, keyInfo }) {
             <div className={styles["books-content"]}>
               <label>Books Written:</label>
               <div className={styles.books}>
-                <div className={styles["books"]}>
-                  {keyInfo.booksWithIDs.map((book) => (
-                    <Link
-                      key={Object.values(book)}
-                      className={styles["book"]}
-                      to={`/blogDetails/${Object.values(book)}`}
-                    >
-                      <p>{Object.keys(book)}</p>
-                    </Link>
-                  ))}
-                </div>
+                {keyInfo.booksWithIDs.map((book) => (
+                  <Link
+                    key={Object.values(book)}
+                    className={styles["book"]}
+                    to={`/blogDetails/${Object.values(book)}`}
+                  >
+                    <p>{Object.keys(book)}</p>
+                  </Link>
+                ))}
               </div>
             </div>
           ))}
