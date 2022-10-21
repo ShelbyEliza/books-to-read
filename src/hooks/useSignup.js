@@ -25,6 +25,8 @@ export const useSignup = () => {
       })
       .then((res) => {
         setIsPending(false);
+        if (auth.currentUser !== null) {
+        }
         dispatch({ type: "LOGIN", payload: res.user });
       })
       .catch((err) => {
