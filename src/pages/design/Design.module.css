@@ -3,6 +3,7 @@
 
   border: 2px solid var(--sinister);
   background: #adcfad;
+  border-radius: 4%;
 }
 .title {
   display: flex;

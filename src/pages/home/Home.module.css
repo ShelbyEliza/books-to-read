@@ -33,3 +33,28 @@
   color: var(--dark-mauve);
   text-decoration: none;
 }
+
+/* guest */
+.guest-title {
+  margin-top: 32px;
+  padding: 24px;
+  text-align: center;
+
+  color: var(--honey);
+
+  /* background: var(--honey); */
+
+  border: 4px double var(--honey);
+  border-radius: 12px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+.subtext {
+  text-align: center;
+  background: var(--honey);
+
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+
+  padding: 1rem;
+}

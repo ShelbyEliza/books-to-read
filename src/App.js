@@ -1,7 +1,8 @@
-import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuthContext } from "./hooks/useAuthContext";
 
 import Home from "./pages/home/Home";
+import Guest from "./pages/guest/Guest";
 import Header from "./components/header/Header";
 import Navbar from "./components/navbar/Navbar";
 import Create from "./pages/Create";
@@ -18,6 +19,7 @@ import AuthorDetails from "./pages/authors/AuthorDetails";
 import EditBlog from "./pages/blogs/EditBlog";
 import EditAuthor from "./pages/authors/EditAuthor";
 import Design from "./pages/design/Design";
+import Footer from "./components/footer/Footer";
 
 function App() {
   const { user, authIsReady } = useAuthContext();
@@ -86,13 +88,15 @@ function App() {
                 path="/signup"
                 element={user ? <Navigate to="/" /> : <Signup />}
               />
+              <Route
+                path="/guest"
+                element={user ? <Navigate to="/" /> : <Guest />}
+              />
               <Route path="/design" element={user ? <Design /> : <Login />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
+            <Footer />
           </div>
-          <Link to="/design" className="design-button">
-            Site Design
-          </Link>
         </BrowserRouter>
       )}
     </div>

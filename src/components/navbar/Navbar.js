@@ -25,6 +25,11 @@ export default function Navbar() {
                 Log In
               </NavLink>
             </li>
+            <li>
+              <NavLink className={styles["admin-tab"]} to="/guest">
+                Guest Content
+              </NavLink>
+            </li>
           </div>
         )}
 
