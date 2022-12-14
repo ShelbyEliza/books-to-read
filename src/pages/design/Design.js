@@ -22,7 +22,7 @@ const fontList = [
 
 export default function Design() {
   return (
-    <div className={styles.container}>
+    <footer className={styles.container}>
       <h1 className={styles.title}>Design Guide</h1>
 
       <div className={styles.content}>
@@ -108,6 +108,6 @@ export default function Design() {
           </div>
         </div>
       </div>
-    </div>
+    </footer>
   );
 }

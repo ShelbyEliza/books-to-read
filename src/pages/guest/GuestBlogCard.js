@@ -7,17 +7,11 @@ import styles from "../../components/css/Card.module.css";
 import EditButton from "../../assets/EditButton";
 import BoltIcon from "../../assets/BoltIcon.png";
 
-import { Link, useNavigate } from "react-router-dom";
-
-import { useFirestore } from "../../hooks/useFirestore";
 import { useEffect, useState } from "react";
 
-export default function BlogCard({ blog, isSingleBlog }) {
-  const { deleteBlog, response, error } = useFirestore();
+export default function GuestBlogCard({ blog }) {
   const [ratingArray, setRatingArray] = useState([]);
   const [blogSnips, setBlogSnips] = useState([]);
-  const [showDelete, setShowDelete] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (blog) {
@@ -34,36 +28,34 @@ export default function BlogCard({ blog, isSingleBlog }) {
     }
   }, [blog]);
 
-  const handleDelete = async (blog) => {
-    if (isSingleBlog) {
-      await deleteBlog(blog);
-      if (!response.error) {
-        navigate("/");
-      }
-    } else {
-      await deleteBlog(blog);
-    }
-  };
-
   return (
     <div className={styles["all-card-content"]}>
       <div className={styles["before-ratings"]}>
         <div className={styles["title-edit-content"]}>
           <div className={styles["edit-container"]}>
-            <Link to={`/editBlog/${blog.id}`}>
+            <div
+              className={styles["edit-guest"]}
+              title="Sign up to edit your own content!"
+            >
               <EditButton className={styles.edit} />
-            </Link>
+            </div>
           </div>
-          <h1>
-            <Link className={styles.title} to={`/blogDetails/${blog.id}`}>
-              {blog.title}
-            </Link>
+          <h1
+            className={`${styles.title} ${styles["title-guest"]}`}
+            title="Sign up to view your own content!"
+          >
+            {blog.title}
           </h1>
         </div>
         <div className={styles["author-date-content"]}>
           {blog.author && (
             <div className={styles["author"]}>
-              <Link to={`/authorDetails/${blog.authorID}`}>{blog.author}</Link>
+              <h2
+                className={styles["author-guest"]}
+                title="Sign up to view your favorite and not so favorite authors!"
+              >
+                {blog.author}
+              </h2>
             </div>
           )}
 
@@ -113,14 +105,15 @@ export default function BlogCard({ blog, isSingleBlog }) {
               <p className={styles["tags-value"]}>No Tags.</p>
             ) : (
               blog.tags.map((tag) => (
-                <Link
+                <p
                   key={tag}
-                  className={styles["tag"]}
+                  className={`${styles.tag} ${styles["tag-guest"]}`}
                   state={{ from: tag }}
                   to={`/browse`}
+                  title="Sign up to sort your own content by genre!"
                 >
                   {tag}
-                </Link>
+                </p>
               ))
             )}
           </div>
@@ -135,34 +128,16 @@ export default function BlogCard({ blog, isSingleBlog }) {
           ))}
         </div>
       )}
-
       {/* ------------------------ Delete ------------------ */}
-      {showDelete === true ? (
-        <div className="delete-container">
-          <p className="delete delete-message">
-            Are you sure you would like to delete this blog permanently?
-          </p>
-          <div className="confirm-del-container">
-            <button
-              className="delete-confirmed"
-              onClick={() => handleDelete(blog)}
-            >
-              Delete
-            </button>
-            <button className="cancel" onClick={() => setShowDelete(false)}>
-              Cancel
-            </button>
-          </div>
-        </div>
-      ) : (
-        <div className="delete-container">
-          <button className="delete" onClick={() => setShowDelete(true)}>
-            DELETE POST
-          </button>
-        </div>
-      )}
-      {/* TODO: make sure this error works! */}
-      {error && <p className="error">{error}</p>}
+      <div className="delete-container">
+        <button
+          className={`delete ${styles["delete-guest"]}`}
+          title="Sign up to edit your own content!"
+          disabled
+        >
+          DELETE POST
+        </button>
+      </div>
     </div>
   );
 }

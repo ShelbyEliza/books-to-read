@@ -53,7 +53,8 @@
 
   color: var(--milk-and-cookies);
 }
-.author {
+.author,
+.author-guest {
   display: flex;
   flex-basis: 50%;
   justify-content: center;
@@ -64,7 +65,8 @@
   font-size: 30px;
 }
 
-.author a {
+.author a,
+.author-guest {
   color: var(--milk-and-cookies);
   font-family: "Josefin Slab", serif;
   font-weight: 600;
@@ -211,6 +213,14 @@
 
 .filler {
   margin: 50px;
+}
+/* --------------- Guest ----------------- */
+.tag-guest:hover,
+.title-guest:hover,
+.author-guest:hover,
+.edit-guest:hover,
+.delete-guest:hover {
+  cursor: help;
 }
 
 /*-------------------- Responsive Design ----------------------*/
