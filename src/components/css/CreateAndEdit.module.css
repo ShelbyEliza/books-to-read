@@ -95,7 +95,7 @@
 
 .form-row input {
   margin: 0 16px;
-  padding: 12px 8px;
+  padding: 13px 8px;
 
   text-align: left;
   font-family: "Dosis", sans-serif;
@@ -111,6 +111,7 @@
 }
 .content input[type="date"] {
   cursor: text;
+  padding-top: 2px;
 }
 
 .form-row input:focus {

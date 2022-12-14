@@ -1,13 +1,16 @@
 // styles:
 import styles from "../components/css/CreateAndEdit.module.css";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFirestore } from "../hooks/useFirestore";
 
 import Tags from "../components/Tags";
 import Rating from "../components/Rating";
-import useDate from "../hooks/useDate";
+import useDisplayDate from "../hooks/useDisplayDate";
+import useDateToday from "../hooks/useDateToday";
+
+const dateTodayUnFormatted = new Date();
 
 export default function Create() {
   const navigate = useNavigate();
@@ -15,22 +18,30 @@ export default function Create() {
   const { addBlog, checkIfAuthorExists, checkIfKeyExists, response } =
     useFirestore();
 
+  const { buildDateToday } = useDateToday(dateTodayUnFormatted);
+  const dateToday = buildDateToday(dateTodayUnFormatted);
+  const { formatDisplayDate } = useDisplayDate();
+
   const [error, setError] = useState(null);
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
-  const [dateStarted, setDateStarted] = useState("");
+  const [dateStarted, setDateStarted] = useState(dateToday);
   const [dateFinished, setDateFinished] = useState("");
   const [tags, setTags] = useState([]);
   const [rating, setRating] = useState("");
   const [content, setContent] = useState("");
-  const { formatDateToday, formatDisplayDate } = useDate();
   let formatStart = null;
   let formatFinish = null;
 
-  const dateToday = formatDateToday();
-  useEffect(() => {
-    setDateStarted(dateToday);
-  }, [dateToday]);
+  const handleDates = () => {
+    if (dateStarted) {
+      formatStart = formatDisplayDate(dateStarted);
+    }
+
+    if (dateFinished) {
+      formatFinish = formatDisplayDate(dateFinished);
+    }
+  };
 
   const handleTags = (e) => {
     if (e.target.checked === true) {
@@ -43,16 +54,6 @@ export default function Create() {
 
   const handleRating = (rating) => {
     setRating(rating);
-  };
-
-  const handleDates = () => {
-    if (dateStarted) {
-      formatStart = formatDisplayDate(dateStarted);
-    }
-
-    if (dateFinished) {
-      formatFinish = formatDisplayDate(dateFinished);
-    }
   };
 
   const handleSubmit = async (e) => {

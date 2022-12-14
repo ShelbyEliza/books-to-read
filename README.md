@@ -48,7 +48,6 @@ Going forward I'd like to add:\
 ### Administration
 
 - Verified email for signup.
-- A guest account option populated with generic data to display to a user why they should use the site.
 
 ## License
 

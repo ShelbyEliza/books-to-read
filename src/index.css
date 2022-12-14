@@ -38,6 +38,7 @@ body {
   font-family: "dosis", sans-serif;
 
   background: var(--moonless-night);
+  padding-bottom: 6rem;
 }
 .site-content {
   margin: auto;
