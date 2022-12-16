@@ -33,3 +33,152 @@ service cloud.firestore {
 // wildcard = any in folder/databas - use {}
 // user_id = id of document (also id of user who created document)
 // request.auth -> if null means not logged in.
+
+
+
+------------------------------------------------- useSignup.js
+import { useState } from "react";
+// import { useAuthContext } from "./useAuthContext";
+import { auth, db } from "../firebase/config";
+
+// firebase imports:
+import { doc, setDoc } from "firebase/firestore";
+import {
+  createUserWithEmailAndPassword,
+  updateProfile,
+  signOut,
+  // sendEmailVerification,
+} from "firebase/auth";
+
+export const useSignup = () => {
+  const [error, setError] = useState(null);
+  const [isPending, setIsPending] = useState(false);
+  // const { dispatch } = useAuthContext();
+
+  const signup = async (email, password, displayName) => {
+    setError(null);
+    setIsPending(true);
+
+    createUserWithEmailAndPassword(auth, email, password, displayName)
+      .then((userCredential) => {
+        updateProfile(userCredential.user, { displayName: displayName }).then(
+          () => {
+            let ref = doc(db, "users", userCredential.user.uid);
+            setDoc(ref, { displayName });
+          }
+        );
+        return userCredential;
+      })
+      .then(() => {
+        setIsPending(false);
+        if (auth.currentUser !== null) {
+          console.log(auth.currentUser);
+          signOut(auth).catch((err) => {
+            console.log(err.message);
+          });
+          // dispatch({ type: "LOGIN", payload: userCredential.user });
+          // .then(
+          //   (userCredential) => {
+          //     // sendEmailVerification(auth.currentUser).then(() => {
+          //     //   alert("Email verification sent");
+          //     // });
+          //   }
+          // );
+        }
+      })
+      .catch((err) => {
+        setError(err.message);
+      });
+  };
+
+  return { signup, error, isPending };
+};
+
+
+----------------------------- useSignup.js -------------------------
+
+import { useState } from "react";
+import { auth, db } from "../firebase/config";
+import { useAuthContext } from "./useAuthContext";
+import { useLogout } from "./useLogout";
+
+// firebase imports:
+import { doc, setDoc } from "firebase/firestore";
+import {
+  createUserWithEmailAndPassword,
+  updateProfile,
+  signOut,
+  sendEmailVerification,
+} from "firebase/auth";
+
+export const useSignup = (email, password, displayName) => {
+  const [error, setError] = useState(null);
+  const [isPending, setIsPending] = useState(false);
+  const { dispatch } = useAuthContext();
+  const { logout: logoutHook } = useLogout();
+
+  const signup = async (email, password, displayName) => {
+    setError(null);
+    setIsPending(true);
+
+  
+    createUserWithEmailAndPassword(auth, email, password, displayName)
+      .then((userCredential) => {
+        updateProfile(userCredential.user, { displayName: displayName }).then(
+          () => {
+            let ref = doc(db, "users", userCredential.user.uid).then(() => {
+              setDoc(ref, { displayName }).then(() => {
+                setIsPending(false);
+                sendEmailVerification(auth.currentUser).then(() => {
+                  console.log("Email verification sent!")
+                  // ...
+                });
+                if (auth.currentUser !== null) {
+                  console.log(auth.currentUser);
+                  signOut(auth).catch((err) => {
+                    console.log(err.message);
+                  });
+                }
+              });
+            });
+          }
+        ).catch((err) => {
+          setError(err.message);
+        });
+      })
+      .catch((err) => {
+        setError(err.message);
+      });
+  };
+  const createUser = async () => {
+    console.log("1. CreatingUser")
+    return createUserWithEmailAndPassword(auth, email, password, displayName)
+  }
+  const updateUserProfile = async (userCredential) => {
+    console.log("2. UpdatingUser")
+    updateProfile(userCredential.user, displayName)
+  }
+  const getUserDoc = async (userCredential) => {
+    console.log("3. GettingUserDoc")
+    return doc(db, "users", userCredential.user.uid)
+  }
+  const updateUserDoc = async (ref) => {
+    console.log("4. UpdatingUserDoc")
+    setDoc(ref, displayName)
+  }
+  const sendUserEmail = async () => {
+    console.log("5. SendingUserEmail")
+    setIsPending(false);
+    await sendEmailVerification(auth.currentUser)
+    console.log("Email verification sent!")
+  }
+  const signUserOut = async () => {
+    console.log("6. SigningUserOut")
+    if (auth.currentUser !== null) {
+      console.log(auth.currentUser);
+      signOut(auth)
+    }
+  }
+ 
+  return { signup, error, isPending };
+};

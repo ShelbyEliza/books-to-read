@@ -1,20 +1,52 @@
 // styles:
 import styles from "./Admin.module.css";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSignup } from "../../hooks/useSignup";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
+  const [signupError, setSignupError] = useState(null);
+  const [signupComplete, setSignupComplete] = useState(false);
 
   const { signup, isPending, error } = useSignup();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    signup(email, password, displayName);
+    await signup(email, password, displayName);
+    setSignupComplete(true);
+    // await redirectPage(signupResponse);
+    // if (!error) {
+    //   // console.log("right before logout");
+    //   // logout();
+    //   console.log("right before redirect");
+    //   navigate("/login");
+    // } else {
+    //   setSignupError(error);
+    // }
   };
+  // const redirectPage = async (response) => {
+  //   if (!error) {
+  //     console.log(response);
+  //     navigate("/login");
+  //   } else {
+  //     setSignupError(error);
+  //   }
+  // };
+  useEffect(() => {
+    if (signupComplete === true) {
+      if (!error) {
+        console.log("Signup is complete.");
+        navigate("/login");
+      } else {
+        setSignupError(error);
+      }
+    }
+  }, [signupComplete, error, navigate]);
 
   return (
     <div className={styles.content}>
@@ -59,7 +91,7 @@ export default function Signup() {
             </button>
           )}
         </div>
-        {error && <div className="error">{error}</div>}
+        {signupError && <div className="error">{signupError}</div>}
       </form>
     </div>
   );
