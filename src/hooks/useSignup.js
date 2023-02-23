@@ -1,12 +1,18 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
 import { auth, db } from "../firebase/config";
+import { useNavigate } from "react-router-dom";
 
 // firebase imports:
 import { doc, setDoc } from "firebase/firestore";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  updateProfile,
+  sendEmailVerification,
+} from "firebase/auth";
 
 export const useSignup = () => {
+  const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [isPending, setIsPending] = useState(false);
   const { dispatch } = useAuthContext();
@@ -28,6 +34,13 @@ export const useSignup = () => {
         if (auth.currentUser !== null) {
         }
         dispatch({ type: "LOGIN", payload: res.user });
+      })
+      .then((res) => {
+        sendEmailVerification(auth.currentUser).then(() => {
+          // email verification sent
+          // redirect to login page until email is verified
+          navigate("/login");
+        });
       })
       .catch((err) => {
         setError(err.message);

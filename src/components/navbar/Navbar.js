@@ -8,7 +8,7 @@ import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
   const { logout, isPending } = useLogout();
-  const { user } = useAuthContext();
+  const { user, isUserVerified } = useAuthContext();
 
   return (
     <nav>
@@ -35,36 +35,48 @@ export default function Navbar() {
 
         {user && (
           <>
-            <li>
-              <NavLink
-                className={`${styles.section} ${styles["create-tab"]}`}
-                to="/create"
-              >
-                Add Blog
-              </NavLink>
-            </li>
+            {isUserVerified && (
+              <>
+                <li>
+                  <NavLink
+                    className={`${styles.section} ${styles["create-tab"]}`}
+                    to="/create"
+                  >
+                    Add Blog
+                  </NavLink>
+                </li>
 
-            <div className={`${styles.middle} ${styles.section}`}>
+                <div className={`${styles.middle} ${styles.section}`}>
+                  <li>
+                    <NavLink className={styles["nav-tab"]} to="/AllBlogs">
+                      Blogs
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink className={styles["nav-tab"]} to="/AllAuthors">
+                      Authors
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className={styles["nav-tab"]}
+                      to="/browse"
+                      state={{ from: false }}
+                    >
+                      Browse
+                    </NavLink>
+                  </li>
+                </div>
+              </>
+            )}
+
+            {!isUserVerified && (
               <li>
-                <NavLink className={styles["nav-tab"]} to="/AllBlogs">
-                  Blogs
+                <NavLink className={styles["admin-tab"]} to="/guest">
+                  Guest Content
                 </NavLink>
               </li>
-              <li>
-                <NavLink className={styles["nav-tab"]} to="/AllAuthors">
-                  Authors
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  className={styles["nav-tab"]}
-                  to="/browse"
-                  state={{ from: false }}
-                >
-                  Browse
-                </NavLink>
-              </li>
-            </div>
+            )}
 
             {!isPending ? (
               <li className={`${styles.section} ${styles.logout}`}>
