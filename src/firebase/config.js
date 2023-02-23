@@ -23,6 +23,7 @@ const appCheck = initializeAppCheck(app, {
   isTokenAutoRefreshEnabled: true,
 });
 
+appCheck();
 const db = getFirestore();
 const auth = getAuth();
 
