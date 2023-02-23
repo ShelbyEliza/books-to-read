@@ -3,7 +3,10 @@ import { auth } from "../firebase/config";
 import { useAuthContext } from "./useAuthContext";
 
 // firebase imports:
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  sendEmailVerification,
+} from "firebase/auth";
 
 export const useLogin = () => {
   const [error, setError] = useState(null);
@@ -23,6 +26,13 @@ export const useLogin = () => {
         setError(err.message);
       });
   };
+  const sendVerificationEmail = () => {
+    sendEmailVerification(auth.currentUser).then(() => {
+      // email verification sent
+      // redirect to temp page until email is verified
+      return "Message sent! Please check your email to verify your account!";
+    });
+  };
 
-  return { login, isPending, error };
+  return { login, sendVerificationEmail, isPending, error };
 };

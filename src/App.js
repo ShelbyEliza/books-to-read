@@ -22,7 +22,7 @@ import Design from "./pages/design/Design";
 import Footer from "./components/footer/Footer";
 
 function App() {
-  const { user, authIsReady } = useAuthContext();
+  const { authIsReady, isUserVerified } = useAuthContext();
 
   return (
     <div className="app">
@@ -34,65 +34,83 @@ function App() {
             <Routes>
               <Route
                 path="/"
-                element={user ? <Home /> : <Navigate to="/login" />}
+                element={isUserVerified ? <Home /> : <Navigate to="/login" />}
               />
               <Route
                 path="/create"
-                element={user ? <Create /> : <Navigate to="/login" />}
+                element={isUserVerified ? <Create /> : <Navigate to="/login" />}
               />
               <Route
                 path="/allBlogs"
-                element={user ? <AllBlogs /> : <Navigate to="/login" />}
+                element={
+                  isUserVerified ? <AllBlogs /> : <Navigate to="/login" />
+                }
               />
               <Route
                 path="/allAuthors"
-                element={user ? <AllAuthors /> : <Navigate to="/login" />}
+                element={
+                  isUserVerified ? <AllAuthors /> : <Navigate to="/login" />
+                }
               />
               <Route
                 path="/allTags"
-                element={user ? <AllTags /> : <Navigate to="/login" />}
+                element={
+                  isUserVerified ? <AllTags /> : <Navigate to="/login" />
+                }
               />
               <Route
                 path="/browse"
-                element={user ? <Browse /> : <Navigate to="/login" />}
+                element={isUserVerified ? <Browse /> : <Navigate to="/login" />}
               />
               <Route
                 path="/blogDetails/:id"
-                element={user ? <BlogDetails /> : <Navigate to="/login" />}
+                element={
+                  isUserVerified ? <BlogDetails /> : <Navigate to="/login" />
+                }
               />
               <Route
                 path="/authorDetails/:id"
-                element={user ? <AuthorDetails /> : <Navigate to="/login" />}
+                element={
+                  isUserVerified ? <AuthorDetails /> : <Navigate to="/login" />
+                }
               />
               <Route
                 path="/tagDetails/:tag"
-                element={user ? <TagDetails /> : <Navigate to="/login" />}
+                element={
+                  isUserVerified ? <TagDetails /> : <Navigate to="/login" />
+                }
               />
               <Route
                 path="/ratingDetails/:rating"
-                element={user ? <RatingDetails /> : <Navigate to="/login" />}
+                element={
+                  isUserVerified ? <RatingDetails /> : <Navigate to="/login" />
+                }
               />
               <Route
                 path="/editBlog/:id"
-                element={user ? <EditBlog /> : <Navigate to="/login" />}
+                element={
+                  isUserVerified ? <EditBlog /> : <Navigate to="/login" />
+                }
               />
               <Route
                 path="/editAuthor/:id"
-                element={user ? <EditAuthor /> : <Navigate to="/login" />}
+                element={
+                  isUserVerified ? <EditAuthor /> : <Navigate to="/login" />
+                }
               />
               <Route
                 path="/login"
-                element={user ? <Navigate to="/" /> : <Login />}
+                element={isUserVerified ? <Navigate to="/" /> : <Login />}
               />
               <Route
                 path="/signup"
-                element={user ? <Navigate to="/" /> : <Signup />}
+                element={isUserVerified ? <Navigate to="/login" /> : <Signup />}
               />
               <Route
                 path="/guest"
-                element={user ? <Navigate to="/" /> : <Guest />}
+                element={isUserVerified ? <Navigate to="/" /> : <Guest />}
               />
-              <Route path="/design" element={user ? <Design /> : <Login />} />
+              <Route path="/design" element={<Design />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
             <Footer />
